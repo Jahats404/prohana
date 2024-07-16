@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Produsen\KelolaAkun;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\AgenRequest;
 use App\Models\Agen; // Assuming you have an Agen model
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class KelolaAgenController extends Controller
 {
@@ -15,65 +18,62 @@ class KelolaAgenController extends Controller
     public function index()
     {
         $agen = Agen::all();
-        return view('produsen.pengguna.agen', compact('agen'));
+        return view('produsen.pengguna.agen.index', compact('agen'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AgenRequest $request)
     {
-        $createAgen = $request->validate([
-            'nama_agen' => 'required|string|max:255',
-            'domisili_agen' => 'required|string|max:255',
-            'alamat_agen' => 'required|string|max:255',
-            'notelp_agen' => 'required|numeric',
-        ]);
-
+        $validatedData = $request->validated();
         try {
-            Agen::create($createAgen);
-            return redirect()->route('agen.index')
+            $user = User::create([
+                'name' => $validatedData['nama_agen'],
+                'email' => $validatedData['email'],
+                'password' => Hash::make('12345678'),
+                'role_id' => 2, // Adjust this to match the role ID of a agen
+                'remember_token' => Str::random(10),
+            ]);
+
+            // Create a new agen linked to the user
+            Agen::create([
+                'nama_agen' => $validatedData['nama_agen'],
+                'domisili_agen' => $validatedData['domisili_agen'],
+                'alamat_agen' => $validatedData['alamat_agen'],
+                'notelp_agen' => $validatedData['notelp_agen'],
+                'user_id' => $user->id,
+            ]);
+
+            return redirect()->route('produsen.kelola-agen')
                 ->with('success', 'Agen created successfully.');
         } catch (\Throwable $th) {
             Log::error('Failed to create Agen: ' . $th->getMessage());
-            return response()->view('errors.500', [], 500);
+            $status = 500;
+            $message = 'Failed to create Agen : '. $th->getMessage();
+            return response()->view('errors.index', compact('status', 'message'), $status);
         }
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
-    {
-        $agen = Agen::findOrFail($id);
-        return view('agen.show', compact('agen'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        $agen = Agen::findOrFail($id);
-        return view('agen.edit', compact('agen'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(AgenRequest $request, $id)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:agen,email,'.$id,
-            // Add other validation rules as needed
-        ]);
+        $updateAgen = $request->validated();
 
-        $agen = Agen::findOrFail($id);
-        $agen->update($request->all());
-
-        return redirect()->route('agen.index')
-            ->with('success', 'Agen updated successfully.');
+        try {
+            $agen = Agen::findOrFail($id);
+            $agen->update($updateAgen);
+    
+            return redirect()->route('produsen.kelola-agen')
+                ->with('success', 'Agen updated successfully.');
+        } catch (\Throwable $th) {
+            Log::error('Failed to update Agen: ' . $th->getMessage());
+            $status = 500;
+            $message = 'Failed to update Agen : '. $th->getMessage();
+            return response()->view('errors.index', compact('status', 'message'), $status);
+        }
     }
 
     /**
@@ -81,10 +81,17 @@ class KelolaAgenController extends Controller
      */
     public function destroy($id)
     {
-        $agen = Agen::findOrFail($id);
-        $agen->delete();
-
-        return redirect()->route('agen.index')
-            ->with('success', 'Agen deleted successfully.');
+        try {
+            $agen = Agen::findOrFail($id);
+            $agen->delete();
+    
+            return redirect()->route('produsen.kelola-agen')
+                ->with('success', 'Agen deleted successfully.');
+        } catch (\Throwable $th) {
+            Log::error('Failed to delete Agen: ' . $th->getMessage());
+            $status = 500;
+            $message = 'Failed to delete Agen : '. $th->getMessage();
+            return response()->view('errors.index', compact('status', 'message'), $status);
+        }
     }
 }
