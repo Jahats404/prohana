@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\produsen\kelolaAkun\DistributorController;
+use App\Http\Controllers\Produsen\KelolaAkun\KelolaAgenController;
 use App\Http\Controllers\produsen\kelolaAkun\KelolaDistributorController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,14 +39,13 @@ Route::middleware(['auth'])->group(function () {
 
         //DASHBOARD
         Route::get('/dashboard', [DashboardController::class, 'dashboardP'])->name('dashboard');
-        
+
         // // KELOLA DISTRIBUTOR
-        Route::get('/kelola-distributor', [KelolaDistributorController::class, 'index'])->name('kelola-distributor');
-        Route::post('/store-distributor', [KelolaDistributorController::class, 'store'])->name('store-distributor');
+        Route::get('/distributor', [KelolaDistributorController::class, 'index'])->name('kelola-distributor');
+        Route::post('/distributor', [KelolaDistributorController::class, 'store'])->name('store-distributor');
         // Route::get('/distributor', [DistributorController::class, 'index'])->name('distributor');
-        // Route::post('/tambah-distributor', [DistributorController::class, 'store'])->name('distributor.store');
-        // Route::put('/edit-distributor/{id}', [DistributorController::class, 'update'])->name('distributor.update');
-        // Route::delete('/hapus-distributor/{id}', [DistributorController::class, 'destroy'])->name('distributor.destroy');
+        Route::put('/distributor/{id}', [KelolaDistributorController::class, 'update'])->name('update-distributor');
+        Route::delete('/distributor/{id}', [KelolaDistributorController::class, 'destroy'])->name('delete-distributor');
 
         // //KELOLA PRODUK
         // Route::get('/produk', [ProdukController::class, 'index'])->name('produk');
@@ -57,8 +57,8 @@ Route::middleware(['auth'])->group(function () {
 
 
         // //KELOLA AGEN
-        // Route::get('/agen', [AgenController::class, 'index'])->name('agen');
-        // Route::post('/agen/store', [AgenController::class, 'store'])->name('agen.store');
+        Route::get('/agen', [KelolaAgenController::class, 'index'])->name('kelola-agen');
+        Route::post('/agen/store', [KelolaAgenController::class, 'store'])->name('store-agen');
         // Route::put('/agen/update/{id}', [AgenController::class, 'update'])->name('agen.update');
         // Route::delete('/agen/destroy/{id}', [AgenController::class, 'destroy'])->name('agen.destroy');
 

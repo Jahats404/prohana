@@ -4,8 +4,9 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Kelola Distributor</h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                    class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
+            </a>
         </div>
 
         <div class="card shadow mb-4">
@@ -32,17 +33,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($distributor as $index => $item)
+                            @foreach ($distributor as $item)
                                 <tr>
-                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->nama_distributor }}</td>
                                     <td>{{ $item->alamat_distributor }}</td>
                                     <td>{{ $item->domisili_distributor }}</td>
                                     <td>{{ $item->notelp_distributor }}</td>
                                     <td class="d-flex justify-content-center">
-
+                                        <a href="#" class="btn btn-sm btn-warning mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_distributor }}">Edit</a>
+                                        <a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalDelete{{ $item->id_distributor }}">Delete</a>
                                     </td>
                                 </tr>
+
+                                @include('produsen.pengguna.edit-distributor', ['item' => $item])
+                                @include('produsen.pengguna.delete-distributor', ['item' => $item])
+
                             @endforeach
                         </tbody>
                     </table>
@@ -51,69 +57,17 @@
         </div>
     </div>
 
-    {{-- Modal Tambah --}}
-    <div class="modal fade" id="modaltambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <form class="user" action="{{ route('produsen.store-distributor') }}" method="POST">
-                    @csrf
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Tambah Distributor</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label class="form-label">Nama Distributor</label>
-                            <input type="text" class="form-control @error('nama_distributor') is-invalid @enderror" name="nama_distributor">
-                            @error('nama_distributor')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Alamat Distributor</label>
-                            <input type="text" class="form-control @error('alamat_distributor') is-invalid @enderror" name="alamat_distributor">
-                            @error('alamat_distributor')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Domisili Distributor</label>
-                            <input type="text" class="form-control @error('domisili_distributor') is-invalid @enderror" name="domisili_distributor">
-                            @error('domisili_distributor')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">No.Telp Distributor</label>
-                            <input type="number" class="form-control @error('notelp_distributor') is-invalid @enderror" name="notelp_distributor">
-                            @error('notelp_distributor')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-control" name="email">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    @include('produsen.pengguna.tambah-distributor')
     @include('validasi.notifikasi')
     @include('validasi.notifikasi-error')
+@endsection
+
+@section('scripts')
+<script>
+    @if ($errors->any())
+        $(document).ready(function() {
+            $('#modaltambah').modal('show');
+        });
+    @endif
+</script>
 @endsection
