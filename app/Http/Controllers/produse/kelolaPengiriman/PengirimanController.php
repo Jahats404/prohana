@@ -13,7 +13,8 @@ class PengirimanController extends Controller
      */
     public function index()
     {
-        //
+        $pengiriman = Pengiriman::paginate(5);
+        return view('produsen.asset.pengiriman.index', compact('pengiriman'));
     }
 
     /**

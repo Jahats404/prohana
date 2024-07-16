@@ -70,20 +70,20 @@
         <div class="sidebar-heading">
             Asset
         </div>
-        <li class="nav-item {{ Request::is('produsen.kelola-produk') ? 'active' : '' }}">
+        <li class="nav-item {{ Request::routeIs('produsen.kelola-produk') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('produsen.kelola-produk') }}">
                 <i class="fas fa-fw fa-box"></i>
-                <span>Kelola Produk</span></a>
+                <span>Produk</span></a>
         </li>
-        <li class="nav-item {{ Request::is('produsen.kelola-pesanan') ? 'active' : '' }}">
+        <li class="nav-item {{ Request::routeIs('produsen.kelola-pesanan') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('produsen.kelola-pesanan') }}">
                 <i class="fas fa-fw fa-archive"></i>
                 <span>Pesanan</span></a>
         </li>
-        <li class="nav-item {{ Request::is('produsen.kelola-pengiriman') ? 'active' : '' }}">
+        <li class="nav-item {{ Request::routeIs('produsen.kelola-pengiriman') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('produsen.kelola-pengiriman') }}">
                 <i class="fas fa-fw fa-truck"></i>
-                <span>Pengiriman Produk</span></a>
+                <span>Pengiriman</span></a>
         </li>
     @endif
 @endauth

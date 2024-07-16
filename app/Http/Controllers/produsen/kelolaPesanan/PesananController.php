@@ -13,31 +13,17 @@ class PesananController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+        $pesanan = Pesanan::paginate(5);
+        return view('produsen.asset.pesanan.index', compact('pesanan'));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Pesanan $pesanan)
+    public function show($id)
     {
-        //
+        $produk = Pesanan::findOrFail($id);
+        return view('produsen.asset.produk.detail', compact('produk'));
     }
 
     /**
