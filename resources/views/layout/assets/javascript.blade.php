@@ -21,3 +21,11 @@
 
 <!-- Page level custom scripts -->
 <script src="{{ asset('/') }}js/demo/datatables-demo.js"></script>
+<script>
+function clearForm() {
+    document.getElementById('form-prohana').reset();
+    document.getElementById('preview').style.display = 'none';
+}
+
+document.querySelector('.modal-header .close').addEventListener('click', clearForm);
+</script>
