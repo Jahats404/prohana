@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\produsen\kelolaAkun;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DistributorRequest;
 use App\Models\Distributor;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 class KelolaDistributorController extends Controller
 {
     public function index()
@@ -17,49 +18,70 @@ class KelolaDistributorController extends Controller
         return view('produsen.pengguna.distributor', compact('distributor'));
     }
 
-    public function store(Request $request)
+    public function store(DistributorRequest $request)
     {
-        $rules = [
-            'nama_distributor' => 'required',
-            'domisili_distributor' => 'required',
-            'alamat_distributor' => 'required',
-            'notelp_distributor' => 'required|number',
-            'email' => 'required|email|unique:users,email',
-        ];
+        // Validate the request using the DistributorRequest
+        $validatedData = $request->validated();
 
-        $messages = [
-            'nama_distributor.required' => 'Nama tidak boleh kosong!',
-            'domisili_distributor.required' => 'Domisili tidak boleh kosong!',
-            'alamat_distributor.required' => 'Alamat tidak boleh kosong!',
-            'notelp_distributor.required' => 'Nomor telepon tidak boleh kosong!',
-            'notelp_distributor.number' => 'Nomor telepon tidak valid!',
-            'email.required' => 'Email tidak boleh kosong!',
-            'email.email' => 'Email tidak valid!',
-            'email.unique' => 'Email sudah digunakan!'
-        ];
+        try {
+            $user = User::create([
+                'name' => $validatedData['nama_distributor'],
+                'email' => $validatedData['email'],
+                'password' => Hash::make('12345678'),
+                'role_id' => 2, // Adjust this to match the role ID of a distributor
+                'remember_token' => Str::random(10),
+            ]);
 
-        $validator = Validator::make($request->all(), $rules, $messages);
+            // Create a new distributor linked to the user
+            Distributor::create([
+                'nama_distributor' => $validatedData['nama_distributor'],
+                'domisili_distributor' => $validatedData['domisili_distributor'],
+                'alamat_distributor' => $validatedData['alamat_distributor'],
+                'notelp_distributor' => $validatedData['notelp_distributor'],
+                'user_id' => $user->id,
+            ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
+            return redirect()->back()->with('success', 'Distributor berhasil ditambahkan');
+        } catch (\Throwable $th) {
+            Log::error('Failed to create Distributor: ' . $th->getMessage());
+            $status = 500; // This should be a variable, not a constant
+            $message = 'Failed to create Distributor. Server Error.';
+            return response()->view('errors.index', compact('status', 'message'), $status);
         }
+    }
 
-        $user = new User;
-        $user->name = $request->nama_distributor;
-        $user->email = $request->email;
-        $user->password = Hash::make('12345678');
-        $user->save();
+    public function update(DistributorRequest $request, $id){
 
-        $distributor = new Distributor;
-        $distributor->nama_distributor = $request->nama_distributor;
-        $distributor->domisili_distributor = $request->domisili_distributor;
-        $distributor->alamat_distributor = $request->alamat_distributor;
-        $distributor->notelp_distributor = $request->notelp_distributor;
-        $distributor->user_id = $user->id;
-        $distributor->save();
+        $validatedData = $request->validated();
+        try {
+            $distributor = Distributor::find($id);
 
-        return redirect()->back()->with('success','Distributor berhasil ditambahkan');
+            $distributor->update([
+                'nama_distributor' => $validatedData['nama_distributor'],
+                'domisili_distributor' => $validatedData['domisili_distributor'],
+                'alamat_distributor' => $validatedData['alamat_distributor'],
+                'notelp_distributor' => $validatedData['notelp_distributor'],
+                'user_id' => $distributor->user_id, // Keep the same user_id
+            ]);
+            return redirect()->route('produsen.kelola-distributor')->with('success', 'Distributor berhasil diubah');
+        } catch (\Throwable $th) {
+            //throw $th;
+            Log::error('Failed to update Distributor: ' . $th->getMessage());
+            $status = 500; // This should be a variable, not a constant
+            $message = 'Failed to update Distributor : '. $th->getMessage();
+            return response()->view('errors.index', compact('status', 'message'), $status);
+        }
+    }
+    public function destroy($id){
+        try {
+            $distributor = Distributor::find($id);
+            $distributor->user->delete();
+            return redirect()->route('produsen.kelola-distributor')->with('success', 'Distributor berhasil dihapus');
+        } catch (\Throwable $th) {
+            Log::error('Failed to create Distributor: ' . $th->getMessage());
+            $status = 500; // This should be a variable, not a constant
+            $message = 'Failed to delete Distributor : '. $th->getMessage();
+            return response()->view('errors.index', compact('status', 'message'), $status);
+        }
     }
 }
