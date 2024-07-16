@@ -23,7 +23,7 @@ class KelolaDistributorController extends Controller
         // Validate the request using the DistributorRequest
         $validatedData = $request->validated();
 
-        // try {
+        try {
             $user = User::create([
                 'name' => $validatedData['nama_distributor'],
                 'email' => $validatedData['email'],
@@ -42,31 +42,46 @@ class KelolaDistributorController extends Controller
             ]);
 
             return redirect()->back()->with('success', 'Distributor berhasil ditambahkan');
-        // } catch (\Throwable $th) {
-        //     Log::error('Failed to create Distributor: ' . $th->getMessage());
-        //     $status = 500; // This should be a variable, not a constant
-        //     $message = 'Failed to create Distributor. Server Error.';
-        //     return response()->view('errors.index', compact('status', 'message'), $status);
-        // }
+        } catch (\Throwable $th) {
+            Log::error('Failed to create Distributor: ' . $th->getMessage());
+            $status = 500; // This should be a variable, not a constant
+            $message = 'Failed to create Distributor. Server Error.';
+            return response()->view('errors.index', compact('status', 'message'), $status);
+        }
     }
 
     public function update(DistributorRequest $request, $id){
 
         $validatedData = $request->validated();
-        $distributor = Distributor::find($id);
+        try {
+            $distributor = Distributor::find($id);
 
-        $distributor->update([
-            'nama_distributor' => $validatedData['nama_distributor'],
-            'domisili_distributor' => $validatedData['domisili_distributor'],
-            'alamat_distributor' => $validatedData['alamat_distributor'],
-            'notelp_distributor' => $validatedData['notelp_distributor'],
-            'user_id' => $distributor->user_id, // Keep the same user_id
-        ]);
-        return redirect()->route('produsen.kelola-distributor')->with('success', 'Distributor berhasil diubah');
+            $distributor->update([
+                'nama_distributor' => $validatedData['nama_distributor'],
+                'domisili_distributor' => $validatedData['domisili_distributor'],
+                'alamat_distributor' => $validatedData['alamat_distributor'],
+                'notelp_distributor' => $validatedData['notelp_distributor'],
+                'user_id' => $distributor->user_id, // Keep the same user_id
+            ]);
+            return redirect()->route('produsen.kelola-distributor')->with('success', 'Distributor berhasil diubah');
+        } catch (\Throwable $th) {
+            //throw $th;
+            Log::error('Failed to update Distributor: ' . $th->getMessage());
+            $status = 500; // This should be a variable, not a constant
+            $message = 'Failed to update Distributor : '. $th->getMessage();
+            return response()->view('errors.index', compact('status', 'message'), $status);
+        }
     }
     public function destroy($id){
-        $distributor = Distributor::find($id);
-        $distributor->user->delete();
-        return redirect()->route('produsen.kelola-distributor')->with('success', 'Distributor berhasil dihapus');
+        try {
+            $distributor = Distributor::find($id);
+            $distributor->user->delete();
+            return redirect()->route('produsen.kelola-distributor')->with('success', 'Distributor berhasil dihapus');
+        } catch (\Throwable $th) {
+            Log::error('Failed to create Distributor: ' . $th->getMessage());
+            $status = 500; // This should be a variable, not a constant
+            $message = 'Failed to delete Distributor : '. $th->getMessage();
+            return response()->view('errors.index', compact('status', 'message'), $status);
+        }
     }
 }
