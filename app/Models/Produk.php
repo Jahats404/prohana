@@ -17,5 +17,9 @@ class Produk extends Model
         'kategori_produk',
         'jenis_produk',
         'harga',
+        'produsen_id',
     ];
+    public function produsen(){
+        return $this->belongsTo(Produsen::class, 'produsen_id', 'id_produsen');
+    }
 }

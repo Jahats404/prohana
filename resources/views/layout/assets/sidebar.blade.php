@@ -42,11 +42,8 @@
         </a>
     </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
     <!-- Heading -->
-    <div class="sidebar-heading">
+    {{-- <div class="sidebar-heading">
         Addons
     </div>
 
@@ -62,10 +59,34 @@
         <a class="nav-link" href="tables.html">
             <i class="fas fa-fw fa-table"></i>
             <span>Tables</span></a>
-    </li>
+    </li> --}}
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
+
+    @auth
+    @if(Auth::user()->role_id == 1)
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Asset
+        </div>
+        <li class="nav-item {{ Request::is('produsen.kelola-produk') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('produsen.kelola-produk') }}">
+                <i class="fas fa-fw fa-box"></i>
+                <span>Kelola Produk</span></a>
+        </li>
+        <li class="nav-item {{ Request::is('produsen.kelola-pesanan') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('produsen.kelola-pesanan') }}">
+                <i class="fas fa-fw fa-archive"></i>
+                <span>Pesanan</span></a>
+        </li>
+        <li class="nav-item {{ Request::is('produsen.kelola-pengiriman') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('produsen.kelola-pengiriman') }}">
+                <i class="fas fa-fw fa-truck"></i>
+                <span>Pengiriman Produk</span></a>
+        </li>
+    @endif
+@endauth
 
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">

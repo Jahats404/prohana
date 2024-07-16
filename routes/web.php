@@ -2,9 +2,12 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\dashboard\DashboardController;
+use App\Http\Controllers\produse\kelolaPengiriman\PengirimanController;
 use App\Http\Controllers\produsen\kelolaAkun\DistributorController;
 use App\Http\Controllers\Produsen\KelolaAkun\KelolaAgenController;
 use App\Http\Controllers\produsen\kelolaAkun\KelolaDistributorController;
+use App\Http\Controllers\produsen\kelolaPesanan\PesananController;
+use App\Http\Controllers\produsen\kelolaProduk\ProdukController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,10 +50,10 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/distributor/{id}', [KelolaDistributorController::class, 'destroy'])->name('delete-distributor');
 
         // //KELOLA PRODUK
-        // Route::get('/produk', [ProdukController::class, 'index'])->name('produk');
-        // Route::post('/tambah-produk', [ProdukController::class,'store'])->name('tambah-produk');
-        // Route::put('/edit-produk/{id}', [ProdukController::class,'update'])->name('edit-produk');
-        // // Route::delete('/hapus-produk/{id}', [ProdukController::class,'destroy'])->name('hapus-produk');
+        Route::get('/produk', [ProdukController::class, 'index'])->name('kelola-produk');
+        Route::post('/produk', [ProdukController::class,'store'])->name('store-produk');
+        Route::put('/produk/{id}', [ProdukController::class,'update'])->name('edit-produk');
+        Route::delete('/produk/{id}', [ProdukController::class,'destroy'])->name('delete-produk');
 
         // Route::delete('/produk/{id}', [ProdukController::class, 'destroy'])->name('hapus-produk');
 
@@ -62,14 +65,14 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/agen/{id}', [KelolaAgenController::class, 'destroy'])->name('delete-agen');
 
         // //KELOLA PESANAN
-        // Route::get('pesanan', [PesananController::class, 'index'])->name('pesanan.index');
+        Route::get('pesanan', [PesananController::class, 'index'])->name('kelola-pesanan');
         // Route::post('pesanan/store', [PesananController::class, 'store'])->name('pesanan.store');
         // Route::put('pesanan/update/{id}', [PesananController::class, 'update'])->name('pesanan.update');
         // Route::delete('pesanan/destroy/{id}', [PesananController::class, 'destroy'])->name('pesanan.destroy');
         // Route::put('pesanan/status/{id}', [PesananController::class, 'status'])->name('pesanan.status');
 
         // //KELOLA DISTRIBUSI
-        // Route::get('distribusi', [DistribusiController::class, 'index'])->name('distribusi.index');
+        Route::get('pengiriman', [PengirimanController::class, 'index'])->name('kelola-pengiriman');
 
         // Route::put('distribusi/update/{id}', [DistribusiController::class, 'update'])->name('distribusi.update');
 

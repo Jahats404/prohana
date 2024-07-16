@@ -1,7 +1,7 @@
 <div class="modal fade" id="modaltambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form class="user" action="{{ route('produsen.store-agen') }}" method="POST">
+            <form id="form-prohana" class="user" action="{{ route('produsen.store-agen') }}" method="POST">
                 @csrf
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Tambah Agen</h5>

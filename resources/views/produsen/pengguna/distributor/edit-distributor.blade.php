@@ -1,7 +1,7 @@
 <div class="modal fade" id="modalEdit{{ $item->id_distributor }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form class="user" action="{{ route('produsen.update-distributor', $item->id_distributor) }}" method="POST">
+            <form id="form-prohana" class="user" action="{{ route('produsen.update-distributor', $item->id_distributor) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="modal-header">
