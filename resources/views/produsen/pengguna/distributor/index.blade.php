@@ -46,8 +46,8 @@
                                     </td>
                                 </tr>
 
-                                @include('produsen.pengguna.edit-distributor', ['item' => $item])
-                                @include('produsen.pengguna.delete-distributor', ['item' => $item])
+                                @include('produsen.pengguna.distributor.edit-distributor', ['item' => $item])
+                                @include('produsen.pengguna.distributor.delete-distributor', ['item' => $item])
 
                             @endforeach
                         </tbody>
@@ -57,7 +57,7 @@
         </div>
     </div>
 
-    @include('produsen.pengguna.tambah-distributor')
+    @include('produsen.pengguna.distributor.tambah-distributor')
     @include('validasi.notifikasi')
     @include('validasi.notifikasi-error')
 @endsection
