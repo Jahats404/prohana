@@ -15,7 +15,7 @@ class KelolaDistributorController extends Controller
     public function index()
     {
         $distributor = Distributor::all();
-        return view('produsen.pengguna.distributor', compact('distributor'));
+        return view('produsen.pengguna.distributor.index', compact('distributor'));
     }
 
     public function store(DistributorRequest $request)

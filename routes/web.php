@@ -43,7 +43,6 @@ Route::middleware(['auth'])->group(function () {
         // // KELOLA DISTRIBUTOR
         Route::get('/distributor', [KelolaDistributorController::class, 'index'])->name('kelola-distributor');
         Route::post('/distributor', [KelolaDistributorController::class, 'store'])->name('store-distributor');
-        // Route::get('/distributor', [DistributorController::class, 'index'])->name('distributor');
         Route::put('/distributor/{id}', [KelolaDistributorController::class, 'update'])->name('update-distributor');
         Route::delete('/distributor/{id}', [KelolaDistributorController::class, 'destroy'])->name('delete-distributor');
 
@@ -58,9 +57,9 @@ Route::middleware(['auth'])->group(function () {
 
         // //KELOLA AGEN
         Route::get('/agen', [KelolaAgenController::class, 'index'])->name('kelola-agen');
-        Route::post('/agen/store', [KelolaAgenController::class, 'store'])->name('store-agen');
-        // Route::put('/agen/update/{id}', [AgenController::class, 'update'])->name('agen.update');
-        // Route::delete('/agen/destroy/{id}', [AgenController::class, 'destroy'])->name('agen.destroy');
+        Route::post('/agen', [KelolaAgenController::class, 'store'])->name('store-agen');
+        Route::put('/agen/{id}', [KelolaAgenController::class, 'update'])->name('update-agen');
+        Route::delete('/agen/{id}', [KelolaAgenController::class, 'destroy'])->name('delete-agen');
 
         // //KELOLA PESANAN
         // Route::get('pesanan', [PesananController::class, 'index'])->name('pesanan.index');
