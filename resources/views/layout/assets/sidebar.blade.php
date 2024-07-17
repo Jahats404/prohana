@@ -121,13 +121,23 @@
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
+        <li class="nav-item {{ Request::routeIs('agen.distributor') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('agen.distributor') }}">
+                <i class="fas fa-fw fa-users"></i>
+                <span>Distributor</span></a>
+        </li>
         <div class="sidebar-heading">
             Pesanan
         </div>
-        <li class="nav-item {{ Request::is('agen.pesanan') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('agen.pesanan') }}">
+        <li class="nav-item {{ Request::routeIs('agen.produk') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('agen.produk') }}">
                 <i class="fas fa-fw fa-box"></i>
-                <span>Kelola Pesanan</span></a>
+                <span>Produk</span></a>
+        </li>
+        <li class="nav-item {{ Request::routeIs('agen.pesanan') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('agen.pesanan') }}">
+                <i class="fas fa-fw fa-archive"></i>
+                <span>Pesanan</span></a>
         </li>
         {{-- <li class="nav-item {{ Request::is('produsen.kelola-pesanan') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('produsen.kelola-pesanan') }}">

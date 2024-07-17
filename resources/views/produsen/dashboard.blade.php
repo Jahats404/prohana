@@ -238,7 +238,7 @@
                         </div>
                         <div class="card-body p-0">
                             <ul class="list-group list-group-flush">
-                                {{-- @forelse ($recentProducts as $product)
+                                @forelse ($recentProducts as $product)
                                     <a href="{{ route('produsen.kelola-produk') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                                         <div class="d-flex align-items-center">
                                             <img src="{{ asset('storage/produk/' . $product->foto_produk) }}" alt="Product Image" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
@@ -251,7 +251,7 @@
                                     </a>
                                 @empty
                                     <li class="list-group-item text-center">Tidak Ada Produk</li>
-                                @endforelse --}}
+                                @endforelse
                             </ul>
                         </div>
                         <div class="card-footer text-center">

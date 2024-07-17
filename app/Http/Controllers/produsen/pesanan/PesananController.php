@@ -16,7 +16,7 @@ class PesananController extends Controller
      */
     public function index()
     {
-        $pesanan = Pesanan::paginate(5);
+        $pesanan = Pesanan::simplePaginate(5);
         return view('produsen.asset.pesanan.index', compact('pesanan'));
     }
 

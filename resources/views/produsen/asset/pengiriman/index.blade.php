@@ -1,6 +1,6 @@
 @extends('layout.app')
 @section('content')
-<div class="container-fluid px-4">
+<div class="container-fluid px-4 my-5">
     <h4 class="mb-0 mt-5">Daftar Pengiriman</h4>
     <hr class="mt-2 mb-4">
 

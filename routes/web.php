@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\agen\pesanan\PesananController as PesananAgenController;
+use App\Http\Controllers\agen\produk\ProdukController as ProdukAgenController;
+use App\Http\Controllers\agen\distributor\DistributorController as DistributorAgenController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\produsen\pengiriman\PengirimanController;
@@ -21,14 +23,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('produsen.dashboard');
-});
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
-
-route::get('/login', [AuthController::class,'login'])->name('login');
+route::get('/', [AuthController::class,'login'])->name('login');
 route::post('/authenticate', [AuthController::class,'authenticate'])->name('authenticate');
 route::post('/logout', [AuthController::class,'logout'])->name('logout');
 
@@ -114,8 +109,11 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/pesanan', [PesananAgenController::class, 'store'])->name('store-pesanan');
 
         // Route::get('/dashboard', [AgenController::class, 'dashboard'])->name('dashboard');
-        // Route::get('/produk', [AgenProdukController::class, 'index'])->name('produk');
+        Route::get('/produk', [ProdukAgenController::class, 'index'])->name('produk');
+        Route::get('/produk/{id}', [ProdukAgenController::class, 'show'])->name('detail-produk');
 
+        Route::get('/distributor', [DistributorAgenController::class, 'index'])->name('distributor');
+        Route::get('/distributor/{id}', [DistributorAgenController::class, 'show'])->name('detail-distributor');
 
         // Route::get('/produk', [ProdukController::class, 'index'])->name('produk');
         // Route::post('/tambah-produk', [ProdukController::class,'store'])->name('tambah-produk');
