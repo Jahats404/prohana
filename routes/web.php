@@ -10,6 +10,7 @@ use App\Http\Controllers\Produsen\akun\AgenController;
 use App\Http\Controllers\produsen\akun\DistributorController;
 use App\Http\Controllers\produsen\pesanan\PesananController as PesananProdusenController;
 use App\Http\Controllers\produsen\produk\ProdukController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +30,10 @@ route::post('/logout', [AuthController::class,'logout'])->name('logout');
 
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class,'edit'])->name('profile');
+    Route::put('/profile', [ProfileController::class,'update'])->name('profile.update');
+    Route::get('/security', [ProfileController::class,'editPass'])->name('security');
+    Route::put('/security', [ProfileController::class,'updatePassword'])->name('security.update');
 
 
     // Route prefix untuk Produsen
