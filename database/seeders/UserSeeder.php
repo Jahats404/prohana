@@ -58,5 +58,14 @@ class UserSeeder extends Seeder
             'role_id' => 3, // Sesuaikan dengan id peran agen yang telah Anda seed
             'remember_token' => Str::random(10),
         ]);
+
+        Produsen::create([
+            'id_produsen' => $produsenId,
+            'nama_produsen' => 'Toko Prohana',
+            'domisili_produsen' => 'Jakarta',
+            'alamat_produsen' => 'Jl. Kebon Jeruk No. 10',
+            'notelp_produsen' => '081234567890',
+            'user_id' => $produsen->id,
+        ]);
     }
 }

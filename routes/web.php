@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\agen\pesanan\PesananController as PesananPesananController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\produse\kelolaPengiriman\PengirimanController;
@@ -109,6 +110,8 @@ Route::middleware(['auth'])->group(function () {
 
         //DASHBOARD AGEN
         Route::get('/dashboard', [DashboardController::class, 'dashboardA'])->name('dashboard');
+        Route::get('/pesanan', [PesananPesananController::class, 'index'])->name('pesanan');
+        Route::post('/pesanan', [PesananPesananController::class, 'store'])->name('store-pesanan');
 
         // Route::get('/dashboard', [AgenController::class, 'dashboard'])->name('dashboard');
         // Route::get('/produk', [AgenProdukController::class, 'index'])->name('produk');
