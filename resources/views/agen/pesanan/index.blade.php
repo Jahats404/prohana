@@ -22,7 +22,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Id Pesanan</th>
+                                <th>Pesanan</th>
                                 <th>Status Pesanan</th>
                                 <th>Total Harga</th>
                                 <th>Tanggal Pesan</th>
@@ -31,23 +31,33 @@
                         </thead>
                         <tbody>
                             @foreach ($pesanan as $item)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>#{{ $item->id_pesanan }}</td>
-                                <td>{{ $item->status_pesanan }}</td>
-                                <td>{{ number_format($item->total_harga, 0, ',', '.') }}</td>
-                                <td>{{ \Carbon\Carbon::parse($item->tanggal_pesan)->translatedFormat('l, d-m-Y') }}</td>
-                                <td class="d-flex justify-content-center">
-                                    <a href="#" class="btn btn-sm btn-warning mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_pesan }}">Edit</a>
-                                    <a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalDelete{{ $item->id_pesan }}">Delete</a>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>#{{ $item->id_pesanan }}</td>
+                                    <td class="text-center">
+                                        @if ($item->status_pesanan == 'pending')
+                                            <span class="badge badge-info">{{ $item->status_pesanan }}</span>
+                                        @elseif ($item->status_pesanan == 'accepted')
+                                            <span class="badge badge-success">{{ $item->status_pesanan }}</span>
+                                        @elseif ($item->status_pesanan == 'rejected')
+                                            <span class="badge badge-danger">{{ $item->status_pesanan }}</span>
+                                        @else
+                                            <span class="badge badge-info">{{ $item->status_pesanan }}</span>
+                                        @endif
+                                    </td>
+                                    <td>Rp. {{ number_format($item->total_harga, 0, ',', '.') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($item->tanggal_pesan)->translatedFormat('l, d-m-Y') }}</td>
+                                    <td class="d-flex justify-content-center">
+                                        <a href="{{ route('agen.detail-pesanan', Crypt::encrypt($item->id_pesanan)) }}" class="btn btn-sm btn-info mr-2">Detail</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+
 
 
                                 {{-- @include('produsen.pengguna.distributor.edit-distributor', ['item' => $item])
                                 @include('produsen.pengguna.distributor.delete-distributor', ['item' => $item]) --}}
 
-                            @endforeach
                         </tbody>
                     </table>
                 </div>

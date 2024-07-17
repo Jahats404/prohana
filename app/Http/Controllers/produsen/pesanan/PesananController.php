@@ -5,6 +5,8 @@ namespace App\Http\Controllers\produsen\pesanan;
 use App\Http\Controllers\Controller;
 use App\Models\Pesanan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Log;
 
 class PesananController extends Controller
 {
@@ -22,8 +24,16 @@ class PesananController extends Controller
      */
     public function show($id)
     {
-        $produk = Pesanan::findOrFail($id);
-        return view('produsen.asset.produk.detail', compact('produk'));
+        $decryptId = Crypt::decrypt($id);
+        try {
+            $pesanan = Pesanan::findOrFail($decryptId);
+            return view('produsen.asset.pesanan.detail-pesanan', compact('pesanan'));
+        } catch (\Throwable $th) {
+            Log::error('Failed to show Pesanan : ' . $th->getMessage());
+            $status = 500;
+            $message = 'Failed to show Pesanan : '. $th->getMessage();
+            return response()->view('errors.index', compact('status', 'message'), $status);
+        }
     }
 
     /**
@@ -42,6 +52,20 @@ class PesananController extends Controller
         //
     }
 
+    public function updateStatus(Request $request, $id){
+        $pesanan = Pesanan::findOrFail($id);
+        try {
+            $pesanan->update([
+                'status_pesanan' => $request->status_pesanan
+            ]);
+            return redirect()->back()->with('success', 'Status pesanan berhasil diubah');
+        } catch (\Throwable $th) {
+            Log::error('Failed to update status pesanan: ' . $th->getMessage());
+            $status = 500; // This should be a variable, not a constant
+            $message = 'Failed to update status pesanan. Server Error.';
+            return response()->view('errors.index', compact('status', 'message'), $status);
+        }
+    }
     /**
      * Remove the specified resource from storage.
      */

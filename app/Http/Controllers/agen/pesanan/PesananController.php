@@ -8,6 +8,8 @@ use App\Models\Agen;
 use App\Models\Pesanan;
 use App\Models\Produk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 class PesananController extends Controller
@@ -51,9 +53,12 @@ class PesananController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Pesanan $pesanan)
+    public function show(Pesanan $pesanan, $id)
     {
-        //
+        $decyptId = Crypt::decrypt($id);
+        $pesanan = Pesanan::findOrFail($decyptId);
+        $produks = Produk::all();
+        return view('agen.pesanan.detail-pesanan', compact('pesanan', 'produks'));
     }
 
     /**

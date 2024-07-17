@@ -61,13 +61,3 @@
     @include('validasi.notifikasi')
     @include('validasi.notifikasi-error')
 @endsection
-
-@section('scripts')
-<script>
-    @if ($errors->any())
-        $(document).ready(function() {
-            $('#modaltambah').modal('show');
-        });
-    @endif
-</script>
-@endsection

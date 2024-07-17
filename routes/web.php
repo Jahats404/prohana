@@ -66,8 +66,8 @@ Route::middleware(['auth'])->group(function () {
 
         // KELOLA PESANAN
         Route::get('pesanan', [PesananProdusenController::class, 'index'])->name('kelola-pesanan');
-        // Route::post('pesanan/store', [PesananProdusenController::class, 'store'])->name('pesanan.store');
-        // Route::put('pesanan/update/{id}', [PesananProdusenController::class, 'update'])->name('pesanan.update');
+        Route::get('pesanan/{id}', [PesananProdusenController::class, 'show'])->name('show-pesanan');
+        Route::put('pesanan/status/{id}', [PesananProdusenController::class, 'updateStatus'])->name('update-status-pesanan');
         // Route::delete('pesanan/destroy/{id}', [PesananProdusenController::class, 'destroy'])->name('pesanan.destroy');
         // Route::put('pesanan/status/{id}', [PesananProdusenController::class, 'status'])->name('pesanan.status');
 
@@ -110,6 +110,7 @@ Route::middleware(['auth'])->group(function () {
         //DASHBOARD AGEN
         Route::get('/dashboard', [DashboardController::class, 'dashboardA'])->name('dashboard');
         Route::get('/pesanan', [PesananAgenController::class, 'index'])->name('pesanan');
+        Route::get('/pesanan/{id}', [PesananAgenController::class, 'show'])->name('detail-pesanan');
         Route::post('/pesanan', [PesananAgenController::class, 'store'])->name('store-pesanan');
 
         // Route::get('/dashboard', [AgenController::class, 'dashboard'])->name('dashboard');
