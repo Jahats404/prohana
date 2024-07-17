@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\produsen\pesanan;
 
 use App\Http\Controllers\Controller;
+use App\Models\DetailPesanan;
 use App\Models\Pesanan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -58,6 +59,14 @@ class PesananController extends Controller
             $pesanan->update([
                 'status_pesanan' => $request->status_pesanan
             ]);
+            // Check if the status is 'accepted'
+            if ($request->status_pesanan == 'accepted') {
+                // Update the 'tanggal_garansi' for related DetailPesanan entries
+                $detailPesan = DetailPesanan::wherePesananId($pesanan->id_pesanan)->first();
+                $detailPesan->update([
+                    'tanggal_garansi' => now()->addMonths(2)
+                ]);
+            }
             return redirect()->back()->with('success', 'Status pesanan berhasil diubah');
         } catch (\Throwable $th) {
             Log::error('Failed to update status pesanan: ' . $th->getMessage());

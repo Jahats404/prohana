@@ -28,7 +28,6 @@
                                 <th>Kategori</th>
                                 <th>Jenis</th>
                                 <th>Harga</th>
-                                <th>Produsen</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -39,8 +38,7 @@
                                     <td>{{ $item->nama_produk }}</td>
                                     <td>{{ $item->kategori_produk }}</td>
                                     <td>{{ $item->jenis_produk }}</td>
-                                    <td>{{ $item->harga }}</td>
-                                    <td>{{ $item->produsen->nama_produsen }}</td>
+                                    <td>Rp. {{ number_format($item->harga, 0, ',', '.') }}</td>
                                     <td class="d-flex justify-content-center">
                                         <a href="#" class="btn btn-sm btn-info mr-2" data-toggle="modal" data-target="#modalDetail{{ $item->id_produk }}">Detail</a>
                                         <a href="#" class="btn btn-sm btn-warning mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_produk }}">Edit</a>

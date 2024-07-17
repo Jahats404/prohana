@@ -24,20 +24,36 @@
             </div>
             <div class="form-group">
                 <label class="form-label">Tanggal Pemesanan:</label>
-                <p>{{ $pesanan->tanggal_pesan }}</p>
+                <p>{{ Carbon\Carbon::parse($pesanan->tanggal_pesan)->translatedFormat('l, d-m-Y') }}</p>
             </div>
-            {{-- <div class="form-group">
-                <label class="form-label">Jenis Produk:</label>
-                <p>{{ $pesanan->jenis_produk }}</p>
-            </div> --}}
+            <div class="form-group">
+                <label class="form-label">Status Pesanan:</label>
+                <p class="badge
+                @if ($pesanan->status_pesanan == 'pending')
+                    badge-info
+                @elseif ($pesanan->status_pesanan == 'accepted')
+                    badge-success
+                @elseif ($pesanan->status_pesanan == 'rejected')
+                    badge-danger
+                @else
+                    badge-secondary
+                @endif
+                ">{{ $pesanan->status_pesanan }}</p>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Tanggal Garansi:</label>
+                <p>
+                    @if ($pesanan->detail_pesanan && $pesanan->detail_pesanan->tanggal_garansi)
+                        {{ Carbon\Carbon::parse($pesanan->detail_pesanan->tanggal_garansi)->translatedFormat('l, d-m-Y') }}
+                    @else
+                        -
+                    @endif
+                </p>
+            </div>
             <div class="form-group">
                 <label class="form-label">Total Harga:</label>
-                <p>{{ $pesanan->total_harga }}</p>
+                <p>Rp. {{ number_format($pesanan->total_harga, 0, ',', '.') }}</p>
             </div>
-            {{-- <div class="form-group">
-                <label class="form-label">Produsen:</label>
-                <p>{{ $pesanan->->nama_produsen }}</p>
-            </div> --}}
 
         </div>
     </div>

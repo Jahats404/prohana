@@ -26,6 +26,7 @@
                                 <th>Status Pesanan</th>
                                 <th>Total Harga</th>
                                 <th>Tanggal Pesan</th>
+                                <th>Garansi</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -46,7 +47,14 @@
                                         @endif
                                     </td>
                                     <td>Rp. {{ number_format($item->total_harga, 0, ',', '.') }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->tanggal_pesan)->translatedFormat('l, d-m-Y') }}</td>
+                                    <td>{{ Carbon\Carbon::parse($item->tanggal_pesan)->translatedFormat('l, d-m-Y') }}</td>
+                                    <td>
+                                        @if ($item->detail_pesanan && $item->detail_pesanan->tanggal_garansi)
+                                            {{ Carbon\Carbon::parse($item->detail_pesanan->tanggal_garansi)->translatedFormat('l, d-m-Y') }}
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
                                     <td class="d-flex justify-content-center">
                                         <a href="{{ route('agen.detail-pesanan', Crypt::encrypt($item->id_pesanan)) }}" class="btn btn-sm btn-info mr-2">Detail</a>
                                     </td>

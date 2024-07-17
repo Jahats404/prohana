@@ -27,6 +27,7 @@ class PesananRequest extends FormRequest
             'tanggal_pesan' => 'required|date',
             'status_pesanan' => 'required|in:pending,accepted,rejected',
             'total_harga' => 'required|numeric|min:0',
+            'jumlah' => 'required|integer|min:0'
         ];
     }
 
@@ -41,6 +42,9 @@ class PesananRequest extends FormRequest
             'agen_id.integer' => 'Agen harus berupa angka.',
             'status_pesanan.in' => 'Status pesanan harus pending, accepted, atau rejected.',
             'total_harga.numeric' => 'Total harga harus berupa angka.',
+            'jumlah.required' => 'Jumlah produk wajib diisi.',
+            'jumlah.integer' => 'Jumlah produk harus berupa angka bulat.',
+            'jumlah.min' => 'Jumlah produk tidak boleh kurang dari 0.',
         ];
     }
 }

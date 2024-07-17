@@ -55,6 +55,16 @@
                 @endif
             </div>
             <div class="form-group">
+                <label class="form-label">Tanggal Garansi:</label>
+                <p>
+                    @if ($pesanan->detail_pesanan && $pesanan->detail_pesanan->tanggal_garansi)
+                        {{ Carbon\Carbon::parse($pesanan->detail_pesanan->tanggal_garansi)->translatedFormat('l, d-m-Y') }}
+                    @else
+                        -
+                    @endif
+                </p>
+            </div>
+            <div class="form-group">
                 <label class="form-label">Total Harga:</label>
                 <p>Rp. {{ number_format($pesanan->total_harga, 0, ',', '.') }}</p>
             </div>

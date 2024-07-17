@@ -5,6 +5,7 @@ namespace App\Http\Controllers\agen\pesanan;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PesananRequest;
 use App\Models\Agen;
+use App\Models\DetailPesanan;
 use App\Models\Pesanan;
 use App\Models\Produk;
 use Illuminate\Http\Request;
@@ -32,22 +33,27 @@ class PesananController extends Controller
     public function store(PesananRequest $request)
     {
         $validateDate = $request->validated();
-        // try {
+        try {
             $agenId = auth()->user()->agen->id_agen;
-            Pesanan::create([
+            $pesanan = Pesanan::create([
                 'produk_id' => $validateDate['produk_id'],
                 'agen_id' => $agenId,
                 'tanggal_pesan' => $validateDate['tanggal_pesan'],
                 'status_pesanan' => $validateDate['status_pesanan'],
                 'total_harga' => $validateDate['total_harga'],
             ]);
+            DetailPesanan::create([
+                'pesanan_id' => $pesanan->id_pesanan,
+                'produk_id' => $validateDate['produk_id'],
+                'jumlah' => $validateDate['jumlah'],
+            ]);
             return redirect()->back()->with('success', 'Pesanan berhasil ditambahkan');
-        // } catch (\Throwable $th) {
-        //     Log::error('Failed to create Distributor: ' . $th->getMessage());
-        //     $status = 500; // This should be a variable, not a constant
-        //     $message = 'Failed to create Pesanan. Server Error.';
-        //     return response()->view('errors.index', compact('status', 'message'), $status);
-        // }
+        } catch (\Throwable $th) {
+            Log::error('Failed to create Pesanan: ' . $th->getMessage());
+            $status = 500; // This should be a variable, not a constant
+            $message = 'Failed to create Pesanan. Server Error.';
+            return response()->view('errors.index', compact('status', 'message'), $status);
+        }
     }
 
     /**
@@ -55,33 +61,25 @@ class PesananController extends Controller
      */
     public function show(Pesanan $pesanan, $id)
     {
-        $decyptId = Crypt::decrypt($id);
-        $pesanan = Pesanan::findOrFail($decyptId);
-        $produks = Produk::all();
-        return view('agen.pesanan.detail-pesanan', compact('pesanan', 'produks'));
+        try {
+            $decyptId = Crypt::decrypt($id);
+            $pesanan = Pesanan::findOrFail($decyptId);
+            $produks = Produk::all();
+            return view('agen.pesanan.detail-pesanan', compact('pesanan', 'produks'));
+        } catch (\Throwable $th) {
+            Log::error('Failed to show Pesanan: ' . $th->getMessage());
+            $status = 500; // This should be a variable, not a constant
+            $message = 'Failed to create Pesanan. Server Error.';
+            return response()->view('errors.index', compact('status', 'message'), $status);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Pesanan $pesanan)
+    public function getProductPrice($id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Pesanan $pesanan)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Pesanan $pesanan)
-    {
-        //
+        $product = Produk::find($id);
+        if (!$product) {
+            return response()->json(['error' => 'Product not found'], 404);
+        }
+        return response()->json(['harga' => $product->harga]);
     }
 }

@@ -22,7 +22,7 @@
                 </div>
                 <div class="form-group">
                     <label class="form-label">Harga:</label>
-                    <p>{{ $item->harga }}</p>
+                    <p>Rp. {{ number_format($item->harga, 0, ',', '.') }}</p>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Produsen:</label>
