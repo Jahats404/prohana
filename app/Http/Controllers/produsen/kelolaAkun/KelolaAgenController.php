@@ -32,7 +32,7 @@ class KelolaAgenController extends Controller
                 'name' => $validatedData['nama_agen'],
                 'email' => $validatedData['email'],
                 'password' => Hash::make('12345678'),
-                'role_id' => 2, // Adjust this to match the role ID of a agen
+                'role_id' => 3, // Adjust this to match the role ID of a agen
                 'remember_token' => Str::random(10),
             ]);
 

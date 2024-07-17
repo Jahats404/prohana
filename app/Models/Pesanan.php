@@ -17,4 +17,13 @@ class Pesanan extends Model
         'status_pesanan',
         'catatan_pesanan',
     ];
+
+    public function agen()
+    {
+        return $this->belongsTo(Agen::class, 'agen_id', 'id_agen');
+    }
+    public function produk()
+    {
+        return $this->belongsTo(Produk::class,'produk_id','id_produk');
+    }
 }

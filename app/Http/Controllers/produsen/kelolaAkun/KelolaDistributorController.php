@@ -28,7 +28,7 @@ class KelolaDistributorController extends Controller
                 'name' => $validatedData['nama_distributor'],
                 'email' => $validatedData['email'],
                 'password' => Hash::make('12345678'),
-                'role_id' => 2, // Adjust this to match the role ID of a distributor
+                'role_id' => 3, // Adjust this to match the role ID of a distributor
                 'remember_token' => Str::random(10),
             ]);
 
