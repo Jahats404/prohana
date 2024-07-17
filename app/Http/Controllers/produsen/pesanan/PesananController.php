@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\produsen\kelolaPesanan;
+namespace App\Http\Controllers\produsen\pesanan;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pesanan;

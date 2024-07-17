@@ -9,13 +9,13 @@ class Pesanan extends Model
 {
     use HasFactory;
     protected $table = 'pesanans';
-    protected $primaryKey = 'id_pesan';
+    protected $primaryKey = 'id_pesanan';
     protected $fillable = [
         'produk_id',
         'agen_id',
-        'tanggal_pesanan',
+        'tanggal_pesan',
         'status_pesanan',
-        'catatan_pesanan',
+        'total_harga',
     ];
 
     public function agen()

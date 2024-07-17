@@ -22,26 +22,27 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Tanggal Pesan</th>
-                                <th>Catatan Pesanan</th>
+                                <th>Id Pesanan</th>
                                 <th>Status Pesanan</th>
                                 <th>Total Harga</th>
+                                <th>Tanggal Pesan</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($pesanan as $item)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->tanggal_pesanan }}</td>
-                                    <td>{{ $item->catatan_pesanan }}</td>
-                                    <td>{{ $item->status_pesanan }}</td>
-                                    <td>{{ $item->total_harga }}</td>
-                                    <td class="d-flex justify-content-center">
-                                        <a href="#" class="btn btn-sm btn-warning mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_pesan }}">Edit</a>
-                                        <a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalDelete{{ $item->id_pesan }}">Delete</a>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>#{{ $item->id_pesanan }}</td>
+                                <td>{{ $item->status_pesanan }}</td>
+                                <td>{{ number_format($item->total_harga, 0, ',', '.') }}</td>
+                                <td>{{ \Carbon\Carbon::parse($item->tanggal_pesan)->translatedFormat('l, d-m-Y') }}</td>
+                                <td class="d-flex justify-content-center">
+                                    <a href="#" class="btn btn-sm btn-warning mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_pesan }}">Edit</a>
+                                    <a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalDelete{{ $item->id_pesan }}">Delete</a>
+                                </td>
+                            </tr>
+
 
                                 {{-- @include('produsen.pengguna.distributor.edit-distributor', ['item' => $item])
                                 @include('produsen.pengguna.distributor.delete-distributor', ['item' => $item]) --}}
@@ -54,17 +55,7 @@
         </div>
     </div>
 
-    {{-- @include('agen.pesanan.tambah-pesanan') --}}
+    @include('agen.pesanan.tambah-pesanan')
     @include('validasi.notifikasi')
     @include('validasi.notifikasi-error')
-@endsection
-
-@section('scripts')
-<script>
-    @if ($errors->any())
-        $(document).ready(function() {
-            $('#modaltambah').modal('show');
-        });
-    @endif
-</script>
 @endsection

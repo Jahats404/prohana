@@ -16,8 +16,13 @@
                 <div class="card-body p-5">
                     <div class="row align-items-center justify-content-between">
                         <div class="col">
-                            <h2 class="text-primary">Welcome back, {{ Auth::user()->name }}!</h2>
-                            <p class="text-gray-700">Terima kasih sudah bergabung di Prohana, kami berharap Anda dapat menikmati pengalaman berjualan yang efektif dengan fitur-fitur kami seperti kelola asset, kelola pengguna, pesanan, dan lebih banyak lagi. Selalu semangat dan jangan ragu untuk menghubungi kami jika Anda memerlukan bantuan!</p>
+                            @if(Auth::check())
+                                <h2 class="text-primary">Welcome back, {{ Auth::user()->name }}!</h2>
+                                <p class="text-gray-700">Terima kasih sudah bergabung di Prohana, kami berharap Anda dapat menikmati pengalaman berjualan yang efektif dengan fitur-fitur kami seperti kelola asset, kelola pengguna, pesanan, dan lebih banyak lagi. Selalu semangat dan jangan ragu untuk menghubungi kami jika Anda memerlukan bantuan!</p>
+                            @else
+                                <h2 class="text-primary">Welcome to Prohana!</h2>
+                                <p class="text-gray-700">Silakan login untuk menikmati pengalaman berjualan yang efektif dengan fitur-fitur kami seperti kelola asset, kelola pengguna, pesanan, dan lebih banyak lagi. Selalu semangat dan jangan ragu untuk menghubungi kami jika Anda memerlukan bantuan!</p>
+                            @endif
                         </div>
                         <div class="col d-none d-lg-block mt-xxl-n4 text-center"><img class="img-fluid px-xl-4 mt-xxl-n5" width="400" src="https://sb-admin-pro.startbootstrap.com/assets/img/illustrations/statistics.svg"></div>
                     </div>
@@ -233,7 +238,7 @@
                         </div>
                         <div class="card-body p-0">
                             <ul class="list-group list-group-flush">
-                                @forelse ($recentProducts as $product)
+                                {{-- @forelse ($recentProducts as $product)
                                     <a href="{{ route('produsen.kelola-produk') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                                         <div class="d-flex align-items-center">
                                             <img src="{{ asset('storage/produk/' . $product->foto_produk) }}" alt="Product Image" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
@@ -246,7 +251,7 @@
                                     </a>
                                 @empty
                                     <li class="list-group-item text-center">Tidak Ada Produk</li>
-                                @endforelse
+                                @endforelse --}}
                             </ul>
                         </div>
                         <div class="card-footer text-center">

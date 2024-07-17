@@ -27,7 +27,6 @@ class ProdukRequest extends FormRequest
             'kategori_produk' => 'required|string|max:255',
             'jenis_produk' => 'required|string|max:255',
             'harga' => 'required|integer|min:0',
-            'produsen_id' => 'required|exists:produsen,id_produsen',
         ];
     }
 
@@ -48,8 +47,6 @@ class ProdukRequest extends FormRequest
             'harga.required' => 'Harga produk tidak boleh kosong!',
             'harga.integer' => 'Harga produk harus berupa angka!',
             'harga.min' => 'Harga produk tidak boleh negatif!',
-            'produsen_id.required' => 'Produsen produk tidak boleh kosong!',
-            'produsen_id.exists' => 'Produsen yang dipilih tidak valid!',
         ];
     }
 }

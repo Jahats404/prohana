@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\produse\kelolaPengiriman;
+namespace App\Http\Controllers\produsen\pengiriman;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pengiriman;

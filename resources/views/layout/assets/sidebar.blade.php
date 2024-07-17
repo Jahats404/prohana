@@ -11,11 +11,6 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    
-
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
 
     <!-- Heading -->
     {{-- <div class="sidebar-heading">
@@ -36,9 +31,9 @@
             <span>Tables</span></a>
     </li> --}}
 
+
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
-
     @auth
     @if(Auth::user()->role_id == 1)
         <!-- Nav Item - Dashboard -->

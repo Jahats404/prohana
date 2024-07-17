@@ -17,9 +17,9 @@ return new class extends Migration
             $table->unsignedBigInteger('agen_id');
             $table->foreign('produk_id')->references('id_produk')->on('produk')->onDelete('cascade');
             $table->foreign('agen_id')->references('id_agen')->on('agen')->onDelete('cascade');
-            $table->date('tanggal_pesanan');
+            $table->date('tanggal_pesan');
             $table->enum('status_pesanan', ['pending', 'accepted', 'rejected']);
-            $table->text('catatan_pesanan');
+            $table->bigInteger('total_harga');
             $table->timestamps();
         });
     }
