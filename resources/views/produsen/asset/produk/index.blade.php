@@ -36,8 +36,8 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->nama_produk }}</td>
-                                    <td>{{ $item->kategori_produk }}</td>
-                                    <td>{{ $item->jenis_produk }}</td>
+                                    <td class="text-capitalize">{{ $item->kategori_produk }}</td>
+                                    <td class="text-capitalize">{{ $item->jenis_produk }}</td>
                                     <td>Rp. {{ number_format($item->harga, 0, ',', '.') }}</td>
                                     <td class="d-flex justify-content-center">
                                         <a href="#" class="btn btn-sm btn-info mr-2" data-toggle="modal" data-target="#modalDetail{{ $item->id_produk }}">Detail</a>
@@ -57,5 +57,5 @@
     </div>
 
     @include('produsen.asset.produk.tambah-produk')
-    
+
 @endsection

@@ -20,18 +20,30 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Kategori</label>
-                        <input type="text" class="form-control @error('kategori_produk') is-invalid @enderror" name="kategori_produk" value="{{ old('kategori_produk') }}">
-                        @error('kategori_produk')
+                        <label class="form-label">Jenis Produk</label>
+                        <select class="form-control @error('jenis_produk') is-invalid @enderror" name="jenis_produk">
+                            <option selected disabled>Pilih Jenis Produk</option>
+                            <option value="sepatu" {{ old('jenis_produk') == 'sepatu' ? 'selected' : '' }}>Sepatu</option>
+                            <option value="sandal" {{ old('jenis_produk') == 'sandal' ? 'selected' : '' }}>Sandal</option>
+                            <option value="tas" {{ old('jenis_produk') == 'tas' ? 'selected' : '' }}>Tas</option>
+                            <option value="jaket" {{ old('jenis_produk') == 'jaket' ? 'selected' : '' }}>Jaket</option>
+                            <option value="sabuk" {{ old('jenis_produk') == 'sabuk' ? 'selected' : '' }}>Sabuk</option>
+                        </select>
+                        @error('jenis_produk')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Jenis Produk</label>
-                        <input type="text" class="form-control @error('jenis_produk') is-invalid @enderror" name="jenis_produk" value="{{ old('jenis_produk') }}">
-                        @error('jenis_produk')
+                        <label class="form-label">Kategori</label>
+                        <select class="form-control @error('kategori_produk') is-invalid @enderror" name="kategori_produk">
+                            <option selected disabled>Pilih Kategori</option>
+                            <option value="pria" {{ old('kategori_produk') == 'pria' ? 'selected' : '' }}>Pria</option>
+                            <option value="wanita" {{ old('kategori_produk') == 'wanita' ? 'selected' : '' }}>Wanita</option>
+                            <option value="anak" {{ old('kategori_produk') == 'anak' ? 'selected' : '' }}>Anak</option>
+                        </select>
+                        @error('kategori_produk')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

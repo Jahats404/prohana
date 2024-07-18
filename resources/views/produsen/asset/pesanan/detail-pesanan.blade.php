@@ -5,7 +5,7 @@
     <!-- Knowledge base article-->
     <div class="card mb-4">
         <div class="card-header d-flex align-items-center">
-            <a class="btn btn-transparent-dark btn-icon" href="{{ url()->previous() }}">
+            <a class="btn btn-transparent-dark btn-icon" href="{{ route('produsen.kelola-pesanan') }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
                     <line x1="19" y1="12" x2="5" y2="12"></line>
                     <polyline points="12 19 5 12 12 5"></polyline>
@@ -27,8 +27,12 @@
                 <p>{{ $pesanan->produk->nama_produk }}</p>
             </div>
             <div class="form-group">
+                <label class="form-label">Jenis Produk:</label>
+                <p class="text-capitalize">{{ $pesanan->produk->jenis_produk }}</p>
+            </div>
+            <div class="form-group">
                 <label class="form-label">Kategori:</label>
-                <p>{{ $pesanan->produk->kategori_produk }}</p>
+                <p class="text-capitalize">{{ $pesanan->produk->kategori_produk }}</p>
             </div>
             <div class="form-group">
                 <label class="form-label">Tanggal Pemesanan:</label>
@@ -38,6 +42,8 @@
                 <label class="form-label">Status Pesanan:</label>
                 <p class="badge
                 @if ($pesanan->status_pesanan == 'pending')
+                    badge-secondary
+                @elseif ($pesanan->status_pesanan == 'process')
                     badge-info
                 @elseif ($pesanan->status_pesanan == 'accepted')
                     badge-success
@@ -49,7 +55,12 @@
                 ">{{ $pesanan->status_pesanan }}</p>
                 @if ($pesanan->status_pesanan == 'pending')
                     <div class="form-group">
-                        <button type="button" class="validate-button btn btn-primary" data-toggle="modal" data-target="#statusModal" data-status="accepted">Accepted</button>
+                        <button type="button" class="validate-button btn btn-primary" data-toggle="modal" data-target="#statusModal" data-status="process">Process</button>
+                        <button type="button" class="validate-button btn btn-danger" data-toggle="modal" data-target="#statusModal" data-status="rejected">Rejected</button>
+                    </div>
+                @elseif ($pesanan->status_pesanan == 'process')
+                    <div class="form-group">
+                        <button type="button" class="validate-button btn btn-success" data-toggle="modal" data-target="#statusModal" data-status="accepted">Accepted</button>
                         <button type="button" class="validate-button btn btn-danger" data-toggle="modal" data-target="#statusModal" data-status="rejected">Rejected</button>
                     </div>
                 @endif

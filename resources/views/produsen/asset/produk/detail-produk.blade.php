@@ -14,11 +14,11 @@
                 </div>
                 <div class="form-group">
                     <label class="form-label">Kategori:</label>
-                    <p>{{ $item->kategori_produk }}</p>
+                    <p class="text-capitalize">{{ $item->kategori_produk }}</p>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Jenis Produk:</label>
-                    <p>{{ $item->jenis_produk }}</p>
+                    <p class="text-capitalize">{{ $item->jenis_produk }}</p>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Harga:</label>

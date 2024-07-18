@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Pesanan extends Model
 {
-    use HasFactory;
+    use HasFactory, Sortable;
     protected $table = 'pesanans';
     protected $primaryKey = 'id_pesanan';
     protected $fillable = [
@@ -16,6 +17,10 @@ class Pesanan extends Model
         'tanggal_pesan',
         'status_pesanan',
         'total_harga',
+    ];
+
+    protected $sortable = [
+        'status'
     ];
 
     public function agen()

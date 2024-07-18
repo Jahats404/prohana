@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id('id_produk');
             $table->text('foto_produk')->nullable();
             $table->string('nama_produk');
-            $table->string('kategori_produk');
-            $table->string('jenis_produk');
+            $table->enum('kategori_produk', ['pria', 'wanita', 'anak']);
+            $table->enum('jenis_produk', ['sepatu', 'sandal', 'tas', 'jaket', 'sabuk']);
             $table->integer('harga');
             $table->unsignedBigInteger('produsen_id');
             $table->timestamps();

@@ -14,11 +14,21 @@ class PesananController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $pesanan = Pesanan::simplePaginate(5);
-        return view('produsen.asset.pesanan.index', compact('pesanan'));
+        // Mengambil parameter status dari request
+        $status = $request->get('status');
+
+        // Mengambil data pesanan yang sortable
+        $pesanan = Pesanan::sortable()
+            ->when($status, function ($query, $status) {
+                return $query->whereStatusPesanan($status);
+            })
+            ->simplePaginate(5);
+
+        return view('produsen.asset.pesanan.index', compact('pesanan', 'status'));
     }
+
 
     /**
      * Display the specified resource.

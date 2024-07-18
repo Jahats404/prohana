@@ -25,7 +25,7 @@ class PesananRequest extends FormRequest
         return [
             'produk_id' => 'required|integer',
             'tanggal_pesan' => 'required|date',
-            'status_pesanan' => 'required|in:pending,accepted,rejected',
+            'status_pesanan' => 'required|in:pending,process,accepted,rejected',
             'total_harga' => 'required|numeric|min:0',
             'jumlah' => 'required|integer|min:0'
         ];

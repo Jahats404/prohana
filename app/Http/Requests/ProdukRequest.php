@@ -24,8 +24,8 @@ class ProdukRequest extends FormRequest
         return [
             'foto_produk' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'nama_produk' => 'required|string|max:255',
-            'kategori_produk' => 'required|string|max:255',
-            'jenis_produk' => 'required|string|max:255',
+            'kategori_produk' => 'required|in:pria,wanita,anak',
+            'jenis_produk' => 'required|in:sepatu,sandal,tas,jaket,sabuk',
             'harga' => 'required|integer|min:0',
         ];
     }
@@ -43,7 +43,9 @@ class ProdukRequest extends FormRequest
             'foto_produk.max' => 'Foto produk tidak boleh lebih dari 2MB!',
             'nama_produk.required' => 'Nama produk tidak boleh kosong!',
             'kategori_produk.required' => 'Kategori produk tidak boleh kosong!',
+            'kategori_produk.in' => 'Kategori produk harus pria, wanita, atau anak!',
             'jenis_produk.required' => 'Jenis produk tidak boleh kosong!',
+            'jenis_produk.in' => 'Jenis produk harus sepatu, sandal, tas, jaket, atau sabuk!',
             'harga.required' => 'Harga produk tidak boleh kosong!',
             'harga.integer' => 'Harga produk harus berupa angka!',
             'harga.min' => 'Harga produk tidak boleh negatif!',

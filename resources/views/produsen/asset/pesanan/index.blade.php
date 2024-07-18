@@ -4,6 +4,20 @@
     <h4 class="mb-0 mt-5">Daftar Pesanan</h4>
     <hr class="mt-2 mb-4">
 
+    <!-- Dropdown for sorting by status_pesanan -->
+    <form method="GET" action="{{ route('produsen.kelola-pesanan') }}" class="mb-4">
+        <div class="form-group">
+            <label for="status">Sort by Status Pesanan:</label>
+            <select name="status" id="status" class="form-control" onchange="this.form.submit()">
+                <option value="">-- Select Status --</option>
+                <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                <option value="process" {{ request('status') == 'process' ? 'selected' : '' }}>Process</option>
+                <option value="accepted" {{ request('status') == 'accepted' ? 'selected' : '' }}>Accepted</option>
+                <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
+            </select>
+        </div>
+    </form>
+
     @forelse ($pesanan as $item)
     <div class="col-md-12 mb-4">
         <a class="card card-icon lift lift-sm h-100" href="{{ route('produsen.show-pesanan', Crypt::encrypt($item->id_pesanan)) }}">
@@ -21,6 +35,8 @@
                         <p class="card-text mb-1">{{ $item->catatan_pesanan }}</p>
                         <p class="card-text mb-1">Status:
                             @if ($item->status_pesanan == 'pending')
+                                <span class="badge badge-secondary">{{ $item->status_pesanan }}</span>
+                            @elseif ($item->status_pesanan == 'process')
                                 <span class="badge badge-info">{{ $item->status_pesanan }}</span>
                             @elseif ($item->status_pesanan == 'accepted')
                                 <span class="badge badge-success">{{ $item->status_pesanan }}</span>
@@ -41,10 +57,9 @@
     </div>
     @endforelse
 
-
     <!-- Pagination links -->
     <div class="d-flex justify-content-center">
-        {{ $pesanan->links() }}
+        {{ $pesanan->appends(request()->except('page'))->links() }}
     </div>
 </div>
 @endsection
