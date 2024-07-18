@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\produsen\kelolaProduk;
+namespace App\Http\Controllers\produsen\produk;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProdukRequest;
 use App\Models\Produk;
 use App\Models\Produsen;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
@@ -30,13 +31,14 @@ class ProdukController extends Controller
         $validateData = $request->validated();
         try {
             $fileImage = $request->file('foto_produk');
+            $produsenId = Auth::user()->produsen->id_produsen;
             if(!$fileImage){
                 Produk::create([
                     'nama_produk' => $validateData['nama_produk'],
                     'kategori_produk' => $validateData['kategori_produk'],
                     'jenis_produk' => $validateData['jenis_produk'],
                     'harga' => $validateData['harga'],
-                    'produsen_id' => $validateData['produsen_id'],
+                    'produsen_id' => $produsenId,
                 ]);
             }else{
                 Produk::create([
@@ -45,7 +47,7 @@ class ProdukController extends Controller
                     'jenis_produk' => $validateData['jenis_produk'],
                     'harga' => $validateData['harga'],
                     'foto_produk' => $fileImage->hashName(),
-                    'produsen_id' => $validateData['produsen_id'],
+                    'produsen_id' => $produsenId,
                 ]);
                 $fileImage->storeAs('public/produk', $fileImage->hashName());
             }

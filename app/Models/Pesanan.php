@@ -9,13 +9,13 @@ class Pesanan extends Model
 {
     use HasFactory;
     protected $table = 'pesanans';
-    protected $primaryKey = 'id_pesan';
+    protected $primaryKey = 'id_pesanan';
     protected $fillable = [
         'produk_id',
         'agen_id',
-        'tanggal_pesanan',
+        'tanggal_pesan',
         'status_pesanan',
-        'catatan_pesanan',
+        'total_harga',
     ];
 
     public function agen()
@@ -25,5 +25,8 @@ class Pesanan extends Model
     public function produk()
     {
         return $this->belongsTo(Produk::class,'produk_id','id_produk');
+    }
+    public function detail_pesanan(){
+        return $this->hasOne(DetailPesanan::class,'pesanan_id','id_pesanan');
     }
 }

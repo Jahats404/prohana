@@ -11,11 +11,6 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    
-
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
 
     <!-- Heading -->
     {{-- <div class="sidebar-heading">
@@ -36,9 +31,9 @@
             <span>Tables</span></a>
     </li> --}}
 
+
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
-
     @auth
     @if(Auth::user()->role_id == 1)
         <!-- Nav Item - Dashboard -->
@@ -71,20 +66,20 @@
         <div class="sidebar-heading">
             Asset
         </div>
-        <li class="nav-item {{ Request::is('produsen.kelola-produk') ? 'active' : '' }}">
+        <li class="nav-item {{ Request::routeIs('produsen.kelola-produk') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('produsen.kelola-produk') }}">
                 <i class="fas fa-fw fa-box"></i>
-                <span>Kelola Produk</span></a>
+                <span>Produk</span></a>
         </li>
-        <li class="nav-item {{ Request::is('produsen.kelola-pesanan') ? 'active' : '' }}">
+        <li class="nav-item {{ Request::routeIs('produsen.kelola-pesanan') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('produsen.kelola-pesanan') }}">
                 <i class="fas fa-fw fa-archive"></i>
                 <span>Pesanan</span></a>
         </li>
-        <li class="nav-item {{ Request::is('produsen.kelola-pengiriman') ? 'active' : '' }}">
+        <li class="nav-item {{ Request::routeIs('produsen.kelola-pengiriman') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('produsen.kelola-pengiriman') }}">
                 <i class="fas fa-fw fa-truck"></i>
-                <span>Pengiriman Produk</span></a>
+                <span>Pengiriman</span></a>
         </li>
     @endif
 @endauth
@@ -126,13 +121,23 @@
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
+        <li class="nav-item {{ Request::routeIs('agen.distributor') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('agen.distributor') }}">
+                <i class="fas fa-fw fa-users"></i>
+                <span>Distributor</span></a>
+        </li>
         <div class="sidebar-heading">
             Pesanan
         </div>
-        <li class="nav-item {{ Request::is('agen.pesanan') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('agen.pesanan') }}">
+        <li class="nav-item {{ Request::routeIs('agen.produk') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('agen.produk') }}">
                 <i class="fas fa-fw fa-box"></i>
-                <span>Kelola Pesanan</span></a>
+                <span>Produk</span></a>
+        </li>
+        <li class="nav-item {{ Request::routeIs('agen.pesanan') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('agen.pesanan') }}">
+                <i class="fas fa-fw fa-archive"></i>
+                <span>Pesanan</span></a>
         </li>
         {{-- <li class="nav-item {{ Request::is('produsen.kelola-pesanan') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('produsen.kelola-pesanan') }}">

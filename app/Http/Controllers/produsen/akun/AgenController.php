@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Produsen\KelolaAkun;
+namespace App\Http\Controllers\Produsen\akun;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AgenRequest;
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
-class KelolaAgenController extends Controller
+class AgenController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -65,7 +65,7 @@ class KelolaAgenController extends Controller
         try {
             $agen = Agen::findOrFail($id);
             $agen->update($updateAgen);
-    
+
             return redirect()->route('produsen.kelola-agen')
                 ->with('success', 'Agen updated successfully.');
         } catch (\Throwable $th) {
@@ -84,7 +84,7 @@ class KelolaAgenController extends Controller
         try {
             $agen = Agen::findOrFail($id);
             $agen->delete();
-    
+
             return redirect()->route('produsen.kelola-agen')
                 ->with('success', 'Agen deleted successfully.');
         } catch (\Throwable $th) {

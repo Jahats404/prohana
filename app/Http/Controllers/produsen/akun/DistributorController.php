@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\produsen\kelolaAkun;
+namespace App\Http\Controllers\produsen\akun;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DistributorRequest;
@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-class KelolaDistributorController extends Controller
+class DistributorController extends Controller
 {
     public function index()
     {

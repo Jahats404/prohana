@@ -12,6 +12,22 @@
                         class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
             </div>
 
+            <div class="card card-waves mb-4">
+                <div class="card-body p-5">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col">
+                            @if(Auth::check())
+                                <h2 class="text-primary">Welcome back, {{ Auth::user()->name }}!</h2>
+                                <p class="text-gray-700">Terima kasih sudah bergabung di Prohana, kami berharap Anda dapat menikmati pengalaman berjualan yang efektif dengan fitur-fitur kami seperti kelola asset, kelola pengguna, pesanan, dan lebih banyak lagi. Selalu semangat dan jangan ragu untuk menghubungi kami jika Anda memerlukan bantuan!</p>
+                            @else
+                                <h2 class="text-primary">Welcome to Prohana!</h2>
+                                <p class="text-gray-700">Silakan login untuk menikmati pengalaman berjualan yang efektif dengan fitur-fitur kami seperti kelola asset, kelola pengguna, pesanan, dan lebih banyak lagi. Selalu semangat dan jangan ragu untuk menghubungi kami jika Anda memerlukan bantuan!</p>
+                            @endif
+                        </div>
+                        <div class="col d-none d-lg-block mt-xxl-n4 text-center"><img class="img-fluid px-xl-4 mt-xxl-n5" width="400" src="https://sb-admin-pro.startbootstrap.com/assets/img/illustrations/statistics.svg"></div>
+                    </div>
+                </div>
+            </div>
             <!-- Content Row -->
             <div class="row">
 

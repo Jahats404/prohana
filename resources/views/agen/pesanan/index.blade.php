@@ -22,10 +22,11 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Tanggal Pesan</th>
-                                <th>Catatan Pesanan</th>
+                                <th>Pesanan</th>
                                 <th>Status Pesanan</th>
                                 <th>Total Harga</th>
+                                <th>Tanggal Pesan</th>
+                                <th>Garansi</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -33,20 +34,38 @@
                             @foreach ($pesanan as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->tanggal_pesanan }}</td>
-                                    <td>{{ $item->catatan_pesanan }}</td>
-                                    <td>{{ $item->status_pesanan }}</td>
-                                    <td>{{ $item->total_harga }}</td>
+                                    <td>#{{ $item->id_pesanan }}</td>
+                                    <td class="text-center">
+                                        @if ($item->status_pesanan == 'pending')
+                                            <span class="badge badge-info">{{ $item->status_pesanan }}</span>
+                                        @elseif ($item->status_pesanan == 'accepted')
+                                            <span class="badge badge-success">{{ $item->status_pesanan }}</span>
+                                        @elseif ($item->status_pesanan == 'rejected')
+                                            <span class="badge badge-danger">{{ $item->status_pesanan }}</span>
+                                        @else
+                                            <span class="badge badge-info">{{ $item->status_pesanan }}</span>
+                                        @endif
+                                    </td>
+                                    <td>Rp. {{ number_format($item->total_harga, 0, ',', '.') }}</td>
+                                    <td>{{ Carbon\Carbon::parse($item->tanggal_pesan)->translatedFormat('l, d-m-Y') }}</td>
+                                    <td>
+                                        @if ($item->detail_pesanan && $item->detail_pesanan->tanggal_garansi)
+                                            {{ Carbon\Carbon::parse($item->detail_pesanan->tanggal_garansi)->translatedFormat('l, d-m-Y') }}
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
                                     <td class="d-flex justify-content-center">
-                                        <a href="#" class="btn btn-sm btn-warning mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_pesan }}">Edit</a>
-                                        <a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalDelete{{ $item->id_pesan }}">Delete</a>
+                                        <a href="{{ route('agen.detail-pesanan', Crypt::encrypt($item->id_pesanan)) }}" class="btn btn-sm btn-info mr-2">Detail</a>
                                     </td>
                                 </tr>
+                            @endforeach
+
+
 
                                 {{-- @include('produsen.pengguna.distributor.edit-distributor', ['item' => $item])
                                 @include('produsen.pengguna.distributor.delete-distributor', ['item' => $item]) --}}
 
-                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -54,17 +73,7 @@
         </div>
     </div>
 
-    {{-- @include('agen.pesanan.tambah-pesanan') --}}
+    @include('agen.pesanan.tambah-pesanan')
     @include('validasi.notifikasi')
     @include('validasi.notifikasi-error')
-@endsection
-
-@section('scripts')
-<script>
-    @if ($errors->any())
-        $(document).ready(function() {
-            $('#modaltambah').modal('show');
-        });
-    @endif
-</script>
 @endsection

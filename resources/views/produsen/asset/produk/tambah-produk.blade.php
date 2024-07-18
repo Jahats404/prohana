@@ -47,8 +47,6 @@
                         @enderror
                     </div>
 
-                    <input type="hidden" name="produsen_id" value="{{ Auth::user()->produsen->id_produsen }}">
-
                     <div class="form-group">
                         <label class="form-label">Upload Gambar</label>
                         <input type="file" class="form-control @error('foto_produk') is-invalid @enderror" name="foto_produk" id="gambar">

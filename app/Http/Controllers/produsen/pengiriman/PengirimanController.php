@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\produsen\kelolaPesanan;
+namespace App\Http\Controllers\produsen\pengiriman;
 
 use App\Http\Controllers\Controller;
-use App\Models\Pesanan;
+use App\Models\Pengiriman;
 use Illuminate\Http\Request;
 
-class PesananController extends Controller
+class PengirimanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $pengiriman = Pengiriman::simplePaginate(5);
+        return view('produsen.asset.pengiriman.index', compact('pengiriman'));
     }
 
     /**
@@ -35,7 +36,7 @@ class PesananController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Pesanan $pesanan)
+    public function show(Pengiriman $pengiriman)
     {
         //
     }
@@ -43,7 +44,7 @@ class PesananController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Pesanan $pesanan)
+    public function edit(Pengiriman $pengiriman)
     {
         //
     }
@@ -51,7 +52,7 @@ class PesananController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Pesanan $pesanan)
+    public function update(Request $request, Pengiriman $pengiriman)
     {
         //
     }
@@ -59,7 +60,7 @@ class PesananController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pesanan $pesanan)
+    public function destroy(Pengiriman $pengiriman)
     {
         //
     }

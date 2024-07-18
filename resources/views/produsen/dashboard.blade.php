@@ -12,6 +12,23 @@
                         class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
             </div>
 
+            <div class="card card-waves mb-4">
+                <div class="card-body p-5">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col">
+                            @if(Auth::check())
+                                <h2 class="text-primary">Welcome back, {{ Auth::user()->name }}!</h2>
+                                <p class="text-gray-700">Terima kasih sudah bergabung di Prohana, kami berharap Anda dapat menikmati pengalaman berjualan yang efektif dengan fitur-fitur kami seperti kelola asset, kelola pengguna, pesanan, dan lebih banyak lagi. Selalu semangat dan jangan ragu untuk menghubungi kami jika Anda memerlukan bantuan!</p>
+                            @else
+                                <h2 class="text-primary">Welcome to Prohana!</h2>
+                                <p class="text-gray-700">Silakan login untuk menikmati pengalaman berjualan yang efektif dengan fitur-fitur kami seperti kelola asset, kelola pengguna, pesanan, dan lebih banyak lagi. Selalu semangat dan jangan ragu untuk menghubungi kami jika Anda memerlukan bantuan!</p>
+                            @endif
+                        </div>
+                        <div class="col d-none d-lg-block mt-xxl-n4 text-center"><img class="img-fluid px-xl-4 mt-xxl-n5" width="400" src="https://sb-admin-pro.startbootstrap.com/assets/img/illustrations/statistics.svg"></div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Content Row -->
             <div class="row">
 
@@ -22,25 +39,25 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                        Earnings (Monthly)</div>
+                                        Users</div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
                                 </div>
                                 <div class="col-auto">
-                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                    <i class="fas fa-user fa-2x text-gray-300"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Earnings (Monthly) Card Example -->
+                <!-- Pesanan (Order) Card Example -->
                 <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card border-left-success shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                        Earnings (Annual)</div>
+                                        Pesanan (Order)</div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
                                 </div>
                                 <div class="col-auto">
@@ -50,30 +67,18 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Earnings (Monthly) Card Example -->
+                <!-- Pengiriman (Delivery) Card Example -->
                 <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-info shadow h-100 py-2">
+                    <div class="card border-left-danger shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
-                                    </div>
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col-auto">
-                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="progress progress-sm mr-2">
-                                                <div class="progress-bar bg-info" role="progressbar"
-                                                    style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                    aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                        Pengiriman (Delivery)</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
                                 </div>
                                 <div class="col-auto">
-                                    <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                    <i class="fas fa-truck fa-2x text-gray-300"></i>
                                 </div>
                             </div>
                         </div>
@@ -222,96 +227,39 @@
                         </div>
                     </div>
 
-                    <!-- Color System -->
-                    <div class="row">
-                        <div class="col-lg-6 mb-4">
-                            <div class="card bg-primary text-white shadow">
-                                <div class="card-body">
-                                    Primary
-                                    <div class="text-white-50 small">#4e73df</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 mb-4">
-                            <div class="card bg-success text-white shadow">
-                                <div class="card-body">
-                                    Success
-                                    <div class="text-white-50 small">#1cc88a</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 mb-4">
-                            <div class="card bg-info text-white shadow">
-                                <div class="card-body">
-                                    Info
-                                    <div class="text-white-50 small">#36b9cc</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 mb-4">
-                            <div class="card bg-warning text-white shadow">
-                                <div class="card-body">
-                                    Warning
-                                    <div class="text-white-50 small">#f6c23e</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 mb-4">
-                            <div class="card bg-danger text-white shadow">
-                                <div class="card-body">
-                                    Danger
-                                    <div class="text-white-50 small">#e74a3b</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 mb-4">
-                            <div class="card bg-secondary text-white shadow">
-                                <div class="card-body">
-                                    Secondary
-                                    <div class="text-white-50 small">#858796</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 mb-4">
-                            <div class="card bg-light text-black shadow">
-                                <div class="card-body">
-                                    Light
-                                    <div class="text-black-50 small">#f8f9fc</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 mb-4">
-                            <div class="card bg-dark text-white shadow">
-                                <div class="card-body">
-                                    Dark
-                                    <div class="text-white-50 small">#5a5c69</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
 
                 <div class="col-lg-6 mb-4">
 
-                    <!-- Illustrations -->
+                    {{-- RECENT PRODUCTS --}}
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Recent Products</h6>
                         </div>
-                        <div class="card-body">
-                            <div class="text-center">
-                                <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                                    src="img/undraw_posting_photo.svg" alt="...">
-                            </div>
-                            <p>Add some quality, svg illustrations to your project courtesy of <a
-                                    target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a
-                                constantly updated collection of beautiful svg images that you can use
-                                completely free and without attribution!</p>
-                            <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on
-                                unDraw &rarr;</a>
+                        <div class="card-body p-0">
+                            <ul class="list-group list-group-flush">
+                                @forelse ($recentProducts as $product)
+                                    <a href="{{ route('produsen.kelola-produk') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <img src="{{ asset('storage/produk/' . $product->foto_produk) }}" alt="Product Image" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
+                                            <div class="ml-3">
+                                                <span class="font-weight-bold">{{ $product->nama_produk }}</span>
+                                                <div class="text-muted small">{{ $product->kategori_produk }}</div>
+                                            </div>
+                                        </div>
+                                        <span class="badge badge-success badge-pill">Rp.{{ number_format($product->harga, 0, ',', '.') }}</span>
+                                    </a>
+                                @empty
+                                    <li class="list-group-item text-center">Tidak Ada Produk</li>
+                                @endforelse
+                            </ul>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="{{ route('produsen.kelola-produk') }}" class="uppercase">View All Products</a>
                         </div>
                     </div>
+
+
 
                     <!-- Approach -->
                     <div class="card shadow mb-4">

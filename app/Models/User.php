@@ -52,4 +52,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(Produsen::class, 'user_id', 'id');
     }
+
+    public function agen()
+    {
+        return $this->hasOne(Agen::class, 'user_id', 'id');
+    }
+
+    public function distributor()
+    {
+        return $this->hasOne(Distributor::class, 'user_id', 'id');
+    }
 }
