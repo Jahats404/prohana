@@ -95,6 +95,18 @@
         <div class="sidebar-heading">
             Asset
         </div>
+        <!-- Nav Item - Agen -->
+        <li class="nav-item {{ Request::routeIs('distributor.agen') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('distributor.agen') }}">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Agen</span>
+            </a>
+        </li>
+        <li class="nav-item {{ Request::is('distributor.pengiriman') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('distributor.pengiriman') }}">
+                <i class="fas fa-fw fa-box"></i>
+                <span>Kelola Pengiriman</span></a>
+        </li>
         {{-- <li class="nav-item {{ Request::is('produsen.kelola-produk') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('produsen.kelola-produk') }}">
                 <i class="fas fa-fw fa-box"></i>

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Agen;
+use App\Models\Distributor;
 use App\Models\Produsen;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -35,11 +36,20 @@ class UserSeeder extends Seeder
         ]);
 
         // Create Distributor User
-        $this->createUser([
+        $distributorUser = $this->createUser([
             'name' => 'Budi Santoso',
             'email' => 'budisantoso@gmail.com',
             'password' => 'password', // Ganti 'password' dengan password yang aman
             'role_id' => 2, // Sesuaikan dengan id peran distributor yang telah Anda seed
+        ]);
+
+        Distributor::create([
+            'id_distributor' => $this->generateUniqueId([$distributorUser->id]),
+            'nama_distributor' => 'Distributor 1',
+            'domisili_distributor' => 'Jakarta',
+            'alamat_distributor' => 'Jl. Kebon Jeruk No. 10',
+            'user_id' => $distributorUser->id,
+            'notelp_distributor' => '081234567890',
         ]);
 
         // Create Agen User

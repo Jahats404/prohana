@@ -5,6 +5,8 @@ use App\Http\Controllers\agen\produk\ProdukController as ProdukAgenController;
 use App\Http\Controllers\agen\distributor\DistributorController as DistributorAgenController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\dashboard\DashboardController;
+use App\Http\Controllers\distributor\agen\AgenController as AgenAgenController;
+use App\Http\Controllers\distributor\pengiriman\PengirimanController as PengirimanPengirimanController;
 use App\Http\Controllers\produsen\pengiriman\PengirimanController;
 use App\Http\Controllers\Produsen\akun\AgenController;
 use App\Http\Controllers\produsen\akun\DistributorController;
@@ -89,6 +91,8 @@ Route::middleware(['auth'])->group(function () {
 
         //DASHBOARD DISTRIBUTOR
         Route::get('/dashboard', [DashboardController::class, 'dashboardD'])->name('dashboard');
+        Route::get('/agen', [AgenAgenController::class, 'index'])->name('agen');
+        Route::get('/pengiriman', [PengirimanPengirimanController::class, 'index'])->name('pengiriman');
 
 
         // Route::get('/distributor', [DistributorController::class, 'distributor'])->name('distributor');
