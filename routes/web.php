@@ -3,6 +3,7 @@
 use App\Http\Controllers\agen\pesanan\PesananController as PesananAgenController;
 use App\Http\Controllers\agen\produk\ProdukController as ProdukAgenController;
 use App\Http\Controllers\agen\distributor\DistributorController as DistributorAgenController;
+use App\Http\Controllers\agen\keranjang\KeranjangController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\distributor\agen\AgenController as AgenAgenController;
@@ -121,10 +122,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/pesanan', [PesananAgenController::class, 'pesanan'])->name('pesanan');
         Route::get('/pesanan/{id}', [PesananAgenController::class, 'show'])->name('detail-pesanan');
         Route::post('/pesanan', [PesananAgenController::class, 'store'])->name('store-pesanan');
+        Route::post('/pesanan', [PesananAgenController::class, 'store'])->name('store-pesanan');
+        Route::get('/detail-produk/{id}', [PesananAgenController::class, 'detail'])->name('detail-produk');
+        // keranjang
+        Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang');
+        Route::post('/keranjang', [KeranjangController::class, 'keranjang'])->name('store-keranjang');
 
         // Route::get('/dashboard', [AgenController::class, 'dashboard'])->name('dashboard');
         Route::get('/produk', [ProdukAgenController::class, 'index'])->name('produk');
-        Route::get('/produk/{id}', [ProdukAgenController::class, 'show'])->name('detail-produk');
+        // Route::get('/produk/{id}', [ProdukAgenController::class, 'show'])->name('detail-produk');
 
         Route::get('/distributor', [DistributorAgenController::class, 'index'])->name('distributor');
         Route::get('/distributor/{id}', [DistributorAgenController::class, 'show'])->name('detail-distributor');

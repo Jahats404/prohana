@@ -162,6 +162,11 @@
                     <i class="fas fa-fw fa-archive"></i>
                     <span>Daftar Pesanan</span></a>
             </li>
+            <li class="nav-item {{ Request::routeIs('agen.keranjang') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('agen.keranjang') }}">
+                    <i class="fas fa-fw fa-cart-arrow-down"></i>
+                    <span>Daftar Keranjang</span></a>
+            </li>
             {{-- <li class="nav-item {{ Request::is('produsen.kelola-pesanan') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('produsen.kelola-pesanan') }}">
                 <i class="fas fa-fw fa-archive"></i>

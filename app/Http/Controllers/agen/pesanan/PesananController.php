@@ -36,6 +36,13 @@ class PesananController extends Controller
         return view('agen.pesanan.pesanan', compact('pesanan', 'produks'));
     }
 
+    public function detail($id)
+    {
+        $produk = Produk::findOrFail($id);
+        // dd($produk);
+        return view('agen.pesanan.detail',compact('produk'));
+    }
+
     /**
      * Store a newly created resource in storage.
      */

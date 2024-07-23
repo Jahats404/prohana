@@ -8,17 +8,29 @@ use Illuminate\Http\Request;
 
 class KeranjangController extends Controller
 {
-    public function checkout(Request $request)
+    public function keranjang(Request $request)
     {
-        $items = $request->all();
-
+        $items = json_decode($request->input('cart'), true);
+        $user = auth()->user();
+        $agen = $user->agen;
+        // dd($agen->id_agen);
         foreach ($items as $item) {
             Keranjang::create([
-                'id_produk' => $item['id_produk'],
+                'agen_id' => $agen->id_agen,
+                'produk_id' => $item['id_produk'],
                 'jumlah' => $item['jumlah'],
             ]);
         }
 
-        return response()->json(['message' => 'Produk berhasil ditambahkan ke keranjang.'], 200);
+        return redirect()->back()->with('success','Produk berhasil ditambahkan ke keranjang.');
+    }
+
+    public function index()
+    {
+        $user = auth()->user();
+        $agen = $user->agen;
+        $keranjang = Keranjang::where('agen_id', $agen->id_agen)->get();
+        // dd($keranjang);
+        return view('agen.keranjang.index', compact('keranjang'));
     }
 }

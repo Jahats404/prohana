@@ -7,6 +7,12 @@
             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="checkout-button"><i
                     class="fas fa-solid fa-cart-arrow-down fa-sm text-white-50"></i> Checkout <span id="cart-count"
                     class="badge badge-light">0</span></a>
+
+            {{-- Form Checkout --}}
+            <form id="checkout-form" action="{{ route('agen.store-keranjang') }}" method="POST" style="display: none;">
+                @csrf
+                <input type="hidden" name="cart" id="cart-input">
+            </form>
         </div>
 
         <div class="row">
@@ -30,8 +36,9 @@
                             <p class="card-text">Rp. {{ number_format($item->harga, 0, ',', '.') }}</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary mr-1">Detail</button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary add-to-cart"><i
+                                    <a href="{{ route('agen.detail-produk', ['id' => $item->id_produk]) }}" class="btn btn-sm btn-outline-secondary mr-1">Detail</a>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary add-to-cart"
+                                        data-id="{{ $item->id_produk }}"><i
                                             class="fas fa-solid fa-cart-arrow-down fa-sm fa-fw mr-2 text-gray-400"></i>Keranjang</button>
                                 </div>
                                 <input type="number" min="1" placeholder="Jumlah"
@@ -57,7 +64,7 @@
                     const cardBody = this.closest('.card-body');
                     const quantityInput = cardBody.querySelector('.quantity');
                     const quantity = parseInt(quantityInput.value);
-                    const productId = cardBody.closest('.card').dataset.productId;
+                    const productId = this.getAttribute('data-id');
 
                     if (!quantity || quantity < 1) {
                         Swal.fire({
@@ -72,7 +79,10 @@
                             jumlah: quantity
                         });
                         document.getElementById('cart-count').innerText = cartCount;
-                        console.log('Item added to cart:', quantity);
+                        console.log('Item added to cart:', {
+                            id_produk: productId,
+                            jumlah: quantity
+                        });
                     }
                 });
             });
@@ -87,26 +97,11 @@
                     return;
                 }
 
-                fetch('/checkout', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        body: JSON.stringify(cart)
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Berhasil!',
-                            text: 'Produk berhasil ditambahkan ke keranjang.'
-                        });
-                        console.log('Success:', data);
-                    })
-                    .catch((error) => {
-                        console.error('Error:', error);
-                    });
+                // Set cart data to hidden input
+                document.getElementById('cart-input').value = JSON.stringify(cart);
+
+                // Submit the form
+                document.getElementById('checkout-form').submit();
             });
         });
     </script>

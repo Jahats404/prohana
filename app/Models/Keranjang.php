@@ -13,6 +13,7 @@ class Keranjang extends Model
     protected $fillable = [
         'agen_id',
         'produk_id',
+        'jumlah',
     ] ;
 
     public function agen()
