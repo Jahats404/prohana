@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('pesanans', function (Blueprint $table) {
             $table->id('id_pesanan');
-            $table->unsignedBigInteger('produk_id');
+            // $table->unsignedBigInteger('produk_id');
             $table->unsignedBigInteger('agen_id');
-            $table->foreign('produk_id')->references('id_produk')->on('produk')->onDelete('cascade');
+            // $table->foreign('produk_id')->references('id_produk')->on('produk')->onDelete('cascade');
             $table->foreign('agen_id')->references('id_agen')->on('agen')->onDelete('cascade');
             $table->date('tanggal_pesan');
             $table->enum('status_pesanan', ['pending', 'accepted', 'rejected']);

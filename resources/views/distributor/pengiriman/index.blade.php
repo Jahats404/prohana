@@ -3,13 +3,13 @@
     <div class="container-fluid">
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Kelola Agen</h1>
+            <h1 class="h3 mb-0 text-gray-800">Kelola Pengiriman</h1>
         </div>
 
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Daftar Agen</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Daftar Pengiriman</h6>
                     <a class="btn btn-sm btn-primary" href="#" data-toggle="modal" data-target="#modaltambah">
                         <i class="fas fa-solid fa-user-plus fa-sm fa-fw mr-2 text-gray-400"></i>
                         Tambah
@@ -54,7 +54,7 @@
         </div>
     </div>
 
-    {{-- @include('produsen.pengguna.agen.tambah-agen') --}}
+    @include('distributor.pengiriman.tambah-pengiriman')
     @include('validasi.notifikasi')
     @include('validasi.notifikasi-error')
 @endsection

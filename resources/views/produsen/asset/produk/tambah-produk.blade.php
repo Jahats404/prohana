@@ -21,7 +21,12 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">Kategori</label>
-                        <input type="text" class="form-control @error('kategori_produk') is-invalid @enderror" name="kategori_produk" value="{{ old('kategori_produk') }}">
+                        <select name="kategori_produk" class="custom-select @error('kategori_produk') is-invalid @enderror" id="">
+                            <option value="">-- Pilih Kategori --</option>
+                            <option value="Pria">Pria</option>
+                            <option value="Wanita">Wanita</option>
+                            <option value="Anak-Anak">Anak-Anak</option>
+                        </select>
                         @error('kategori_produk')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -30,7 +35,14 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">Jenis Produk</label>
-                        <input type="text" class="form-control @error('jenis_produk') is-invalid @enderror" name="jenis_produk" value="{{ old('jenis_produk') }}">
+                        <select name="jenis_produk" class="custom-select @error('jenis_produk') is-invalid @enderror" id="">
+                            <option value="">-- Pilih Jenis --</option>
+                            <option value="Sepatu">Sepatu</option>
+                            <option value="Sendal">Sendal</option>
+                            <option value="Jaket">Jaket</option>
+                            <option value="Tas">Tas</option>
+                            <option value="Sabuk">Sabuk</option>
+                        </select>
                         @error('jenis_produk')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

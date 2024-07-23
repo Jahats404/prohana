@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\distributor\agen\AgenController as AgenAgenController;
 use App\Http\Controllers\distributor\pengiriman\PengirimanController as PengirimanPengirimanController;
+use App\Http\Controllers\distributor\pesanan\PesananController;
 use App\Http\Controllers\produsen\pengiriman\PengirimanController;
 use App\Http\Controllers\Produsen\akun\AgenController;
 use App\Http\Controllers\produsen\akun\DistributorController;
@@ -91,8 +92,11 @@ Route::middleware(['auth'])->group(function () {
 
         //DASHBOARD DISTRIBUTOR
         Route::get('/dashboard', [DashboardController::class, 'dashboardD'])->name('dashboard');
+        
         Route::get('/agen', [AgenAgenController::class, 'index'])->name('agen');
         Route::get('/pengiriman', [PengirimanPengirimanController::class, 'index'])->name('pengiriman');
+
+        Route::get('/pesanan', [PesananController::class, 'index'])->name('pesanan');
 
 
         // Route::get('/distributor', [DistributorController::class, 'distributor'])->name('distributor');
@@ -113,7 +117,8 @@ Route::middleware(['auth'])->group(function () {
 
         //DASHBOARD AGEN
         Route::get('/dashboard', [DashboardController::class, 'dashboardA'])->name('dashboard');
-        Route::get('/pesanan', [PesananAgenController::class, 'index'])->name('pesanan');
+        Route::get('/daftar-pesanan', [PesananAgenController::class, 'index'])->name('daftar-pesanan');
+        Route::get('/pesanan', [PesananAgenController::class, 'pesanan'])->name('pesanan');
         Route::get('/pesanan/{id}', [PesananAgenController::class, 'show'])->name('detail-pesanan');
         Route::post('/pesanan', [PesananAgenController::class, 'store'])->name('store-pesanan');
 

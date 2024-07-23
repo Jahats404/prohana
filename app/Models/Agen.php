@@ -22,4 +22,8 @@ class Agen extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+    public function pesanan()
+    {
+        return $this->hasMany(Pesanan::class,'agen_id','id_agen');
+    }
 }

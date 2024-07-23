@@ -27,6 +27,15 @@ class PesananController extends Controller
         return view('agen.pesanan.index', compact('pesanan', 'produks'));
     }
 
+    public function pesanan()
+    {
+        $idUser = auth()->user()->id;
+        $idAgen = Agen::whereUserId($idUser)->first()->id_agen;
+        $pesanan = Pesanan::whereAgenId($idAgen)->get();
+        $produks = Produk::all();
+        return view('agen.pesanan.pesanan', compact('pesanan', 'produks'));
+    }
+
     /**
      * Store a newly created resource in storage.
      */

@@ -31,3 +31,5 @@ function clearForm() {
 
 document.querySelector('.modal-header .close').addEventListener('click', clearForm);
 </script>
+
+

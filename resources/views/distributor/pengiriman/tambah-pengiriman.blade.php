@@ -1,21 +1,21 @@
 <div class="modal fade" id="modaltambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form id="form-prohana" class="user" action="{{ route('agen.store-pesanan') }}" method="POST">
+            <form id="form-prohana" class="user"  method="POST">
                 @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tambah Pesanan</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Pengiriman</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="form-label">Pilih Produk</label>
-                        <select name="produk_id" class="custom-select" aria-label="Default select example">
-                            <option selected>Pilih Produk</option>
-                            @foreach ($produks as $item)
-                                <option value="{{ $item->id_produk }}">{{ $item->nama_produk }}</option>
+                        <label class="form-label">Pilih Pesanan</label>
+                        <select name="pesanan_id" class="custom-select" aria-label="Default select example">
+                            <option selected>Pilih Pesanan</option>
+                            @foreach ($pesanan as $item)
+                                <option value="{{ $item->id_pesanan }}">{{ $item->nama_produk }}</option>
                             @endforeach
                         </select>
                         @error('nama_distributor')
