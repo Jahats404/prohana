@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\agen\keranjang;
 
 use App\Http\Controllers\Controller;
+use App\Models\DetailProduk;
 use App\Models\Keranjang;
 use Illuminate\Http\Request;
 
@@ -11,6 +12,7 @@ class KeranjangController extends Controller
     public function keranjang(Request $request)
     {
         $items = json_decode($request->input('cart'), true);
+        // dd($items);
         $user = auth()->user();
         $agen = $user->agen;
         // dd($agen->id_agen);

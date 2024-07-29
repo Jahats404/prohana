@@ -17,9 +17,15 @@ class Produk extends Model
         'kategori_produk',
         'jenis_produk',
         'harga',
+        'stok',
         'produsen_id',
     ];
+    
     public function produsen(){
         return $this->belongsTo(Produsen::class, 'produsen_id', 'id_produsen');
+    }
+    public function detail_produk()
+    {
+        return $this->hasMany(DetailProduk::class,'produk_id','id_produk');
     }
 }

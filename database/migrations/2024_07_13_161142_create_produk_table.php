@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('kategori_produk');
             $table->string('jenis_produk');
             $table->integer('harga');
+            $table->integer('stok');
             $table->unsignedBigInteger('produsen_id');
             $table->timestamps();
         });

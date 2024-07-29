@@ -27,6 +27,9 @@ class ProdukRequest extends FormRequest
             'kategori_produk' => 'required|string|max:255',
             'jenis_produk' => 'required|string|max:255',
             'harga' => 'required|integer|min:0',
+            'stok' => 'required|min:0',
+            'ukuran' => 'required|min:0',
+            'warna' => 'required|string|max:255',
         ];
     }
 
@@ -47,6 +50,11 @@ class ProdukRequest extends FormRequest
             'harga.required' => 'Harga produk tidak boleh kosong!',
             'harga.integer' => 'Harga produk harus berupa angka!',
             'harga.min' => 'Harga produk tidak boleh negatif!',
+            'stok.required' => 'Stok produk tidak boleh kosong!',
+            'stok.min' => 'Stok produk tidak boleh negatif!',
+            'ukuran.required' => 'Ukuran produk tidak boleh kosong!',
+            'ukuran.min' => 'Ukuran produk tidak boleh negatif!',
+            'warna.required' => 'Warna produk tidak boleh kosong!',
         ];
     }
 }

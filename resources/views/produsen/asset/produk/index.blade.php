@@ -28,7 +28,8 @@
                                 <th>Kategori</th>
                                 <th>Jenis</th>
                                 <th>Harga</th>
-                                <th>Aksi</th>
+                                <th>Stok</th>
+                                <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -39,15 +40,18 @@
                                     <td>{{ $item->kategori_produk }}</td>
                                     <td>{{ $item->jenis_produk }}</td>
                                     <td>Rp. {{ number_format($item->harga, 0, ',', '.') }}</td>
+                                    <td>{{ $item->stok }}</td>
                                     <td class="d-flex justify-content-center">
                                         <a href="#" class="btn btn-sm btn-info mr-2" data-toggle="modal" data-target="#modalDetail{{ $item->id_produk }}">Detail</a>
                                         <a href="#" class="btn btn-sm btn-warning mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_produk }}">Edit</a>
-                                        <a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalDelete{{ $item->id_produk }}">Delete</a>
+                                        <a href="#" class="btn btn-sm btn-danger mr-2" data-toggle="modal" data-target="#modalDelete{{ $item->id_produk }}">Delete</a>
+                                        <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalStok{{ $item->id_produk }}">Tambah Stok</a>
                                     </td>
                                 </tr>
                                 @include('produsen.asset.produk.edit-produk', ['item' => $item])
                                 @include('produsen.asset.produk.detail-produk', ['item' => $item])
                                 @include('produsen.asset.produk.delete-produk', ['item' => $item])
+                                @include('produsen.asset.produk.tambah-stok', ['item' => $item])
                             @endforeach
                         </tbody>
                     </table>
@@ -57,5 +61,7 @@
     </div>
 
     @include('produsen.asset.produk.tambah-produk')
+    @include('validasi.notifikasi')
+    @include('validasi.notifikasi-error')
     
 @endsection

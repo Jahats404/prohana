@@ -50,8 +50,35 @@
                         @enderror
                     </div>
                     <div class="form-group">
+                        <label class="form-label">Stok</label>
+                        <input type="number" class="form-control @error('stok') is-invalid @enderror" name="stok" value="{{ old('stok') }}" min="1">
+                        @error('stok')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Ukuran</label>
+                        <input type="number" class="form-control @error('ukuran') is-invalid @enderror" name="ukuran" value="{{ old('ukuran') }}" min="1">
+                        @error('ukuran')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Warna</label>
+                        <input type="text" class="form-control @error('warna') is-invalid @enderror" name="warna" value="{{ old('warna') }}" min="1">
+                        @error('warna')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
                         <label class="form-label">Harga</label>
-                        <input type="number" class="form-control @error('harga') is-invalid @enderror" name="harga" value="{{ old('harga') }}">
+                        <input type="number" class="form-control @error('harga') is-invalid @enderror" name="harga" value="{{ old('harga') }}" min="1">
                         @error('harga')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

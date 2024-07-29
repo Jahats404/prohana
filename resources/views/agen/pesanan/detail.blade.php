@@ -21,6 +21,7 @@
                         <h1 class="text-primary">{{ $produk->nama_produk }}</h1>
                         <p>Kategori: {{ $produk->kategori_produk }}</p>
                         <p>Jenis: {{ $produk->jenis_produk }}</p>
+                        <p>Stok: {{ $produk->stok }}</p>
                         <p>Harga: Rp. {{ number_format($produk->harga, 0, ',', '.') }}</p>
                         <p>{{ $produk->deskripsi }}</p>
                         <a href="{{ url()->previous() }}" class="btn btn-primary">Kembali</a>

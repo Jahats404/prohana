@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('keranjang', function (Blueprint $table) {
-            $table->id('id_keranjang');
-            $table->unsignedBigInteger('agen_id');
+        Schema::create('detail_produk', function (Blueprint $table) {
+            $table->string('resi')->primary();
+            $table->string('ukuran');
+            $table->string('warna');
+            $table->string('status');
             $table->unsignedBigInteger('produk_id');
-            $table->integer('jumlah');
             $table->timestamps();
-
-            $table->foreign('agen_id')->references('id_agen')->on('agen')->onDelete('cascade');
-            $table->foreign('produk_id')->references('id_produk')->on('produk')->onDelete('cascade');
+            $table->foreign('produk_id')->references('id_produk')->on('produk');
         });
     }
 
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('keranjang');
+        Schema::dropIfExists('detail_produk');
     }
 };

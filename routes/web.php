@@ -58,6 +58,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/produk', [ProdukController::class,'store'])->name('store-produk');
         Route::put('/produk/{id}', [ProdukController::class,'update'])->name('edit-produk');
         Route::delete('/produk/{id}', [ProdukController::class,'destroy'])->name('delete-produk');
+        Route::post('/tambah-stok/{id}', [ProdukController::class,'tambah_stok'])->name('tambah-stok-produk');
 
         // Route::delete('/produk/{id}', [ProdukController::class, 'destroy'])->name('hapus-produk');
 

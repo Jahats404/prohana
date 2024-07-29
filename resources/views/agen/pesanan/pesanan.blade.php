@@ -5,7 +5,7 @@
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Pesanan</h1>
             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="checkout-button"><i
-                    class="fas fa-solid fa-cart-arrow-down fa-sm text-white-50"></i> Checkout <span id="cart-count"
+                    class="fas fa-solid fa-cart-arrow-down fa-sm text-white-50"></i> Keranjang <span id="cart-count"
                     class="badge badge-light">0</span></a>
 
             {{-- Form Checkout --}}
@@ -31,15 +31,39 @@
                         <div class="card-body">
                             <img src="{{ asset('storage/produk/' . $item->foto_produk) }}" class="card-img-top"
                                 alt="{{ $item->nama_produk }}">
-                            <h5 class="card-title">{{ $item->nama_produk }}</h5>
+                            <h5 class="card-title text-primary">{{ $item->nama_produk }}</h5>
                             <p class="card-text">{{ $item->kategori_produk }} - {{ $item->jenis_produk }}</p>
                             <p class="card-text">Rp. {{ number_format($item->harga, 0, ',', '.') }}</p>
+                            <!-- Inputan Warna -->
+                            <div class="mb-2">
+                                <label for="color-{{ $item->id_produk }}" class="form-label">Warna</label>
+                                    @php
+                                        $warna = App\Models\DetailProduk::where('produk_id', $item->id_produk)->where('status', 'Tersedia')->pluck('warna')->unique();
+                                        $ukuran = App\Models\DetailProduk::where('produk_id', $item->id_produk)->where('status', 'Tersedia')->pluck('ukuran')->unique();
+                                    @endphp
+                                <select name="warna" id="color-{{ $item->id_produk }}" class="custom-select color">
+                                    <option value="">-- Pilih Warna --</option>
+                                    @foreach ($warna as $w)
+                                        <option value="{{ $w }}">{{ $w }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <!-- Inputan Ukuran -->
+                            <div class="mb-2">
+                                <label for="size-{{ $item->id_produk }}" class="form-label">Ukuran</label>
+                                <select name="ukuran" id="size-{{ $item->id_produk }}" class="custom-select size">
+                                    <option value="">-- Pilih ukuran --</option>
+                                    @foreach ($ukuran as $u)
+                                        <option value="{{ $u }}">{{ $u }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <a href="{{ route('agen.detail-produk', ['id' => $item->id_produk]) }}" class="btn btn-sm btn-outline-secondary mr-1">Detail</a>
                                     <button type="button" class="btn btn-sm btn-outline-secondary add-to-cart"
                                         data-id="{{ $item->id_produk }}"><i
-                                            class="fas fa-solid fa-cart-arrow-down fa-sm fa-fw mr-2 text-gray-400"></i>Keranjang</button>
+                                            class="fas fa-solid fa-cart-arrow-down fa-sm fa-fw mr-2 text-gray-400"></i>Masukkan Keranjang</button>
                                 </div>
                                 <input type="number" min="1" placeholder="Jumlah"
                                     class="form-control w-25 quantity">
@@ -63,27 +87,61 @@
                 button.addEventListener('click', function() {
                     const cardBody = this.closest('.card-body');
                     const quantityInput = cardBody.querySelector('.quantity');
+                    const colorInput = cardBody.querySelector('.color');
+                    const sizeInput = cardBody.querySelector('.size');
                     const quantity = parseInt(quantityInput.value);
+                    const color = colorInput.value.trim();
+                    const size = sizeInput.value.trim();
                     const productId = this.getAttribute('data-id');
+
+                    if (!color) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Perhatian!',
+                            text: 'Masukkan warna produk!'
+                        });
+                        return;
+                    }
+
+                    if (!size) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Perhatian!',
+                            text: 'Masukkan ukuran produk!'
+                        });
+                        return;
+                    }
 
                     if (!quantity || quantity < 1) {
                         Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
+                            icon: 'warning',
+                            title: 'Perhatian!',
                             text: 'Masukkan jumlah item yang valid terlebih dahulu!'
                         });
-                    } else {
-                        cartCount += quantity;
-                        cart.push({
-                            id_produk: productId,
-                            jumlah: quantity
-                        });
-                        document.getElementById('cart-count').innerText = cartCount;
-                        console.log('Item added to cart:', {
-                            id_produk: productId,
-                            jumlah: quantity
-                        });
+                        return;
                     }
+
+                    cartCount += quantity;
+                    cart.push({
+                        id_produk: productId,
+                        jumlah: quantity,
+                        warna: color,
+                        ukuran: size
+                    });
+                    document.getElementById('cart-count').innerText = cartCount;
+                    console.log('Item added to cart:', {
+                        id_produk: productId,
+                        jumlah: quantity,
+                        warna: color,
+                        ukuran: size
+                    });
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil!',
+                        text: 'Produk berhasil ditambahkan ke keranjang. Silahkan klik tombol Keranjang dipojok kanan atas',
+                        showConfirmButton: true,
+                    });
                 });
             });
 
