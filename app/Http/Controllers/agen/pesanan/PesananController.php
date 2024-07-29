@@ -79,7 +79,8 @@ class PesananController extends Controller
     {
         try {
             $decyptId = Crypt::decrypt($id);
-            $pesanan = Pesanan::findOrFail($decyptId);
+            $pesanan = Pesanan::with('produk')->findOrFail($decyptId);
+            dd($pesanan);
             $produks = Produk::all();
             return view('agen.pesanan.detail-pesanan', compact('pesanan', 'produks'));
         } catch (\Throwable $th) {

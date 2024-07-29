@@ -23,7 +23,7 @@ class Pesanan extends Model
     }
     public function produk()
     {
-        return $this->belongsTo(Produk::class,'produk_id','id_produk');
+        return $this->belongsTo(Produk::class,'id_produk', 'produk_id');
     }
     public function detail_pesanan(){
         return $this->hasOne(DetailPesanan::class,'pesanan_id','id_pesanan');

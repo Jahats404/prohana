@@ -17,8 +17,11 @@
                     <div class="row align-items-center justify-content-between">
                         <div class="col">
                             @if(Auth::check())
-                                <h2 class="text-primary">Welcome back, {{ Auth::user()->name }}!</h2>
-                                <p class="text-gray-700">Terima kasih sudah bergabung di Prohana, kami berharap Anda dapat menikmati pengalaman berjualan yang efektif dengan fitur-fitur kami seperti kelola asset, kelola pengguna, pesanan, dan lebih banyak lagi. Selalu semangat dan jangan ragu untuk menghubungi kami jika Anda memerlukan bantuan!</p>
+                                <h2 class="text-primary"><b>Hai, {{ Auth::user()->name }}!</b></h2>
+                                <h4 class="text-primary">Selamat Datang di Prohana</h4>
+                                <p class="text-gray-700" style="text-align: justify">Kami berharap Anda menikmati pengalaman
+                                    mengelola bisnis bersama kami
+                                    dengan fitur-fitur yang sudah kami buat! Salam hangat dari kami!</p>
                             @else
                                 <h2 class="text-primary">Welcome to Prohana!</h2>
                                 <p class="text-gray-700">Silakan login untuk menikmati pengalaman berjualan yang efektif dengan fitur-fitur kami seperti kelola asset, kelola pengguna, pesanan, dan lebih banyak lagi. Selalu semangat dan jangan ragu untuk menghubungi kami jika Anda memerlukan bantuan!</p>

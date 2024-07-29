@@ -5,6 +5,7 @@ use App\Http\Controllers\agen\produk\ProdukController as ProdukAgenController;
 use App\Http\Controllers\agen\distributor\DistributorController as DistributorAgenController;
 use App\Http\Controllers\agen\keranjang\KeranjangController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\distributor\agen\AgenController as AgenAgenController;
 use App\Http\Controllers\distributor\pengiriman\PengirimanController as PengirimanPengirimanController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\produsen\pesanan\PesananController as PesananProdusenCo
 use App\Http\Controllers\produsen\produk\ProdukController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +33,11 @@ use Illuminate\Support\Facades\Route;
 route::get('/', [AuthController::class,'login'])->name('login');
 route::post('/authenticate', [AuthController::class,'authenticate'])->name('authenticate');
 route::post('/logout', [AuthController::class,'logout'])->name('logout');
+
+Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
+Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
+Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
 
 Route::middleware(['auth'])->group(function () {
@@ -94,7 +101,7 @@ Route::middleware(['auth'])->group(function () {
 
         //DASHBOARD DISTRIBUTOR
         Route::get('/dashboard', [DashboardController::class, 'dashboardD'])->name('dashboard');
-        
+
         Route::get('/agen', [AgenAgenController::class, 'index'])->name('agen');
         Route::get('/pengiriman', [PengirimanPengirimanController::class, 'index'])->name('pengiriman');
 

@@ -11,7 +11,10 @@
             <div class="form-group">
                 <label class="form-label">Foto Produk:</label>
                 <div>
-                    <img src="{{ asset('storage/produk/' . $pesanan->produk->foto_produk) }}" alt="Foto Produk" style="max-width: 100%;">
+                    @php
+                        dd($pesanan->produk)
+                    @endphp
+                    {{-- <img src="{{ asset('storage/produk/' . $pesanan->produk) }}" alt="Foto Produk" style="max-width: 100%;"> --}}
                 </div>
             </div>
             <div class="form-group">

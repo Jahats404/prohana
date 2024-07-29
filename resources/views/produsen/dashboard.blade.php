@@ -16,15 +16,24 @@
                 <div class="card-body p-5">
                     <div class="row align-items-center justify-content-between">
                         <div class="col">
-                            @if(Auth::check())
-                                <h2 class="text-primary">Welcome back, {{ Auth::user()->name }}!</h2>
-                                <p class="text-gray-700">Terima kasih sudah bergabung di Prohana, kami berharap Anda dapat menikmati pengalaman berjualan yang efektif dengan fitur-fitur kami seperti kelola asset, kelola pengguna, pesanan, dan lebih banyak lagi. Selalu semangat dan jangan ragu untuk menghubungi kami jika Anda memerlukan bantuan!</p>
+                            @if (Auth::check())
+                                <h2 class="text-primary"><b>Hai, {{ Auth::user()->name }}!</b></h2>
+                                <h4 class="text-primary">Selamat Datang di Prohana</h4>
+                                <p class="text-gray-700" style="text-align: justify">Kami berharap Anda menikmati pengalaman
+                                    mengelola bisnis Anda
+                                    dengan fitur-fitur kami yang lengkap, seperti manajemen aset, manajemen pengguna,
+                                    pengelolaan pesanan, dan banyak lagi. Semangat terus dalam menjalankan tugas Anda!</p>
                             @else
                                 <h2 class="text-primary">Welcome to Prohana!</h2>
-                                <p class="text-gray-700">Silakan login untuk menikmati pengalaman berjualan yang efektif dengan fitur-fitur kami seperti kelola asset, kelola pengguna, pesanan, dan lebih banyak lagi. Selalu semangat dan jangan ragu untuk menghubungi kami jika Anda memerlukan bantuan!</p>
+                                <p class="text-gray-700">Silakan login untuk menikmati pengalaman berjualan yang efektif
+                                    dengan fitur-fitur kami seperti kelola asset, kelola pengguna, pesanan, dan lebih banyak
+                                    lagi. Selalu semangat dan jangan ragu untuk menghubungi kami jika Anda memerlukan
+                                    bantuan!</p>
                             @endif
                         </div>
-                        <div class="col d-none d-lg-block mt-xxl-n4 text-center"><img class="img-fluid px-xl-4 mt-xxl-n5" width="400" src="https://sb-admin-pro.startbootstrap.com/assets/img/illustrations/statistics.svg"></div>
+                        <div class="col d-none d-lg-block mt-xxl-n4 text-center"><img class="img-fluid px-xl-4 mt-xxl-n5"
+                                width="400"
+                                src="https://sb-admin-pro.startbootstrap.com/assets/img/illustrations/statistics.svg"></div>
                     </div>
                 </div>
             </div>
@@ -112,8 +121,7 @@
                 <div class="col-xl-8 col-lg-7">
                     <div class="card shadow mb-4">
                         <!-- Card Header - Dropdown -->
-                        <div
-                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                             <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
                             <div class="dropdown no-arrow">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -143,8 +151,7 @@
                 <div class="col-xl-4 col-lg-5">
                     <div class="card shadow mb-4">
                         <!-- Card Header - Dropdown -->
-                        <div
-                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                             <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
                             <div class="dropdown no-arrow">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -194,32 +201,28 @@
                             <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
                         </div>
                         <div class="card-body">
-                            <h4 class="small font-weight-bold">Server Migration <span
-                                    class="float-right">20%</span></h4>
+                            <h4 class="small font-weight-bold">Server Migration <span class="float-right">20%</span></h4>
                             <div class="progress mb-4">
                                 <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
                                     aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
-                            <h4 class="small font-weight-bold">Sales Tracking <span
-                                    class="float-right">40%</span></h4>
+                            <h4 class="small font-weight-bold">Sales Tracking <span class="float-right">40%</span></h4>
                             <div class="progress mb-4">
                                 <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
                                     aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
-                            <h4 class="small font-weight-bold">Customer Database <span
-                                    class="float-right">60%</span></h4>
+                            <h4 class="small font-weight-bold">Customer Database <span class="float-right">60%</span></h4>
                             <div class="progress mb-4">
-                                <div class="progress-bar" role="progressbar" style="width: 60%"
-                                    aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60"
+                                    aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
-                            <h4 class="small font-weight-bold">Payout Details <span
-                                    class="float-right">80%</span></h4>
+                            <h4 class="small font-weight-bold">Payout Details <span class="float-right">80%</span></h4>
                             <div class="progress mb-4">
                                 <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
                                     aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
-                            <h4 class="small font-weight-bold">Account Setup <span
-                                    class="float-right">Complete!</span></h4>
+                            <h4 class="small font-weight-bold">Account Setup <span class="float-right">Complete!</span>
+                            </h4>
                             <div class="progress">
                                 <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
                                     aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
@@ -234,20 +237,24 @@
                     {{-- RECENT PRODUCTS --}}
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Recent Products</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Produk Baru</h6>
                         </div>
                         <div class="card-body p-0">
                             <ul class="list-group list-group-flush">
                                 @forelse ($recentProducts as $product)
-                                    <a href="{{ route('produsen.kelola-produk') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                    <a href="{{ route('produsen.kelola-produk') }}"
+                                        class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                                         <div class="d-flex align-items-center">
-                                            <img src="{{ asset('storage/produk/' . $product->foto_produk) }}" alt="Product Image" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
+                                            <img src="{{ asset('storage/produk/' . $product->foto_produk) }}"
+                                                alt="Product Image" class="img-thumbnail"
+                                                style="width: 50px; height: 50px; object-fit: cover;">
                                             <div class="ml-3">
                                                 <span class="font-weight-bold">{{ $product->nama_produk }}</span>
                                                 <div class="text-muted small">{{ $product->kategori_produk }}</div>
                                             </div>
                                         </div>
-                                        <span class="badge badge-success badge-pill">Rp.{{ number_format($product->harga, 0, ',', '.') }}</span>
+                                        <span
+                                            class="badge badge-success badge-pill">Rp.{{ number_format($product->harga, 0, ',', '.') }}</span>
                                     </a>
                                 @empty
                                     <li class="list-group-item text-center">Tidak Ada Produk</li>
@@ -255,7 +262,7 @@
                             </ul>
                         </div>
                         <div class="card-footer text-center">
-                            <a href="{{ route('produsen.kelola-produk') }}" class="uppercase">View All Products</a>
+                            <a href="{{ route('produsen.kelola-produk') }}" class="uppercase">Lihat Semua Produk</a>
                         </div>
                     </div>
 
