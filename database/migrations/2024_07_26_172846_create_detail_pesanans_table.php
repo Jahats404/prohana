@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('detail_pesanans', function (Blueprint $table) {
             $table->id('id_detail_pesanan');
             $table->unsignedBigInteger('pesanan_id');
-            $table->foreign('pesanan_id')->references('id_pesanan')->on('pesanans')->onDelete('cascade');
-            $table->unsignedBigInteger('produk_id');
-            $table->foreign('produk_id')->references('id_produk')->on('produk')->onDelete('cascade');
+            $table->string('detail_produk_id');
             $table->date('tanggal_garansi')->nullable();
-            $table->integer('jumlah');
+            // $table->integer('jumlah');
+            $table->foreign('pesanan_id')->references('id_pesanan')->on('pesanans')->onDelete('cascade');
+            $table->foreign('detail_produk_id')->references('resi')->on('detail_produk')->onDelete('cascade');
             $table->timestamps();
         });
     }

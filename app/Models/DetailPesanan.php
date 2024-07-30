@@ -27,9 +27,10 @@ class DetailPesanan extends Model
      */
     protected $fillable = [
         'pesanan_id',
-        'produk_id',
+        // 'produk_id',
         'tanggal_garansi',
-        'jumlah',
+        // 'jumlah',
+        'detail_produk_id',
     ];
 
     /**
@@ -43,8 +44,8 @@ class DetailPesanan extends Model
     /**
      * Get the produk associated with the detail pesanan.
      */
-    public function produk()
+    public function detail_produk()
     {
-        return $this->belongsTo(Produk::class, 'produk_id', 'id_produk');
+        return $this->belongsTo(DetailProduk::class, 'detail_produk_id', 'id_detail_produk');
     }
 }

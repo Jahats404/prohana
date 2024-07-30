@@ -12,7 +12,7 @@ class KeranjangController extends Controller
     public function keranjang(Request $request)
     {
         $items = json_decode($request->input('cart'), true);
-        // dd($items);
+        dd($items);
         $user = auth()->user();
         $agen = $user->agen;
         // dd($agen->id_agen);

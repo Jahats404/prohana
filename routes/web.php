@@ -130,7 +130,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/pesanan', [PesananAgenController::class, 'pesanan'])->name('pesanan');
         Route::get('/pesanan/{id}', [PesananAgenController::class, 'show'])->name('detail-pesanan');
         Route::post('/pesanan', [PesananAgenController::class, 'store'])->name('store-pesanan');
-        Route::post('/pesanan', [PesananAgenController::class, 'store'])->name('store-pesanan');
         Route::get('/detail-produk/{id}', [PesananAgenController::class, 'detail'])->name('detail-produk');
         // keranjang
         Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang');

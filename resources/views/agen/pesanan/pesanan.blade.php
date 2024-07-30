@@ -7,12 +7,6 @@
             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="checkout-button"><i
                     class="fas fa-solid fa-cart-arrow-down fa-sm text-white-50"></i> Keranjang <span id="cart-count"
                     class="badge badge-light">0</span></a>
-
-            {{-- Form Checkout --}}
-            <form id="checkout-form" action="{{ route('agen.store-keranjang') }}" method="POST" style="display: none;">
-                @csrf
-                <input type="hidden" name="cart" id="cart-input">
-            </form>
         </div>
 
         <div class="row">
@@ -33,7 +27,7 @@
                                 alt="{{ $item->nama_produk }}">
                             <h5 class="card-title text-primary">{{ $item->nama_produk }}</h5>
                             <p class="card-text">{{ $item->kategori_produk }} - {{ $item->jenis_produk }}</p>
-                            <p class="card-text">Rp. {{ number_format($item->harga, 0, ',', '.') }}</p>
+                            <p class="card-text product-price">Rp. {{ number_format($item->harga, 0, ',', '.') }}</p>
                             <!-- Inputan Warna -->
                             <div class="mb-2">
                                 <label for="color-{{ $item->id_produk }}" class="form-label">Warna</label>
@@ -75,11 +69,39 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cartModalLabel">Detail Keranjang</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul id="cart-details" class="list-group">
+                        <!-- Detail keranjang akan ditambahkan di sini -->
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <form id="checkout-form" method="POST" action="{{ route('agen.store-pesanan') }}">
+                        @csrf
+                        <input type="hidden" name="cart" id="cart-input">
+                        <button type="submit" class="btn btn-primary">Checkout</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const cartButtons = document.querySelectorAll('.add-to-cart');
             const checkoutButton = document.getElementById('checkout-button');
+            const cartDetailsList = document.getElementById('cart-details');
             let cartCount = 0;
             let cart = [];
 
@@ -93,6 +115,18 @@
                     const color = colorInput.value.trim();
                     const size = sizeInput.value.trim();
                     const productId = this.getAttribute('data-id');
+                    const productName = cardBody.querySelector('.card-title').innerText;
+                    const productPriceText = cardBody.querySelector('.product-price').innerText.replace('Rp. ', '').replace(/\./g, '');
+                    const productPrice = parseFloat(productPriceText);
+
+                    if (!quantity || quantity < 1) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Masukkan jumlah item yang valid terlebih dahulu!'
+                        });
+                        return;
+                    }
 
                     if (!color) {
                         Swal.fire({
@@ -112,34 +146,43 @@
                         return;
                     }
 
-                    if (!quantity || quantity < 1) {
+                    if (isNaN(productPrice)) {
                         Swal.fire({
-                            icon: 'warning',
-                            title: 'Perhatian!',
-                            text: 'Masukkan jumlah item yang valid terlebih dahulu!'
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Harga produk tidak valid!'
                         });
                         return;
                     }
 
+                    const totalHarga = productPrice * quantity;
+
                     cartCount += quantity;
                     cart.push({
                         id_produk: productId,
+                        nama_produk: productName,
                         jumlah: quantity,
                         warna: color,
-                        ukuran: size
+                        ukuran: size,
+                        harga: productPrice,
+                        total_harga: totalHarga
                     });
                     document.getElementById('cart-count').innerText = cartCount;
                     console.log('Item added to cart:', {
                         id_produk: productId,
+                        nama_produk: productName,
                         jumlah: quantity,
                         warna: color,
-                        ukuran: size
+                        ukuran: size,
+                        harga: productPrice,
+                        total_harga: totalHarga
                     });
 
+                    // Show success alert
                     Swal.fire({
                         icon: 'success',
                         title: 'Berhasil!',
-                        text: 'Produk berhasil ditambahkan ke keranjang. Silahkan klik tombol Keranjang dipojok kanan atas',
+                        text: 'Produk berhasil ditambahkan ke keranjang. Silahkan klik tombol Keranjang di pojok kanan atas',
                         showConfirmButton: true,
                     });
                 });
@@ -155,11 +198,33 @@
                     return;
                 }
 
+                // Clear previous cart details
+                cartDetailsList.innerHTML = '';
+
+                // Add cart details to modal
+                cart.forEach(item => {
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('list-group-item');
+                    listItem.innerHTML = `
+                        <strong>Nama Produk:</strong> ${item.nama_produk} <br>
+                        <strong>Jumlah:</strong> ${item.jumlah} <br>
+                        <strong>Warna:</strong> ${item.warna} <br>
+                        <strong>Ukuran:</strong> ${item.ukuran} <br>
+                        <strong>Harga:</strong> Rp. ${item.harga.toLocaleString()} <br>
+                        <strong>Total Harga:</strong> Rp. ${(item.total_harga).toLocaleString()} <br>
+                        <input type="hidden" name="id_produk[]" value="${item.id_produk}">
+                        <input type="hidden" name="harga[]" value="${item.harga}">
+                        <input type="hidden" name="jumlah[]" value="${item.jumlah}">
+                        <input type="hidden" name="total_harga[]" value="${item.total_harga}">
+                    `;
+                    cartDetailsList.appendChild(listItem);
+                });
+
                 // Set cart data to hidden input
                 document.getElementById('cart-input').value = JSON.stringify(cart);
 
-                // Submit the form
-                document.getElementById('checkout-form').submit();
+                // Show the modal
+                $('#cartModal').modal('show');
             });
         });
     </script>
