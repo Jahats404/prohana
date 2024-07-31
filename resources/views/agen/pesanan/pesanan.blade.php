@@ -12,7 +12,7 @@
         <div class="row">
             @foreach ($produks as $item)
                 <div class="col-md-4">
-                    <div class="card shadow">
+                    <div class="card shadow mb-2">
                         <div class="card-header py-3">
                             <div class="d-flex justify-content-between align-items-center mb-1">
                                 <h6 class="m-0 font-weight-bold text-primary">{{ $item->nama_produk }}</h6>
@@ -23,7 +23,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <img src="{{ asset('storage/produk/' . $item->foto_produk) }}" class="card-img-top"
+                            <img src="{{ asset('storage/produk/' . $item->foto_produk) }}" height="300" class="card-img-top mb-2"
                                 alt="{{ $item->nama_produk }}">
                             <h5 class="card-title text-primary">{{ $item->nama_produk }}</h5>
                             <p class="card-text">{{ $item->kategori_produk }} - {{ $item->jenis_produk }}</p>

@@ -17,6 +17,7 @@ class PesananController extends Controller
     public function index()
     {
         $pesanan = Pesanan::simplePaginate(5);
+        
         return view('produsen.asset.pesanan.index', compact('pesanan'));
     }
 
@@ -25,6 +26,8 @@ class PesananController extends Controller
      */
     public function show($id)
     {
+        $psn = Pesanan::findOrFail(3);
+        // dd($psn->detail_pesanan->detail_produk);
         $decryptId = Crypt::decrypt($id);
         try {
             $pesanan = Pesanan::findOrFail($decryptId);
@@ -35,6 +38,11 @@ class PesananController extends Controller
             $message = 'Failed to show Pesanan : '. $th->getMessage();
             return response()->view('errors.index', compact('status', 'message'), $status);
         }
+    }
+
+    public function verif(Request $request, $id)
+    {
+        
     }
 
     /**
@@ -48,32 +56,32 @@ class PesananController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Pesanan $pesanan)
-    {
-        //
-    }
 
     public function updateStatus(Request $request, $id){
         $pesanan = Pesanan::findOrFail($id);
-        try {
+        // dd($pesanan);
+        // try {
             $pesanan->update([
-                'status_pesanan' => $request->status_pesanan
+                'status_pesanan' => $request->status
             ]);
             // Check if the status is 'accepted'
-            if ($request->status_pesanan == 'accepted') {
+            if ($request->status == 'accepted') {
                 // Update the 'tanggal_garansi' for related DetailPesanan entries
-                $detailPesan = DetailPesanan::wherePesananId($pesanan->id_pesanan)->first();
-                $detailPesan->update([
-                    'tanggal_garansi' => now()->addMonths(2)
-                ]);
+                $detailPesan = DetailPesanan::wherePesananId($pesanan->id_pesanan)->get();
+                // dd($detailPesan);
+                foreach ($detailPesan as $detail) {
+                    $detail->update([
+                        'tanggal_garansi' => now()->addMonths(2)
+                    ]);
+                }
             }
             return redirect()->back()->with('success', 'Status pesanan berhasil diubah');
-        } catch (\Throwable $th) {
-            Log::error('Failed to update status pesanan: ' . $th->getMessage());
-            $status = 500; // This should be a variable, not a constant
-            $message = 'Failed to update status pesanan. Server Error.';
-            return response()->view('errors.index', compact('status', 'message'), $status);
-        }
+        // } catch (\Throwable $th) {
+            // Log::error('Failed to update status pesanan: ' . $th->getMessage());
+            // $status = 500; // This should be a variable, not a constant
+            // $message = 'Failed to update status pesanan. Server Error.';
+            // return response()->view('errors.index', compact('status', 'message'), $status);
+        // }
     }
     /**
      * Remove the specified resource from storage.

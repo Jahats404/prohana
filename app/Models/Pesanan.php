@@ -26,6 +26,6 @@ class Pesanan extends Model
         return $this->belongsTo(Produk::class,'id_produk', 'produk_id');
     }
     public function detail_pesanan(){
-        return $this->hasOne(DetailPesanan::class,'pesanan_id','id_pesanan');
+        return $this->hasMany(DetailPesanan::class,'pesanan_id','id_pesanan');
     }
 }

@@ -38,7 +38,7 @@ class DetailPesanan extends Model
      */
     public function pesanan()
     {
-        return $this->hasOne(Pesanan::class, 'pesanan_id', 'id_pesanan');
+        return $this->belongsTo(Pesanan::class, 'pesanan_id', 'id_pesanan');
     }
 
     /**
@@ -46,6 +46,6 @@ class DetailPesanan extends Model
      */
     public function detail_produk()
     {
-        return $this->belongsTo(DetailProduk::class, 'detail_produk_id', 'id_detail_produk');
+        return $this->belongsTo(DetailProduk::class, 'detail_produk_id', 'resi');
     }
 }

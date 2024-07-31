@@ -19,6 +19,7 @@ return new class extends Migration
             // $table->foreign('agen_id')->references('id_agen')->on('agen')->onDelete('cascade');
             $table->date('tanggal_pesan');
             $table->enum('status_pesanan', ['pending', 'accepted', 'rejected']);
+            $table->string('keterangan')->nullable();
             $table->bigInteger('total_harga');
             $table->timestamps();
         });
