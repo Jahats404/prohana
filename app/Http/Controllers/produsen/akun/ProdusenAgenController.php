@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Produsen\akun;
+namespace App\Http\Controllers\produsen\akun;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AgenRequest;
-use App\Models\Agen; // Assuming you have an Agen model
+use App\Models\Agen;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
-class AgenController extends Controller
+class ProdusenAgenController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -33,7 +34,7 @@ class AgenController extends Controller
                 'email' => $validatedData['email'],
                 'password' => Hash::make('12345678'),
                 'role_id' => 3, // Adjust this to match the role ID of a agen
-                'remember_token' => Str::random(10),
+                'remember_token' => str::random(10),
             ]);
 
             // Create a new agen linked to the user

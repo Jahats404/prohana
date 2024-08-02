@@ -105,10 +105,10 @@
             <li class="nav-item {{ Request::routeIs('distributor.pesanan') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('distributor.pesanan') }}">
                     <i class="fas fa-fw fa-archive"></i>
-                    <span>Kelola Pesanan</span>
+                    <span>Daftar Pesanan</span>
                 </a>
             </li>
-            <li class="nav-item {{ Request::is('distributor.pengiriman') ? 'active' : '' }}">
+            <li class="nav-item {{ Request::routeIs('distributor.pengiriman') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('distributor.pengiriman') }}">
                     <i class="fas fa-fw fa-box"></i>
                     <span>Kelola Pengiriman</span></a>
@@ -147,11 +147,11 @@
             <div class="sidebar-heading">
                 Pesanan
             </div>
-            <li class="nav-item {{ Request::routeIs('agen.produk') ? 'active' : '' }}">
+            {{-- <li class="nav-item {{ Request::routeIs('agen.produk') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('agen.produk') }}">
                     <i class="fas fa-fw fa-box"></i>
                     <span>Produk</span></a>
-            </li>
+            </li> --}}
             <li class="nav-item {{ Request::routeIs('agen.pesanan') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('agen.pesanan') }}">
                     <i class="fas fa-fw fa-archive"></i>

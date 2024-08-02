@@ -4,7 +4,11 @@ namespace App\Http\Controllers\produsen\pengiriman;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pengiriman;
+use App\Models\Pesanan;
+use App\Models\Produk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Log;
 
 class PengirimanController extends Controller
 {
@@ -36,9 +40,25 @@ class PengirimanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Pengiriman $pengiriman)
+
+    /**
+     * Display the specified resource.
+     */
+    public function show($id)
     {
-        //
+        // try {
+            $decyptId = Crypt::decrypt($id);
+            // dd($decyptId);
+            $pesanan = Pesanan::with('produk')->find($decyptId);
+            // dd($pesanan);
+            $produk = Produk::all();
+            return view('agen.pesanan.detail', compact('pesanan', 'produk'));
+        // } catch (\Throwable $th) {
+        //     Log::error('Failed to show Pesanan: ' . $th->getMessage());
+        //     $status = 500; // This should be a variable, not a constant
+        //     $message = 'Failed to create Pesanan. Server Error.';
+        //     return response()->view('errors.index', compact('status', 'message'), $status);
+        // }
     }
 
     /**

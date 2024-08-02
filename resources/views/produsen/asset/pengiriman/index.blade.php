@@ -7,7 +7,7 @@
     <div class="row">
         @forelse ($pengiriman as $item)
         <div class="col-md-6 col-lg-4 mb-4">
-            <a class="card card-icon lift lift-sm h-100" href="{{ route('produsen.show-produk', $item->id_pengiriman) }}">
+            <a class="card card-icon lift lift-sm h-100" href="{{ route('produsen.show-pengiriman',Crypt::encrypt($item->pesanan_id)) }}">
                 <div class="row g-0 h-100">
                     <div class="col-auto card-icon-aside bg-primary d-flex align-items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box text-white-50 m-auto">
@@ -18,8 +18,11 @@
                     </div>
                     <div class="col">
                         <div class="card-body py-2">
-                            <h5 class="card-title text-primary mb-2">Pesanan : {{ $item->produk->nama_produk }}</h5>
+                            {{-- <h5 class="card-title text-primary mb-2">Pesanan : {{ $item->produk->nama_produk }}</h5>
                             <p class="card-text mb-1">{{ $item->catatan_pesanan }}</p>
+                            <p class="card-text mb-1">Status : {{ $item->status_pengiriman }}</p> --}}
+                            <h5 class="card-title text-primary mb-2">Distributor : {{ $item->distributor->nama_distributor }}</h5>
+                            <p class="card-text mb-1">Tujuan : {{ $item->distributor->domisili_distributor }}</p>
                             <p class="card-text mb-1">Status : {{ $item->status_pengiriman }}</p>
                         </div>
                     </div>

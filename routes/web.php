@@ -13,6 +13,7 @@ use App\Http\Controllers\distributor\pesanan\PesananController;
 use App\Http\Controllers\produsen\pengiriman\PengirimanController;
 use App\Http\Controllers\Produsen\akun\AgenController;
 use App\Http\Controllers\produsen\akun\DistributorController;
+use App\Http\Controllers\produsen\akun\ProdusenAgenController;
 use App\Http\Controllers\produsen\pesanan\PesananController as PesananProdusenController;
 use App\Http\Controllers\produsen\produk\ProdukController;
 use App\Http\Controllers\ProfileController;
@@ -62,6 +63,7 @@ Route::middleware(['auth'])->group(function () {
 
         // KELOLA PRODUK
         Route::get('/produk', [ProdukController::class, 'index'])->name('kelola-produk');
+        Route::get('/detail-produk/{id}', [ProdukController::class, 'show'])->name('show-produk');
         Route::post('/produk', [ProdukController::class,'store'])->name('store-produk');
         Route::put('/produk/{id}', [ProdukController::class,'update'])->name('edit-produk');
         Route::delete('/produk/{id}', [ProdukController::class,'destroy'])->name('delete-produk');
@@ -71,10 +73,10 @@ Route::middleware(['auth'])->group(function () {
 
 
         // KELOLA AGEN
-        Route::get('/agen', [AgenController::class, 'index'])->name('kelola-agen');
-        Route::post('/agen', [AgenController::class, 'store'])->name('store-agen');
-        Route::put('/agen/{id}', [AgenController::class, 'update'])->name('update-agen');
-        Route::delete('/agen/{id}', [AgenController::class, 'destroy'])->name('delete-agen');
+        Route::get('/agen', [ProdusenAgenController::class,'index'])->name('kelola-agen');
+        Route::post('/agen', [ProdusenAgenController::class, 'store'])->name('store-agen');
+        Route::put('/agen/{id}', [ProdusenAgenController::class, 'update'])->name('update-agen');
+        Route::delete('/agen/{id}', [ProdusenAgenController::class, 'destroy'])->name('delete-agen');
 
         // KELOLA PESANAN
         Route::get('pesanan', [PesananProdusenController::class, 'index'])->name('kelola-pesanan');
@@ -85,6 +87,7 @@ Route::middleware(['auth'])->group(function () {
 
         // KELOLA DISTRIBUSI
         Route::get('pengiriman', [PengirimanController::class, 'index'])->name('kelola-pengiriman');
+        Route::get('/detail-pengiriman/{id}', [PengirimanController::class, 'show'])->name('show-pengiriman');
 
         // Route::put('distribusi/update/{id}', [DistribusiController::class, 'update'])->name('distribusi.update');
 
@@ -103,10 +106,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'dashboardD'])->name('dashboard');
 
         Route::get('/agen', [AgenAgenController::class, 'index'])->name('agen');
+        
+        //Pengiriman
         Route::get('/pengiriman', [PengirimanPengirimanController::class, 'index'])->name('pengiriman');
+        Route::post('/store-pengiriman', [PengirimanPengirimanController::class, 'store'])->name('store-pengiriman');
+        Route::put('/status-pengiriman/{id}', [PengirimanPengirimanController::class, 'status'])->name('status-pengiriman');
 
         Route::get('/pesanan', [PesananController::class, 'index'])->name('pesanan');
-
+        Route::get('/detail-pesanan/{id}', [PesananController::class, 'show'])->name('show-pesanan');
 
         // Route::get('/distributor', [DistributorController::class, 'distributor'])->name('distributor');
         // Route::put('/distributor/update/{id}', [DistributorController::class, 'update'])->name('distributor.update');

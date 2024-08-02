@@ -26,8 +26,6 @@ class PesananController extends Controller
      */
     public function show($id)
     {
-        $psn = Pesanan::findOrFail(3);
-        // dd($psn->detail_pesanan->detail_produk);
         $decryptId = Crypt::decrypt($id);
         try {
             $pesanan = Pesanan::findOrFail($decryptId);

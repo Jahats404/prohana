@@ -14,6 +14,7 @@ class AgenController extends Controller
      */
     public function index()
     {
+        // dd('asd');
         $user = auth()->user();
         $domisiliDistributor = $user->distributor->domisili_distributor;
         $agen = Agen::where('domisili_agen', $domisiliDistributor)->get();

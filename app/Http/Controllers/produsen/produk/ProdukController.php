@@ -11,6 +11,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -25,7 +26,22 @@ class ProdukController extends Controller
     {
         $produk = Produk::all();
         $produsen = Produsen::all();
+        // dd('asd');
         return view('produsen.asset.produk.index', compact('produk', 'produsen'));
+    }
+
+    public function show($id)
+    {
+        $decryptId = Crypt::decrypt($id);
+        $produk = Produk::find($decryptId);
+        // Mengelompokkan berdasarkan warna dan ukuran, serta menghitung jumlah untuk setiap kombinasi
+        $detailProdukGrouped = DetailProduk::select('produk_id', 'warna', 'ukuran', DB::raw('COUNT(*) as count'))
+                                ->where('produk_id', $decryptId)
+                                ->groupBy('produk_id', 'warna', 'ukuran')
+                                ->get();
+        // dd($detailProdukGrouped);
+        
+        return view('produsen.asset.produk.detail', compact('detailProdukGrouped', 'produk'));
     }
 
     /**
@@ -156,10 +172,41 @@ class ProdukController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ProdukRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        $rules = [
+            'foto_produk' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'nama_produk' => 'required|string|max:255',
+            'kategori_produk' => 'required|string|max:255',
+            'jenis_produk' => 'required|string|max:255',
+            'harga' => 'required|integer|min:0',
+            // 'stok' => 'required|min:0',
+            // 'ukuran' => 'required|min:0',
+            // 'warna' => 'required|string|max:255',
+        ];
+        $messages = [
+            'foto_produk.image' => 'Foto produk harus berupa gambar!',
+            'foto_produk.mimes' => 'Foto produk harus berformat jpeg, png, jpg, gif, atau svg!',
+            'foto_produk.max' => 'Foto produk tidak boleh lebih dari 2MB!',
+            'nama_produk.required' => 'Nama produk tidak boleh kosong!',
+            'kategori_produk.required' => 'Kategori produk tidak boleh kosong!',
+            'jenis_produk.required' => 'Jenis produk tidak boleh kosong!',
+            'harga.required' => 'Harga produk tidak boleh kosong!',
+            'harga.integer' => 'Harga produk harus berupa angka!',
+            'harga.min' => 'Harga produk tidak boleh negatif!',
+            // 'stok.required' => 'Stok produk tidak boleh kosong!',
+            // 'stok.min' => 'Stok produk tidak boleh negatif!',
+            // 'ukuran.required' => 'Ukuran produk tidak boleh kosong!',
+            // 'ukuran.min' => 'Ukuran produk tidak boleh negatif!',
+            // 'warna.required' => 'Warna produk tidak boleh kosong!',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        
         $findById = Produk::findOrFail($id);
-        $validateData = $request->validated();
+        $validateData = $request->all();
         try {
             $fileImage = $request->file('foto_produk');
             if ($fileImage) {
@@ -176,6 +223,42 @@ class ProdukController extends Controller
             }
 
             $findById->update($validateData);
+            
+            // $produk = Produk::findOrFail( $id );
+            
+            // // kode dibawah untuk mengambil resi lama
+            // $firstKarakterJenis = substr($produk->jenis_produk, 0, 1);
+            // $firstKarakterKategori = substr($produk->kategori_produk, 0, 1);
+            // $firstKarakterNama = substr($produk->nama_produk, 0, 1);
+            // $tanggal = str_replace('-', '', $produk->created_at->toDateString());
+            // $resiLama = $firstKarakterJenis . $firstKarakterKategori . $tanggal . $firstKarakterNama;
+
+            // // kode dibawah untuk mengambil resi baru
+            // $firstKarakterNamaBaru = substr($request->nama_produk, 0, 1);
+            // $firstKarakterKategoriBaru = substr($request->kategori_produk, 0, 1);
+            // $firstKarakterJenisBaru = substr($request->jenis_produk, 0, 1);
+            
+            // $detail = DetailProduk::where('produk_id', $id)->where('resi', 'LIKE', '%' . $resiLama . '%')->where('status', 'Tersedia')->get();
+            // dd($resiLama);
+            // foreach ($detail as $dt) {
+            //     $firstKarakterWarna = substr($dt->warna, 0, 1);
+            //     $resiBaru = $firstKarakterJenisBaru . $firstKarakterKategoriBaru . $tanggal . $firstKarakterNamaBaru . $dt->ukuran . substr($dt->warna, 0, 1);
+            //     // dd($resiBaru);
+                
+            //     $latestProduk = DetailProduk::select('*')
+            //                     ->where('resi', 'LIKE', '%' . $resiBaru . '%')
+            //                     ->where('produk_id', $id)
+            //                     ->where('warna', $dt->warna)
+            //                     ->where('ukuran', $dt->ukuran)
+            //                     ->orderBy(DB::raw("CAST(SUBSTRING(resi, 15) AS UNSIGNED)"), 'desc')
+            //                     ->first();
+            //     $latestidProduk = $latestProduk ? intval(substr($latestProduk->resi, 14)) : 0;
+            //     dd($latestidProduk);
+                
+            //     $dt->resi =  $resiBaru;
+            //     $dt->save();
+            //     dd($produk);
+            // }
 
             return redirect()->route('produsen.kelola-produk')->with('success', 'Produk berhasil diupdate');
         } catch (\Throwable $th) {

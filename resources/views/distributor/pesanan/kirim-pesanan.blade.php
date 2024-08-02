@@ -1,10 +1,11 @@
 <div class="modal fade" id="modalKirim{{ $item->id_pesanan }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form id="form-prohana" class="user" action="" method="POST">
+            <form class="user" action="{{ route('distributor.store-pengiriman') }}" method="POST">
                 @csrf
                 <div class="modal-header">
                     <h6 class="m-0 font-weight-bold text-primary">ID Pesanan #{{ $item->id_pesanan }}</h6>
+                    <input value="{{ $item->id_pesanan }}" name="pesanan_id" id="" hidden>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -13,10 +14,9 @@
                     <div class="form-group">
                         <label class="form-label">Pilih Jenis Pengiriman</label>
                         <select name="jenis_pengiriman" class="custom-select" aria-label="Default select example">
-                            <option selected>Pilih Jenis Pengiriman</option>
-                            <option value="COD">COD</option>
-                            <option value="JNT">JNT</option>
-                            <option value="SI CEPAT">SI CEPAT</option>
+                            <option selected value="">-- Pilih Jenis Pengiriman --</option>
+                            <option value="Pesanan">Pesanan</option>
+                            <option value="Garansi">Garansi</option>
                         </select>
                         @error('jenis_pengiriman')
                             <span class="invalid-feedback" role="alert">

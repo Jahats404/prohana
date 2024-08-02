@@ -28,4 +28,8 @@ class Pesanan extends Model
     public function detail_pesanan(){
         return $this->hasMany(DetailPesanan::class,'pesanan_id','id_pesanan');
     }
+    public function pengiriman()
+    {
+        return $this->hasOne(Pengiriman::class,'pesanan_id','id_pesanan');
+    }
 }
