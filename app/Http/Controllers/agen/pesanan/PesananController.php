@@ -43,7 +43,7 @@ class PesananController extends Controller
     {
         $produk = Produk::findOrFail($id);
         // dd($produk);
-        return view('agen.pesanan.detail',compact('produk'));
+        return view('agen.produk.detail-produk',compact('produk'));
     }
 
     /**
@@ -142,9 +142,9 @@ class PesananController extends Controller
         try {
             $decyptId = Crypt::decrypt($id);
             $pesanan = Pesanan::with('produk')->findOrFail($decyptId);
-            dd($pesanan);
+            // dd($pesanan);
             $produks = Produk::all();
-            return view('agen.pesanan.detail-pesanan', compact('pesanan', 'produks'));
+            return view('agen.pesanan.detail', compact('pesanan', 'produks'));
         } catch (\Throwable $th) {
             Log::error('Failed to show Pesanan: ' . $th->getMessage());
             $status = 500; // This should be a variable, not a constant
@@ -160,5 +160,16 @@ class PesananController extends Controller
             return response()->json(['error' => 'Product not found'], 404);
         }
         return response()->json(['harga' => $product->harga]);
+    }
+
+    public function getStock($produk_id, $warna, $ukuran)
+    {
+        $stok = DetailProduk::where('produk_id', $produk_id)
+            ->where('warna', $warna)
+            ->where('ukuran', $ukuran)
+            ->where('status', 'Tersedia')
+            ->count();
+        
+        return response()->json(['stok' => $stok]);
     }
 }

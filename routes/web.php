@@ -4,6 +4,7 @@ use App\Http\Controllers\agen\pesanan\PesananController as PesananAgenController
 use App\Http\Controllers\agen\produk\ProdukController as ProdukAgenController;
 use App\Http\Controllers\agen\distributor\DistributorController as DistributorAgenController;
 use App\Http\Controllers\agen\keranjang\KeranjangController;
+use App\Http\Controllers\agen\pengiriman\AgenPengirimanController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\dashboard\DashboardController;
@@ -40,6 +41,7 @@ Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPa
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
+Route::get('/stok/{produk_id}/{warna}/{ukuran}', [PesananAgenController::class, 'getStock'])->name('getStock');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class,'edit'])->name('profile');
@@ -109,6 +111,7 @@ Route::middleware(['auth'])->group(function () {
         
         //Pengiriman
         Route::get('/pengiriman', [PengirimanPengirimanController::class, 'index'])->name('pengiriman');
+        Route::get('/detail-pengiriman/{id}', [PengirimanPengirimanController::class, 'show'])->name('detail-pengiriman');
         Route::post('/store-pengiriman', [PengirimanPengirimanController::class, 'store'])->name('store-pengiriman');
         Route::put('/status-pengiriman/{id}', [PengirimanPengirimanController::class, 'status'])->name('status-pengiriman');
 
@@ -137,7 +140,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/pesanan', [PesananAgenController::class, 'pesanan'])->name('pesanan');
         Route::get('/pesanan/{id}', [PesananAgenController::class, 'show'])->name('detail-pesanan');
         Route::post('/pesanan', [PesananAgenController::class, 'store'])->name('store-pesanan');
-        Route::get('/detail-produk/{id}', [PesananAgenController::class, 'detail'])->name('detail-produk');
+        Route::get('/detail-produk/{id}', [ProdukAgenController::class, 'show'])->name('detail-produk');
+        
+
         // keranjang
         Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang');
         Route::post('/keranjang', [KeranjangController::class, 'keranjang'])->name('store-keranjang');
@@ -148,6 +153,11 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/distributor', [DistributorAgenController::class, 'index'])->name('distributor');
         Route::get('/distributor/{id}', [DistributorAgenController::class, 'show'])->name('detail-distributor');
+
+        // KELOLA PENGIRIMAN
+        Route::get('/pengiriman', [AgenPengirimanController::class, 'index'])->name('pengiriman');
+        Route::get('/detail-pengiriman/{id}', [AgenPengirimanController::class, 'show'])->name('show-pengiriman');
+        
 
         // Route::get('/produk', [ProdukController::class, 'index'])->name('produk');
         // Route::post('/tambah-produk', [ProdukController::class,'store'])->name('tambah-produk');

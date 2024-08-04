@@ -1,7 +1,11 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    @php
+        $user = Auth()->user()->role->level;
+        $level = strtolower($user);
+    @endphp
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route($level.'.dashboard') }}">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-hand-spock"></i>
         </div>
@@ -157,26 +161,34 @@
                     <i class="fas fa-fw fa-archive"></i>
                     <span>Daftar Produk</span></a>
             </li>
-            <li class="nav-item {{ Request::routeIs('agen.keranjang') ? 'active' : '' }}">
+            {{-- <li class="nav-item {{ Request::routeIs('agen.keranjang') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('agen.keranjang') }}">
                     <i class="fas fa-fw fa-cart-arrow-down"></i>
                     <span>Daftar Keranjang</span></a>
-            </li>
+            </li> --}}
             <li class="nav-item {{ Request::routeIs('agen.daftar-pesanan') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('agen.daftar-pesanan') }}">
                     <i class="fas fa-fw fa-archive"></i>
                     <span>Daftar Pesanan</span></a>
             </li>
             {{-- <li class="nav-item {{ Request::is('produsen.kelola-pesanan') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('produsen.kelola-pesanan') }}">
-                <i class="fas fa-fw fa-archive"></i>
-                <span>Pesanan</span></a>
-        </li>
-        <li class="nav-item {{ Request::is('produsen.kelola-pengiriman') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('produsen.kelola-pengiriman') }}">
-                <i class="fas fa-fw fa-truck"></i>
-                <span>Pengiriman Produk</span></a>
-        </li> --}}
+                <a class="nav-link" href="{{ route('produsen.kelola-pesanan') }}">
+                    <i class="fas fa-fw fa-archive"></i>
+                    <span>Pesanan</span></a>
+            </li> --}}
+            <li class="nav-item {{ Request::RouteIs('agen.pengiriman') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('agen.pengiriman') }}">
+                    <i class="fas fa-fw fa-truck"></i>
+                    <span>Pengiriman Produk</span></a>
+            </li>
+            <div class="sidebar-heading">
+                Barang
+            </div>
+            <li class="nav-item {{ Request::RouteIs('agen.pengiriman') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('agen.pengiriman') }}">
+                    <i class="fas fa-fw fa-truck"></i>
+                    <span>Barang Tersedia</span></a>
+            </li>
         @endif
     @endauth
 

@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('pengirimans', function (Blueprint $table) {
             $table->id('id_pengiriman');
             $table->unsignedBigInteger('distributor_id');
-            $table->unsignedBigInteger('pesanan_id');
+            $table->unsignedBigInteger('pesanan_id')->nullable();
+            $table->unsignedBigInteger('garansi_id')->nullable();
             $table->foreign('distributor_id')->references('id_distributor')->on('distributor')->onDelete('cascade');
             $table->foreign('pesanan_id')->references('id_pesanan')->on('pesanans')->onDelete('cascade');
+            $table->foreign('garansi_id')->references('id_garansi')->on('garansis')->onDelete('cascade');
             $table->enum('status_pengiriman', ['Sedang Diproses', 'Dalam Perjalanan', 'Sampai Tujuan']);
             $table->string('jenis_pengiriman');
             $table->date('tanggal_pengiriman');

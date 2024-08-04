@@ -7,6 +7,7 @@ use App\Http\Requests\PengirimanRequest;
 use App\Models\Agen;
 use App\Models\Pengiriman;
 use App\Models\Pesanan;
+use App\Models\Produk;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -55,6 +56,26 @@ class PengirimanController extends Controller
         $pengiriman->save();
 
         return redirect()->back()->with('success','Pengiriman berhasil ditambahkan');
+    }
+
+    public function show($id)
+    {
+        // try {
+            $decyptId = Crypt::decrypt($id);
+            // dd($decyptId);
+            $pengiriman = Pengiriman::find($decyptId);
+            $pesanan = Pesanan::with('produk')->find($pengiriman->pesanan_id);
+            // dd($pesanan);
+            $produk = Produk::all();
+            $pengiriman = Pengiriman::with('pesanan.agen', 'distributor') // Pastikan relasi telah didefinisikan
+                            ->findOrFail($decyptId);
+            return view('distributor.pengiriman.detail-pengiriman', compact('pesanan', 'produk','pengiriman'));
+        // } catch (\Throwable $th) {
+        //     Log::error('Failed to show Pesanan: ' . $th->getMessage());
+        //     $status = 500; // This should be a variable, not a constant
+        //     $message = 'Failed to create Pesanan. Server Error.';
+        //     return response()->view('errors.index', compact('status', 'message'), $status);
+        // }
     }
 
     public function status(Request $request, $id)

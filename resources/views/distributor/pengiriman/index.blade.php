@@ -51,7 +51,7 @@
                                     <td>{{ $item->jenis_pengiriman }}</td>
                                     <td>{{ \App\Helpers\DateHelper::formatTanggal($item->tanggal_pengiriman) }}</td>
                                     <td class="d-flex justify-content-center">
-                                        <a href="{{ route('distributor.show-pesanan', Crypt::encrypt($item->pesanan_id)) }}" class="btn btn-sm btn-warning mr-2">Detail</a>
+                                        <a href="{{ route('distributor.detail-pengiriman', Crypt::encrypt($item->id_pengiriman)) }}" class="btn btn-sm btn-warning mr-2">Detail</a>
             
                                         <div class="dropdown no-arrow mb-1">
                                             <button class="d-none d-sm-inline-block btn btn-primary btn-sm shadow-sm dropdown-toggle" type="button"

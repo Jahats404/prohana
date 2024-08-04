@@ -52,7 +52,9 @@ class PengirimanController extends Controller
             $pesanan = Pesanan::with('produk')->find($decyptId);
             // dd($pesanan);
             $produk = Produk::all();
-            return view('agen.pesanan.detail', compact('pesanan', 'produk'));
+            $pengiriman = Pengiriman::find($decyptId);
+
+            return view('produsen.asset.pengiriman.detail-pengiriman', compact('pesanan', 'produk','pengiriman'));
         // } catch (\Throwable $th) {
         //     Log::error('Failed to show Pesanan: ' . $th->getMessage());
         //     $status = 500; // This should be a variable, not a constant

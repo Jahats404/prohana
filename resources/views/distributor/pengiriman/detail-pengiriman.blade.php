@@ -3,6 +3,34 @@
 @section('content')
     <div class="container-fluid px-4">
         <!-- Knowledge base article-->
+        <h1>Detail Pengiriman</h1>
+        <div class="card mb-3">
+            <div class="card-header">
+                <strong>ID Pengiriman:</strong> {{ $pengiriman->id_pengiriman }}
+            </div>
+            <div class="card-body">
+                <p><strong>Distributor:</strong> {{ $pengiriman->distributor->nama_distributor }}</p>
+                <p><strong>Nama Agen:</strong> {{ $pengiriman->pesanan->agen->nama_agen }}</p>
+                <p><strong>Status Pengiriman:</strong> 
+                    <span class="badge rounded-pill 
+                        @if ($pengiriman->status_pengiriman == 'Sedang Diproses')
+                            badge-info 
+                        @elseif ($pengiriman->status_pengiriman == 'Dalam Perjalanan')
+                            badge-warning 
+                        @elseif ($pengiriman->status_pengiriman == 'Sampai Tujuan')
+                            badge-success
+                        @else
+                            badge-secondary
+                        @endif
+                    ">
+                        {{ $pengiriman->status_pengiriman }}
+                    </span>
+                </p>
+                <p><strong>Jenis Pengiriman:</strong> {{ $pengiriman->jenis_pengiriman }}</p>
+                <p><strong>Tanggal Pengiriman:</strong> {{ \App\Helpers\DateHelper::formatTanggal($pengiriman->tanggal_pengiriman) }}</p>
+            </div>
+        </div>
+
         <h1>Detail Pesanan</h1>
         <div class="card mb-3">
             <div class="card-header d-flex justify-content-between">
@@ -32,6 +60,7 @@
             <thead>
                 <tr>
                     <th>No</th>
+                    <th>Resi</th>
                     <th>Nama Produk</th>
                     <th>Warna</th>
                     <th>Ukuran</th>
@@ -45,6 +74,7 @@
                 @foreach ($pesanan->detail_pesanan as $detail)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
+                        <td>{{ $detail->detail_produk->resi }}</td>
                         <td>{{ $detail->detail_produk->produk->nama_produk }}</td>
                         <td>{{ $detail->detail_produk->warna }}</td>
                         <td>{{ $detail->detail_produk->ukuran }}</td>
@@ -55,7 +85,7 @@
                     @endphp
                 @endforeach
                 <tr>
-                    <td colspan="4" class="text-end font-weight-bolder">Total Harga :</td>
+                    <td colspan="5" class="text-end font-weight-bolder">Total Keseluruhan :</td>
                     <td colspan="1" class="font-weight-bolder">Rp. {{ number_format($totalHarga, 0, ',', '.') }}</td>
                 </tr>
             </tbody>

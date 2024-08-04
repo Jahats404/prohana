@@ -35,7 +35,7 @@
                                     "> {{ $item->status_pesanan }}</span>
                                 </p>
                                 <hr>
-                                <a href="{{ route('distributor.show-pesanan', Crypt::encrypt($item->id_pesanan)) }}" class="btn btn-warning">Detail</a>
+                                <a href="{{ route('agen.detail-pesanan', Crypt::encrypt($item->id_pesanan)) }}" class="btn btn-warning">Detail</a>
                             </div>
                         </div>
                     </div>

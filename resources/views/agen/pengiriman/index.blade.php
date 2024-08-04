@@ -7,7 +7,7 @@
     <div class="row">
         @forelse ($pengiriman as $item)
         <div class="col-md-6 col-lg-4 mb-4">
-            <a class="card card-icon lift lift-sm h-100" href="{{ route('produsen.show-pengiriman',Crypt::encrypt($item->id_pengiriman)) }}">
+            <a class="card card-icon lift lift-sm h-100" href="{{ route('agen.show-pengiriman',Crypt::encrypt($item->id_pengiriman)) }}">
                 <div class="row g-0 h-100">
                     <div class="col-auto card-icon-aside bg-primary d-flex align-items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box text-white-50 m-auto">
@@ -34,7 +34,6 @@
                                 <span class="badge badge-secondary">{{ $item->status_pengiriman }}</span>
                             @endif
                             </p>
-                            <p class="card-text mb-1">Nama Agen : {{ $item->pesanan->agen->nama_agen }}</p>
                         </div>
                     </div>
                 </div>
