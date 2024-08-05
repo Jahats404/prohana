@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Garansi extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'id_garansi';
+    protected $table = 'garansis';
+    protected $fillable = [
+        'detail_pesanan_id',
+        'status_garansi',
+        'catatan_garansi',
+    ];
+
+    public function detail_pesanan()
+    {
+        return $this->belongsTo(DetailPesanan::class,'detail_pesanan_id', 'id_detail_pesanan');
+    }
+    
 }

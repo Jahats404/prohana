@@ -66,12 +66,12 @@ class PesananController extends Controller
             if ($request->status == 'accepted') {
                 // Update the 'tanggal_garansi' for related DetailPesanan entries
                 $detailPesan = DetailPesanan::wherePesananId($pesanan->id_pesanan)->get();
-                // dd($detailPesan);
-                foreach ($detailPesan as $detail) {
-                    $detail->update([
-                        'tanggal_garansi' => now()->addMonths(2)
-                    ]);
-                }
+                
+                // foreach ($detailPesan as $detail) {
+                //     $detail->update([
+                //         'tanggal_garansi' => now()->addMonths(2)
+                //     ]);
+                // }
             }
             return redirect()->back()->with('success', 'Status pesanan berhasil diubah');
         // } catch (\Throwable $th) {

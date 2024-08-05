@@ -48,4 +48,9 @@ class DetailPesanan extends Model
     {
         return $this->belongsTo(DetailProduk::class, 'detail_produk_id', 'resi');
     }
+
+    public function garansi()
+    {
+        return $this->hasOne(Garansi::class,'detail_pesanan_id', 'id_detail_pesanan');
+    }
 }

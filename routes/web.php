@@ -3,8 +3,10 @@
 use App\Http\Controllers\agen\pesanan\PesananController as PesananAgenController;
 use App\Http\Controllers\agen\produk\ProdukController as ProdukAgenController;
 use App\Http\Controllers\agen\distributor\DistributorController as DistributorAgenController;
+use App\Http\Controllers\agen\garansi\AgenGaransiController;
 use App\Http\Controllers\agen\keranjang\KeranjangController;
 use App\Http\Controllers\agen\pengiriman\AgenPengirimanController;
+use App\Http\Controllers\agen\produk\BarangController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\dashboard\DashboardController;
@@ -136,6 +138,8 @@ Route::middleware(['auth'])->group(function () {
 
         //DASHBOARD AGEN
         Route::get('/dashboard', [DashboardController::class, 'dashboardA'])->name('dashboard');
+
+        //PESANAN
         Route::get('/daftar-pesanan', [PesananAgenController::class, 'index'])->name('daftar-pesanan');
         Route::get('/pesanan', [PesananAgenController::class, 'pesanan'])->name('pesanan');
         Route::get('/pesanan/{id}', [PesananAgenController::class, 'show'])->name('detail-pesanan');
@@ -157,6 +161,11 @@ Route::middleware(['auth'])->group(function () {
         // KELOLA PENGIRIMAN
         Route::get('/pengiriman', [AgenPengirimanController::class, 'index'])->name('pengiriman');
         Route::get('/detail-pengiriman/{id}', [AgenPengirimanController::class, 'show'])->name('show-pengiriman');
+
+        //BARANG
+        Route::get('/barang-tersedia', [BarangController::class, 'index'])->name('barang-tersedia');
+        Route::get('/barang-terjual/{id}', [BarangController::class, 'terjual'])->name('barang-terjual');
+        Route::post('/garansi/{id}', [AgenGaransiController::class, 'klaim_garansi'])->name('garansi');
         
 
         // Route::get('/produk', [ProdukController::class, 'index'])->name('produk');

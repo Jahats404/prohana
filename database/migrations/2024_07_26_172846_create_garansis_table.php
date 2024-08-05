@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('garansis', function (Blueprint $table) {
             $table->id('id_garansi');
-            $table->unsignedBigInteger('pesanan_id');
-            $table->foreign('pesanan_id')->references('id_pesanan')->on('pesanans')->onDelete('cascade');
-            $table->enum('status_garansi', ['active', 'expired']);
-            $table->text('catatan_garansi');
+            $table->unsignedBigInteger('detail_pesanan_id');
+            $table->foreign('detail_pesanan_id')->references('id_detail_pesanan')->on('detail_pesanans')->onDelete('cascade');
+            $table->enum('status_garansi', ['Aktif', 'Kadaluwarsa', 'Diajukan']);
+            $table->text('catatan_garansi')->nullable();
             $table->timestamps();
         });
     }

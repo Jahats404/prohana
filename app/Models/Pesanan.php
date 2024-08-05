@@ -32,4 +32,8 @@ class Pesanan extends Model
     {
         return $this->hasOne(Pengiriman::class,'pesanan_id','id_pesanan');
     }
+    public function garansi()
+    {
+        return $this->hasMany(Garansi::class,'pesanan_id', 'id_pesanan');
+    }
 }
