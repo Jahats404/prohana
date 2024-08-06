@@ -312,7 +312,7 @@
                             .then(response => response.json())
                             .then(data => {
                                 stockAvailable = data.stok || 0; // Update the available stock
-                                stockInfo.textContent = data.stok ? `Stok: ${data.stok}` : 'Data tidak tersedia';
+                                stockInfo.textContent = data.stok ? ` ${data.stok}` : 'Data tidak tersedia';
                             })
                             .catch(error => {
                                 console.error('Error fetching stock:', error);

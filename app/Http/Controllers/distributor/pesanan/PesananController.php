@@ -18,7 +18,7 @@ class PesananController extends Controller
         // $pesanan = Pesanan::whereHas('agen', function ($query) use($distributor) {
         //     $query->where('domisili_agen', $distributor->domisili_distributor);
         // })->get();
-        $existingPesananIds = Pengiriman::pluck('pesanan_id')->toArray();
+        $existingPesananIds = Pengiriman::where('jenis_pengiriman', 'Pesanan')->pluck('pesanan_id')->toArray();
         
         $pesanan = Pesanan::whereHas('agen', function ($query) use ($distributor) {
             $query->where('domisili_agen', $distributor->domisili_distributor);

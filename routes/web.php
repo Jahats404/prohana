@@ -11,12 +11,14 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\distributor\agen\AgenController as AgenAgenController;
+use App\Http\Controllers\distributor\garansi\DistributorGaransiController;
 use App\Http\Controllers\distributor\pengiriman\PengirimanController as PengirimanPengirimanController;
 use App\Http\Controllers\distributor\pesanan\PesananController;
 use App\Http\Controllers\produsen\pengiriman\PengirimanController;
 use App\Http\Controllers\Produsen\akun\AgenController;
 use App\Http\Controllers\produsen\akun\DistributorController;
 use App\Http\Controllers\produsen\akun\ProdusenAgenController;
+use App\Http\Controllers\produsen\garansi\ProdusenGaransiController;
 use App\Http\Controllers\produsen\pesanan\PesananController as PesananProdusenController;
 use App\Http\Controllers\produsen\produk\ProdukController;
 use App\Http\Controllers\ProfileController;
@@ -93,6 +95,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('pengiriman', [PengirimanController::class, 'index'])->name('kelola-pengiriman');
         Route::get('/detail-pengiriman/{id}', [PengirimanController::class, 'show'])->name('show-pengiriman');
 
+        // KELOLA GARANSI
+        Route::get('garansi', [ProdusenGaransiController::class, 'index'])->name('kelola-garansi');
+        Route::get('detail-garansi/{id}', [ProdusenGaransiController::class, 'show'])->name('show-garansi');
+        Route::put('verifikasi-garansi/{id}', [ProdusenGaransiController::class, 'verifikasi'])->name('verifikasi-garansi');
+
         // Route::put('distribusi/update/{id}', [DistribusiController::class, 'update'])->name('distribusi.update');
 
         // KELOLA GARANSI
@@ -117,8 +124,12 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/store-pengiriman', [PengirimanPengirimanController::class, 'store'])->name('store-pengiriman');
         Route::put('/status-pengiriman/{id}', [PengirimanPengirimanController::class, 'status'])->name('status-pengiriman');
 
+        // KELOLA PESANAN
         Route::get('/pesanan', [PesananController::class, 'index'])->name('pesanan');
         Route::get('/detail-pesanan/{id}', [PesananController::class, 'show'])->name('show-pesanan');
+
+        // KELOLA GARANSI
+        Route::get('/garansi', [DistributorGaransiController::class, 'index'])->name('garansi');
 
         // Route::get('/distributor', [DistributorController::class, 'distributor'])->name('distributor');
         // Route::put('/distributor/update/{id}', [DistributorController::class, 'update'])->name('distributor.update');

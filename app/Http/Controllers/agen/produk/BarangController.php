@@ -67,12 +67,13 @@ class BarangController extends Controller
 
     public function terjual($id)
     {
-        $decId = Crypt::decrypt($id);
-        $dtPesanan = DetailPesanan::where('detail_produk_id',$decId)->first();
+        // $decId = Crypt::decrypt($id);
+        // dd($id);
+        $dtPesanan = DetailPesanan::where('detail_produk_id',$id)->first();
         $dtPesanan->tanggal_garansi = now()->addMonths(2);
         $dtPesanan->save();
         
-        $dtProduk = DetailProduk::findOrFail($decId);
+        $dtProduk = DetailProduk::findOrFail($id);
         $dtProduk->status = 'Terjual';
         $dtProduk->save();
         // dd($dtProduk);

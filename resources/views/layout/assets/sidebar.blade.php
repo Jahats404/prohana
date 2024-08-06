@@ -80,6 +80,19 @@
                     <i class="fas fa-fw fa-archive"></i>
                     <span>Pesanan</span></a>
             </li>
+
+            <div class="sidebar-heading">
+                Garansi
+            </div>
+            <li class="nav-item {{ Request::routeIs('produsen.kelola-garansi') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('produsen.kelola-garansi') }}">
+                    <i class="fas fa-fw fa-truck"></i>
+                    <span>Daftar Garansi</span></a>
+            </li>
+
+            <div class="sidebar-heading">
+                Pengiriman
+            </div>
             <li class="nav-item {{ Request::routeIs('produsen.kelola-pengiriman') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('produsen.kelola-pengiriman') }}">
                     <i class="fas fa-fw fa-truck"></i>
@@ -110,6 +123,12 @@
                 <a class="nav-link" href="{{ route('distributor.pesanan') }}">
                     <i class="fas fa-fw fa-archive"></i>
                     <span>Daftar Pesanan</span>
+                </a>
+            </li>
+            <li class="nav-item {{ Request::routeIs('distributor.garansi') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('distributor.garansi') }}">
+                    <i class="fas fa-fw fa-archive"></i>
+                    <span>Daftar Garansi</span>
                 </a>
             </li>
             <li class="nav-item {{ Request::routeIs('distributor.pengiriman') ? 'active' : '' }}">
