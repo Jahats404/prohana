@@ -5,6 +5,8 @@ namespace App\Http\Controllers\distributor\pengiriman;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PengirimanRequest;
 use App\Models\Agen;
+use App\Models\DetailProduk;
+use App\Models\Garansi;
 use App\Models\Pengiriman;
 use App\Models\Pesanan;
 use App\Models\Produk;
@@ -49,11 +51,20 @@ class PengirimanController extends Controller
         $distributor = $user->distributor;
         $pengiriman = new Pengiriman();
         $pengiriman->distributor_id = $distributor->id_distributor;
-        $pengiriman->pesanan_id = $request->pesanan_id;
+        if ($request->jenis_pengiriman == 'Pesanan') {
+            $pengiriman->pesanan_id = $request->pesanan_id;
+        } else if ($request->jenis_pengiriman == 'Garansi') {
+            $pengiriman->garansi_id = $request->garansi_id;
+        }
         $pengiriman->status_pengiriman = 'Sedang Diproses';
         $pengiriman->jenis_pengiriman = $request->jenis_pengiriman;
-        $pengiriman->tanggal_pengiriman = $request->tanggal_pengiriman;
+        $pengiriman->tanggal_pengembalian = $request->tanggal_pengembalian;
         $pengiriman->save();
+
+        $garansi = Garansi::findOrFail($request->garansi_id);
+        $garansi->status_garansi = 'Pengiriman ke Produsen';
+        $garansi->save();
+        // dd($pengiriman);
 
         return redirect()->back()->with('success','Pengiriman berhasil ditambahkan');
     }
@@ -91,6 +102,29 @@ class PengirimanController extends Controller
         $pengiriman->status_pengiriman = $request->status;
         $pengiriman->save();
 
+        $garansi = Garansi::findOrFail($pengiriman->garansi->id_garansi);
+        $garansi->status_garansi = 'Kadaluwarsa';
+        $garansi->save();
+
         return redirect()->back()->with('success','Status Pengiriman berhasil diubah');
+    }
+
+    public function pengembalian(Request $request, $id)
+    {
+        $decId = Crypt::decrypt($id);
+        $garansi = Garansi::findOrFail($decId);
+        $garansi->status_garansi = 'Pengiriman ke Agen';
+        $garansi->save();
+
+        $pengiriman = Pengiriman::where('garansi_id',$decId)->first();
+        $pengiriman->tanggal_pengembalian = $request->tanggal_pengiriman;
+        $pengiriman->save();
+
+        $pengiriman = Pengiriman::where('garansi_id',$decId)->first();
+        $pengiriman->jenis_pengiriman = 'Pengembalian';
+        $pengiriman->status_pengiriman = 'Sedang Diproses';
+        $pengiriman->save();
+
+        return redirect()->back()->with('success', 'Berhasil mengirim pengembalian');
     }
 }

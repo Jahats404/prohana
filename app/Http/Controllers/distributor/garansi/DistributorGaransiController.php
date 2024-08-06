@@ -13,7 +13,8 @@ class DistributorGaransiController extends Controller
         $user = auth()->user();
         $distributor = $user->distributor;
 
-        $garansi = Garansi::where('status_garansi', 'Diajukan')
+        $garansi = Garansi::
+                whereNotIn('status_garansi', ['Aktif', 'Diajukan'])
                     ->whereHas('detail_pesanan', function ($query) use ($distributor) {
                         $query->whereHas('pesanan', function ($query) use ($distributor) {
                             $query->whereHas('agen', function ($query) use ($distributor) {
@@ -22,7 +23,6 @@ class DistributorGaransiController extends Controller
                         });
                     })
                     ->get();
-        // dd($garansi);
         return view('distributor.garansi.index', compact('garansi'));
     }
 }

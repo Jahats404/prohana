@@ -1,13 +1,13 @@
 @extends('layout.app')
 @section('content')
 <div class="container-fluid px-4 my-5">
-    <h4 class="mb-0 mt-5">Daftar Pengiriman</h4>
+    <h4 class="mb-0 mt-5">Daftar Pengiriman Garansi</h4>
     <hr class="mt-2 mb-4">
 
     <div class="row">
         @forelse ($pengiriman as $item)
         <div class="col-md-6 col-lg-4 mb-4">
-            <a class="card card-icon lift lift-sm h-100" href="{{ route('produsen.show-pengiriman',Crypt::encrypt($item->id_pengiriman)) }}">
+            <a class="card card-icon lift lift-sm h-100" href="{{ route('agen.show-pengiriman-garansi',Crypt::encrypt($item->garansi->detail_pesanan_id)) }}">
                 <div class="row g-0 h-100">
                     <div class="col-auto card-icon-aside bg-primary d-flex align-items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box text-white-50 m-auto">
@@ -18,13 +18,16 @@
                     </div>
                     <div class="col">
                         <div class="card-body py-2">
+                            {{-- @php
+                                dd($item->garansi_id);
+                            @endphp --}}
                             {{-- <h5 class="card-title text-primary mb-2">Pesanan : {{ $item->produk->nama_produk }}</h5>
                             <p class="card-text mb-1">{{ $item->catatan_pesanan }}</p>
                             <p class="card-text mb-1">Status : {{ $item->status_pengiriman }}</p> --}}
                             <h5 class="card-title text-primary mb-2">Distributor : {{ $item->distributor->nama_distributor }}</h5>
                             <p class="card-text mb-1">Tujuan : {{ $item->distributor->domisili_distributor }}</p>
                             <p class="card-text mb-1">Jenis Pengiriman : {{ $item->jenis_pengiriman }}</p>
-                            <p class="card-text mb-1">Status Pengiriman : 
+                            <p class="card-text mb-1">Status : 
                                 @if ($item->status_pengiriman == 'Sedang Diproses')
                                 <span class="badge badge-warning">{{ $item->status_pengiriman }}</span>
                             @elseif ($item->status_pengiriman == 'Dalam Perjalanan')
@@ -35,15 +38,6 @@
                                 <span class="badge badge-secondary">{{ $item->status_pengiriman }}</span>
                             @endif
                             </p>
-                            
-                            <p class="card-text mb-1">Nama Agen : 
-                            @if ($item->pesanan)
-                                {{ $item->pesanan->agen?->nama_agen }}
-                            @elseif ($item->garansi)
-                                {{ $item->garansi->detail_pesanan?->pesanan?->agen?->nama_agen }}
-                            @else
-                                {{ 'Data tidak tersedia' }}
-                            @endif</p>
                         </div>
                     </div>
                 </div>

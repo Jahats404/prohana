@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('status_pengiriman', ['Sedang Diproses', 'Dalam Perjalanan', 'Sampai Tujuan']);
             $table->string('jenis_pengiriman');
             $table->date('tanggal_pengiriman');
+            $table->date('tanggal_pengembalian')->nullable();
             $table->timestamps();
         });
     }

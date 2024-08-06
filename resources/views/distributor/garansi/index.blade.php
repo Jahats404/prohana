@@ -17,11 +17,16 @@
                                     @php
                                         // dd($item->status_garansi);
                                     @endphp
-                                    @if ($item->status_garansi == 'Diajukan')
+                                    @if ($item->status_garansi == 'Diproses')
                                         <a class="btn btn-sm btn-primary" href="#" data-toggle="modal" data-target="#modalKirim{{ $item->id_garansi }}">
                                             <i class="fas fa-solid fa-paper-plane fa-sm fa-fw mr-2 text-gray-400"></i>
                                             Kirim
                                         </a>
+                                    @elseif ($item->status_garansi == 'Selesai')
+                                    <a class="btn btn-sm btn-primary" href="#" data-toggle="modal" data-target="#modalPengembalian{{ $item->id_garansi }}">
+                                        <i class="fas fa-solid fa-paper-plane fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Kirim
+                                    </a>
                                     @endif
                                 </div>
                             </div>
@@ -32,12 +37,14 @@
                                     <strong>Domisili Agen:</strong> {{ $item->detail_pesanan->pesanan->agen->domisili_agen }}<br>
                                     {{-- <strong>Tanggal Pesan:</strong> {{ \App\Helpers\DateHelper::formatTanggal($item->tanggal_pesanan) }}<br> --}}
                                     <strong>Status:</strong> <span class="badge rounded-pill 
-                                        @if ($item->status_garansi == 'pending')
+                                        @if ($item->status_garansi == 'Diproses')
                                             badge-info 
-                                        @elseif ($item->status_garansi == 'accepted')
+                                        @elseif ($item->status_garansi == 'Aktif' || $item->status_garansi == 'Selesai')
                                             badge-success 
-                                        @elseif ($item->status_garansi == 'rejected')
+                                        @elseif ($item->status_garansi == 'Kadaluwarsa')
                                             badge-danger
+                                        @elseif ($item->status_garansi == 'Pengiriman')
+                                            badge-warning
                                         @else
                                             badge-secondary
                                         @endif
@@ -50,6 +57,7 @@
                         </div>
                     </div>
                     @include('distributor.garansi.kirim-garansi', ['item' => $item])
+                    @include('distributor.garansi.kirim-pengembalian', ['item' => $item])
                 @endforeach
             </div>
         @else

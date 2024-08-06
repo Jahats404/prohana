@@ -9,7 +9,7 @@ use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
-class AgenPengirimanController extends Controller
+class AgenPengirimanPesananController extends Controller
 {
     public function index()
     {

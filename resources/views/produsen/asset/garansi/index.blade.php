@@ -24,10 +24,12 @@
                         <p class="card-text mb-1">Status:
                             @if ($item->status_garansi == 'Diajukan')
                                 <span class="badge badge-info">{{ $item->status_garansi }}</span>
-                            @elseif ($item->status_garansi == 'Aktif')
+                            @elseif ($item->status_garansi == 'Aktif' || $item->status_garansi == 'Selesai')
                                 <span class="badge badge-success">{{ $item->status_garansi }}</span>
                             @elseif ($item->status_garansi == 'Kadaluwarsa')
                                 <span class="badge badge-danger">{{ $item->status_garansi }}</span>
+                            @elseif ($item->status_garansi == 'Diproses')
+                                <span class="badge badge-warning">{{ $item->status_garansi }}</span>
                             @elseif ($item->status_garansi == NULL)
                                 <span class="badge badge-danger">{{ $item->status_garansi }}</span>
                             @else

@@ -5,13 +5,14 @@
                 @csrf
                 <div class="modal-header">
                     <h6 class="m-0 font-weight-bold text-primary">ID Pesanan #{{ $item->id_garansi }}</h6>
-                    <input value="{{ $item->id_garansi }}" name="pesanan_id" id="" hidden>
+                    <input value="{{ $item->id_garansi }}" name="garansi_id" id="" hidden>
+                    <input value="Garansi" name="jenis_pengiriman" id="" hidden>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label class="form-label">Pilih Jenis Pengiriman</label>
                         <select name="jenis_pengiriman" class="custom-select" aria-label="Default select example">
                             <option selected value="">-- Pilih Jenis Pengiriman --</option>
@@ -23,7 +24,7 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
-                    </div>
+                    </div> --}}
                     <div class="form-group">
                         <label class="form-label">Tanggal Pengiriman</label>
                         <input type="date" class="form-control @error('tanggal_pesan') is-invalid @enderror" name="tanggal_pengiriman" value="{{ old('tanggal_pengiriman') }}">

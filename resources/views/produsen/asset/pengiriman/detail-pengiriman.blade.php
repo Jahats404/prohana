@@ -10,7 +10,15 @@
             </div>
             <div class="card-body">
                 <p><strong>Distributor:</strong> {{ $pengiriman->distributor->nama_distributor }}</p>
-                <p><strong>Nama Agen:</strong> {{ $pengiriman->pesanan->agen->nama_agen }}</p>
+                <p><strong>Nama Agen:</strong>
+                    @if ($pengiriman->pesanan)
+                        {{ $pengiriman->pesanan->agen?->nama_agen }}
+                    @elseif ($pengiriman->garansi)
+                        {{ $pengiriman->garansi->detail_pesanan?->pesanan?->agen?->nama_agen }}
+                    @else
+                        {{ 'Data tidak tersedia' }}
+                    @endif
+                </p>
                 <p><strong>Status Pengiriman:</strong> 
                     <span class="badge rounded-pill 
                         @if ($pengiriman->status_pengiriman == 'Sedang Diproses')

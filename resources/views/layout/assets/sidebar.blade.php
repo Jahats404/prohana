@@ -203,8 +203,8 @@
                     <i class="fas fa-fw fa-truck"></i>
                     <span>Pengiriman Produk</span></a>
             </li>
-            <li class="nav-item {{ Request::RouteIs('agen.pengiriman') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('agen.pengiriman') }}">
+            <li class="nav-item {{ Request::RouteIs('agen.pengiriman-garansi') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('agen.pengiriman-garansi') }}">
                     <i class="fas fa-fw fa-truck"></i>
                     <span>Pengiriman Garansi</span></a>
             </li>
@@ -219,8 +219,8 @@
             <div class="sidebar-heading">
                 Garansi
             </div>
-            <li class="nav-item {{ Request::RouteIs('agen.barang-tersedia') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('agen.barang-tersedia') }}">
+            <li class="nav-item {{ Request::RouteIs('agen.all-produk') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('agen.all-produk') }}">
                     <i class="fas fa-fw fa-truck"></i>
                     <span>Barang Tersedia</span></a>
             </li>

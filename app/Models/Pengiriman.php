@@ -36,6 +36,10 @@ class Pengiriman extends Model
 
     public function pesanan()
     {
-        return $this->belongsTo(Pesanan::class, 'pesanan_id');
+        return $this->belongsTo(Pesanan::class, 'pesanan_id', 'id_pesanan');
+    }
+    public function garansi()
+    {
+        return $this->belongsTo(Garansi::class, 'garansi_id');
     }
 }

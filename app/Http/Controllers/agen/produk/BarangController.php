@@ -65,9 +65,50 @@ class BarangController extends Controller
         // }
     }
 
+    public function all_produk()
+    {
+        $agenId = auth()->user()->agen->id_agen;
+        
+        // Ambil pesanan yang statusnya "accepted" untuk agen yang login
+        $pesanans = Pesanan::where('status_pesanan', 'accepted')
+        ->pluck('id_pesanan');
+
+        // Ambil detail produk dengan status "Dipesan" atau "Terjual" yang tanggal garansi belum melewati tanggal sekarang
+        $detailProduks = DetailProduk::whereHas('detail_pesanan', function($query) use ($pesanans) {
+            $query->whereIn('pesanan_id', $pesanans);
+                // ->where('tanggal_garansi', '>=', now()); // Memeriksa tanggal garansi
+        })
+        ->where(function($query) {
+            $query->where('status', 'Terjual');
+        })
+        ->get();
+
+        foreach ($detailProduks as $item) {
+            // Ambil DetailPesanan terkait
+            $dtPesanan = DetailPesanan::where('detail_produk_id', $item->resi)->first();
+            // dd($dtPesanan);
+            // Pastikan DetailPesanan ada sebelum memeriksa tanggal_garansi
+            if ($dtPesanan && $dtPesanan->tanggal_garansi < now()) {
+                // Update status garansi
+                $garansi = Garansi::where('detail_pesanan_id', $dtPesanan->id_detail_pesanan)->first();
+        
+                // Pastikan Garansi ada sebelum mengupdate status
+                if ($garansi) {
+                    $garansi->update(['status_garansi' => 'Kadaluwarsa']);
+                }
+            }
+        }
+                        // dd($detailProduks);
+// dd($detailProduks);
+        // Ambil semua produk (jika diperlukan dalam tampilan)
+        $produks = Produk::all();
+
+        return view('agen.barang.tersedia.all-produk', compact('pesanans', 'detailProduks'));
+    }
+
     public function terjual($id)
     {
-        // $decId = Crypt::decrypt($id);
+        $id = Crypt::decrypt($id);
         // dd($id);
         $dtPesanan = DetailPesanan::where('detail_produk_id',$id)->first();
         $dtPesanan->tanggal_garansi = now()->addMonths(2);

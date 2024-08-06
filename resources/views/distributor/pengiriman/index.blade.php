@@ -30,10 +30,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($pengiriman as $item)
+                            @foreach ($pengiriman as $index => $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->pesanan->agen->nama_agen }}</td>
+                                    <td>
+                                        @if ($item->pesanan)
+                                            {{ $item->pesanan->agen?->nama_agen }}
+                                        @elseif ($item->garansi)
+                                            {{ $item->garansi->detail_pesanan?->pesanan?->agen?->nama_agen }}
+                                        @else
+                                            {{ 'Data tidak tersedia' }}
+                                        @endif
+                                    </td>
                                     <td>
                                         <span class="badge rounded-pill 
                                         @if ($item->status_pengiriman == 'Sedang Diproses')
@@ -51,7 +59,7 @@
                                     <td>{{ $item->jenis_pengiriman }}</td>
                                     <td>{{ \App\Helpers\DateHelper::formatTanggal($item->tanggal_pengiriman) }}</td>
                                     <td class="d-flex justify-content-center">
-                                        <a href="{{ route('distributor.detail-pengiriman', Crypt::encrypt($item->id_pengiriman)) }}" class="btn btn-sm btn-warning mr-2">Detail</a>
+                                        {{-- <a href="{{ route('distributor.detail-pengiriman', Crypt::encrypt($item->id_pengiriman)) }}" class="btn btn-sm btn-warning mr-2">Detail</a> --}}
             
                                         <div class="dropdown no-arrow mb-1">
                                             <button class="d-none d-sm-inline-block btn btn-primary btn-sm shadow-sm dropdown-toggle" type="button"

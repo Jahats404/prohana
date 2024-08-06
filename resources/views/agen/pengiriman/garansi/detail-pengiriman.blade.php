@@ -16,15 +16,6 @@
                                 Terima
                             </button>
                     </form>
-                @elseif ($dtProduk->garansi->status_garansi == 'Pengiriman ke Produsen')
-                    <form action="{{ route('produsen.verifikasi-garansi', Crypt::encrypt($dtProduk->garansi->id_garansi)) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <input type="hidden" name="status" value="Selesai">
-                        <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="submit">
-                                Selesai
-                            </button>
-                    </form>
                 @endif
             </div>
             <div class="card-body">
@@ -33,7 +24,7 @@
                 {{-- <p><strong>Tanggal Pesan:</strong> {{ \App\Helpers\DateHelper::formatTanggal($dtProduk->tanggal_pesan) }}</p> --}}
                 <p><strong>Status Garansi:</strong> <span class="badge rounded-pill @if ($dtProduk->garansi->status_garansi == 'Diajukan')
                     badge-info 
-                @elseif ($dtProduk->garansi->status_garansi == 'Aktif' || $dtProduk->garansi->status_garansi == 'Selesai')
+                @elseif ($dtProduk->garansi->status_garansi == 'Aktif')
                     badge-success 
                 @elseif ($dtProduk->garansi->status_garansi == 'Kadaluwarsa')
                     badge-danger
@@ -44,7 +35,7 @@
                 <p><strong>Ukuran : </strong> {{ $dtProduk->detail_produk->ukuran }}</p>
             </div>
         </div>
-        <a href="{{ route('produsen.kelola-garansi') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-3" id="checkout-button"> Kembali</a>
+        <a href="{{ route('agen.pengiriman-garansi') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-3" id="checkout-button"> Kembali</a>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>

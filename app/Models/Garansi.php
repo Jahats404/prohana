@@ -20,5 +20,9 @@ class Garansi extends Model
     {
         return $this->belongsTo(DetailPesanan::class,'detail_pesanan_id', 'id_detail_pesanan');
     }
+    public function pengiriman()
+    {
+        return $this->hasOne(Pengiriman::class,'garansi_id');
+    }
     
 }
