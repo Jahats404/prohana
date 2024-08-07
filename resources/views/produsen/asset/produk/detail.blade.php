@@ -24,7 +24,7 @@
                                 <th>Warna</th>
                                 <th>Ukuran</th>
                                 <th>Stok</th>
-                                <th class="text-center">Aksi</th>
+                                {{-- <th class="text-center">Aksi</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -37,11 +37,11 @@
                                     <td>{{ $item->warna }}</td>
                                     <td>{{ $item->ukuran }}</td>
                                     <td>{{ $item->count }}</td>
-                                    <td class="d-flex justify-content-center">
+                                    {{-- <td class="d-flex justify-content-center">
                                         <a href="#" class="btn btn-sm btn-info mr-2" data-toggle="modal" data-target="#modalDetail{{ $item->id_produk }}">Detail</a>
                                         <a href="#" class="btn btn-sm btn-warning mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_produk }}">Edit</a>
                                         <a href="#" class="btn btn-sm btn-danger mr-2" data-toggle="modal" data-target="#modalDelete{{ $item->id_produk }}">Delete</a>
-                                    </td>
+                                    </td> --}}
                                 {{-- </tr>
                                 @include('produsen.asset.produk.edit-produk', ['item' => $item])
                                 @include('produsen.asset.produk.detail-produk', ['item' => $item])
@@ -59,5 +59,5 @@
     @include('produsen.asset.produk.tambah-produk')
     @include('validasi.notifikasi')
     @include('validasi.notifikasi-error')
-    
+
 @endsection

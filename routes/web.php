@@ -1,4 +1,4 @@
-<?php
+`<?php
 
 use App\Http\Controllers\agen\pesanan\PesananController as PesananAgenController;
 use App\Http\Controllers\agen\produk\ProdukController as ProdukAgenController;
@@ -119,7 +119,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'dashboardD'])->name('dashboard');
 
         Route::get('/agen', [AgenAgenController::class, 'index'])->name('agen');
-        
+
         //Pengiriman
         Route::get('/pengiriman', [PengirimanPengirimanController::class, 'index'])->name('pengiriman');
         Route::get('/detail-pengiriman/{id}', [PengirimanPengirimanController::class, 'show'])->name('detail-pengiriman');
@@ -159,7 +159,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/pesanan/{id}', [PesananAgenController::class, 'show'])->name('detail-pesanan');
         Route::post('/pesanan', [PesananAgenController::class, 'store'])->name('store-pesanan');
         Route::get('/detail-produk/{id}', [ProdukAgenController::class, 'show'])->name('detail-produk');
-        
+
 
         // keranjang
         Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang');
@@ -184,7 +184,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/seluruh-barang', [BarangController::class, 'all_produk'])->name('all-produk');
         Route::get('/barang-terjual/{id}', [BarangController::class, 'terjual'])->name('barang-terjual');
         Route::post('/garansi/{id}', [AgenGaransiController::class, 'klaim_garansi'])->name('garansi');
-        
+
 
         // Route::get('/produk', [ProdukController::class, 'index'])->name('produk');
         // Route::post('/tambah-produk', [ProdukController::class,'store'])->name('tambah-produk');

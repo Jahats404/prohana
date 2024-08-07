@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+
 class DistributorController extends Controller
 {
     public function index()
@@ -28,7 +29,7 @@ class DistributorController extends Controller
                 'name' => $validatedData['nama_distributor'],
                 'email' => $validatedData['email'],
                 'password' => Hash::make('12345678'),
-                'role_id' => 3, // Adjust this to match the role ID of a distributor
+                'role_id' => 2, // Adjust this to match the role ID of a distributor
                 'remember_token' => Str::random(10),
             ]);
 
@@ -50,7 +51,8 @@ class DistributorController extends Controller
         }
     }
 
-    public function update(DistributorRequest $request, $id){
+    public function update(DistributorRequest $request, $id)
+    {
 
         $validatedData = $request->validated();
         try {
@@ -72,7 +74,8 @@ class DistributorController extends Controller
             return response()->view('errors.index', compact('status', 'message'), $status);
         }
     }
-    public function destroy($id){
+    public function destroy($id)
+    {
         try {
             $distributor = Distributor::find($id);
             $distributor->user->delete();

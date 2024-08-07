@@ -25,7 +25,7 @@ class PengirimanController extends Controller
         $pesanan = Pesanan::whereHas('agen', function ($query) use($distributor) {
             $query->where('domisili_agen', $distributor->domisili_distributor);
         })->get();
-        
+
         return view('distributor.pengiriman.index', compact('pengiriman','distributor','pesanan'));
     }
 
@@ -46,7 +46,7 @@ class PengirimanController extends Controller
         }else if ($request->tanggal_pengiriman < $dateNow ) {
             return redirect()->back()->withErrors('Tanggal tidak valid!');
         }
-        
+
         $user = auth()->user();
         $distributor = $user->distributor;
         $pengiriman = new Pengiriman();
@@ -58,6 +58,9 @@ class PengirimanController extends Controller
         }
         $pengiriman->status_pengiriman = 'Sedang Diproses';
         $pengiriman->jenis_pengiriman = $request->jenis_pengiriman;
+
+        $pengiriman->tanggal_pengiriman = $request->tanggal_pengiriman;
+
         $pengiriman->tanggal_pengembalian = $request->tanggal_pengembalian;
         $pengiriman->save();
 
@@ -98,7 +101,7 @@ class PengirimanController extends Controller
         } else {
             # code...
         }
-        
+
         $pengiriman->status_pengiriman = $request->status;
         $pengiriman->save();
 
