@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id('id_garansi');
             $table->unsignedBigInteger('detail_pesanan_id');
             $table->foreign('detail_pesanan_id')->references('id_detail_pesanan')->on('detail_pesanans')->onDelete('cascade');
-            $table->enum('status_garansi', ['Aktif', 'Kadaluwarsa', 'Diajukan', 'Diproses']);
+            $table->enum('status_garansi', ['Aktif', 'Kadaluwarsa', 'Diajukan', 'Diproses', 'Pengiriman ke Produsen']);
             $table->text('catatan_garansi')->nullable();
-            $table->timestamps();
+            $table->timestamps(); 
         });
     }
 

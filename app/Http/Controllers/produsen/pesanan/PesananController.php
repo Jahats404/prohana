@@ -5,6 +5,8 @@ namespace App\Http\Controllers\produsen\pesanan;
 use App\Http\Controllers\Controller;
 use App\Models\DetailPesanan;
 use App\Models\Pesanan;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Log;
@@ -17,6 +19,20 @@ class PesananController extends Controller
     public function index()
     {
         $pesanan = Pesanan::simplePaginate(5);
+        // dd($pesanan);
+        // $bulan = "2024-07";
+        // $date = Carbon::parse($bulan);
+        // $startOfMonth = $date->startOfMonth()->toDateString();
+        // $endOfMonth = $date->endOfMonth()->toDateString();
+        
+        // if ($bulan) {
+        //     $pesanan = Pesanan::whereBetween('tanggal_pesan', [$startOfMonth, $endOfMonth])->get();
+        //         dd($pesanan);
+        // } else {
+        //     $pesanan = Pesanan::all();
+        //     dd($pesanan);
+        // }
+        
         
         return view('produsen.asset.pesanan.index', compact('pesanan'));
     }
@@ -88,4 +104,51 @@ class PesananController extends Controller
     {
         //
     }
+
+    public function filter(Request $request)
+    {
+        $bulan = $request->query('bulan');
+        
+        if ($bulan) {
+            $pesanans = Pesanan::whereMonth('tanggal_pesan', date('m', strtotime($bulan)))
+                ->whereYear('tanggal_pesan', date('Y', strtotime($bulan)))
+                ->get();
+        } else {
+            $pesanan = Pesanan::all();
+        }
+        // Mengenkripsi ID pesanan
+        $pesanans = $pesanans->map(function ($pesanan) {
+            $pesanan->encrypted_id = Crypt::encrypt($pesanan->id_pesanan);
+            return $pesanan;
+        });
+
+        return response()->json($pesanans);
+    }
+
+    public function printPdf(Request $request)
+    {
+        $bulan = $request->bulan;
+
+        // Mendapatkan tanggal awal dan akhir dari bulan yang ditentukan
+        $tanggalAwal = Carbon::parse($bulan)->startOfMonth()->format('Y-m-d');
+        $tanggalAkhir = Carbon::parse($bulan)->endOfMonth()->format('Y-m-d');
+
+        // Mengambil data pesanan berdasarkan rentang tanggal
+        $pesanans = Pesanan::whereBetween('tanggal_pesan', [$tanggalAwal, $tanggalAkhir])->get();
+        
+        $pdf = Pdf::loadView('produsen.asset.pesanan.cetak-pdf', compact('pesanans'));
+
+        return $pdf->stream('daftar_pesanan.pdf'); // Mengunduh PDF
+    }
+
+    public function cetakPdf($id)
+    {
+        $pesanan = Pesanan::with(['detail_pesanan.detail_produk.produk'])->findOrFail($id);
+        
+        $pdf = Pdf::loadView('produsen.asset.pesanan.pdf-pesanan', compact('pesanan'));
+        
+        return $pdf->stream('detail_pesanan_' . $pesanan->id_pesanan . '.pdf');
+    }
+
+    
 }

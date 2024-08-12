@@ -17,6 +17,37 @@ class PengirimanController extends Controller
      */
     public function index()
     {
+        $bulan = '2024-08';
+        if ($bulan) {
+            $pengirimans = Pengiriman::with(['distributor', 'pesanan.agen']) // Eager load the distributor and related agen
+                ->select('pengirimans.*', 
+                        'distributor.nama_distributor', 
+                        'distributor.domisili_distributor', 
+                        'agen.nama_agen')
+                ->join('distributor', 'pengirimans.distributor_id', '=', 'distributor.id_distributor')
+                ->leftJoin('pesanans', 'pengirimans.pesanan_id', '=', 'pesanans.id_pesanan')
+                ->leftJoin('agen', 'pesanans.agen_id', '=', 'agen.id_agen')
+                ->whereMonth('tanggal_pengiriman', date('m', strtotime($bulan)))
+                ->whereYear('tanggal_pengiriman', date('Y', strtotime($bulan)))
+                ->get();
+                // dd($pengirimans);
+        } else {
+            $pengirimans = Pengiriman::with(['distributor', 'pesanan.agen']) // Eager load the distributor and related agen
+                ->select('pengirimans.*', 
+                        'distributor.nama_distributor', 
+                        'distributor.domisili_distributor', 
+                        'agen.nama_agen')
+                ->join('distributor', 'pengirimans.distributor_id', '=', 'distributor.id_distributor')
+                ->leftJoin('pesanans', 'pengirimans.pesanan_id', '=', 'pesanans.id_pesanan')
+                ->leftJoin('agen', 'pesanans.agen_id', '=', 'agen.id_agen')
+                ->get();
+        }
+        // Mengenkripsi ID pesanan
+        $pengirimans = $pengirimans->map(function ($pesanan) {
+            $pesanan->encrypted_id = Crypt::encrypt($pesanan->id_pengiriman);
+            return $pesanan;
+        });
+        
         $pengiriman = Pengiriman::simplePaginate(5);
         return view('produsen.asset.pengiriman.index', compact('pengiriman'));
     }

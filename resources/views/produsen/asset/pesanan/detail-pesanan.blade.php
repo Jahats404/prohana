@@ -5,34 +5,40 @@
         <!-- Knowledge base article-->
         <h1>Detail Pesanan</h1>
         <div class="card mb-3">
-            <div class="card-header d-flex justify-content-between">
+            <div class="card-header d-flex justify-content-between align-items-center">
                 <strong>ID Pesanan: {{ $pesanan->id_pesanan }}</strong>
-                <div class="dropdown no-arrow mb-1">
-                    <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm dropdown-toggle" type="button"
-                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        Verifikasi
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <form action="{{ route('produsen.update-status-pesanan', ['id' => $pesanan->id_pesanan]) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <input type="hidden" name="status" value="pending">
-                            <button class="dropdown-item" href="#">Pending</button>
-                        </form>
-                        <form action="{{ route('produsen.update-status-pesanan', ['id' => $pesanan->id_pesanan]) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <input type="hidden" name="status" value="accepted">
-                            <button class="dropdown-item" href="#">Accepted</button>
-                        </form>
-                        <form action="{{ route('produsen.update-status-pesanan', ['id' => $pesanan->id_pesanan]) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <input type="hidden" name="status" value="rejected">
-                            <button class="dropdown-item" href="#">Rejected</button>
-                        </form>
-                        
+                <div class="d-flex ms-auto">
+                    @if ($pesanan->status_pesanan == 'accepted')
+                        <a target="_blank" href="{{ route('produsen.pesanan-cetak-pdf', ['id' => $pesanan->id_pesanan]) }}" class="btn btn-sm btn-primary me-2 shadow-sm">
+                            <i class="fas fa-download fa-sm text-white-50"></i> Cetak
+                        </a>
+                    @endif
+                    <div class="dropdown no-arrow">
+                        <button style="margin-left: 3px" class="btn btn-sm btn-primary shadow-sm dropdown-toggle" type="button"
+                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            Verifikasi
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <form action="{{ route('produsen.update-status-pesanan', ['id' => $pesanan->id_pesanan]) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" name="status" value="pending">
+                                <button class="dropdown-item" type="submit">Pending</button>
+                            </form>
+                            <form action="{{ route('produsen.update-status-pesanan', ['id' => $pesanan->id_pesanan]) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" name="status" value="accepted">
+                                <button class="dropdown-item" type="submit">Accepted</button>
+                            </form>
+                            <form action="{{ route('produsen.update-status-pesanan', ['id' => $pesanan->id_pesanan]) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" name="status" value="rejected">
+                                <button class="dropdown-item" type="submit">Rejected</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

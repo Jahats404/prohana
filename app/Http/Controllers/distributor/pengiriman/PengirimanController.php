@@ -64,9 +64,11 @@ class PengirimanController extends Controller
         $pengiriman->tanggal_pengembalian = $request->tanggal_pengembalian;
         $pengiriman->save();
 
-        $garansi = Garansi::findOrFail($request->garansi_id);
-        $garansi->status_garansi = 'Pengiriman ke Produsen';
-        $garansi->save();
+        if ($request->jenis_pengiriman == 'Garansi') {
+            $garansi = Garansi::findOrFail($request->garansi_id);
+            $garansi->status_garansi = 'Pengiriman ke Produsen';
+            $garansi->save();
+        }
         // dd($pengiriman);
 
         return redirect()->back()->with('success','Pengiriman berhasil ditambahkan');
@@ -105,9 +107,11 @@ class PengirimanController extends Controller
         $pengiriman->status_pengiriman = $request->status;
         $pengiriman->save();
 
-        $garansi = Garansi::findOrFail($pengiriman->garansi->id_garansi);
-        $garansi->status_garansi = 'Kadaluwarsa';
-        $garansi->save();
+        if ($pengiriman->jenis_pengiriman == 'Garansi') {
+            $garansi = Garansi::findOrFail($pengiriman->garansi->id_garansi);
+            $garansi->status_garansi = 'Kadaluwarsa';
+            $garansi->save();
+        }
 
         return redirect()->back()->with('success','Status Pengiriman berhasil diubah');
     }

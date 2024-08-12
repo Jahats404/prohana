@@ -5,6 +5,7 @@ namespace App\Http\Controllers\produsen\garansi;
 use App\Http\Controllers\Controller;
 use App\Models\DetailPesanan;
 use App\Models\Garansi;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Log;
@@ -41,5 +42,13 @@ class ProdusenGaransiController extends Controller
         $garansi->save();
 
         return redirect()->back()->with('success', 'Berhasil diterima');
+    }
+
+    public function printPdf()
+    {   
+        $garansi = Garansi::all();
+        $pdf = Pdf::loadView('produsen.asset.garansi.cetak-pdf', compact('garansi'));
+        
+        return $pdf->stream('daftar_pengiriman.pdf'); // Mengunduh PDF
     }
 }

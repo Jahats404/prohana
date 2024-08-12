@@ -42,4 +42,25 @@ class AgenPengirimanController extends Controller
         //     return response()->view('errors.index', compact('status', 'message'), $status);
         // }
     }
+
+    public function filter(Request $request)
+    {
+        $bulan = $request->input('bulan');
+        
+        $query = Pengiriman::query();
+        
+        if ($bulan) {
+            $startOfMonth = \Carbon\Carbon::parse($bulan)->startOfMonth();
+            $endOfMonth = \Carbon\Carbon::parse($bulan)->endOfMonth();
+            
+            $query->whereBetween('tanggal_pengiriman', [$startOfMonth, $endOfMonth]);
+        }
+        
+        $pengiriman = $query->get();
+        
+        return response()->json([
+            'bulan' => $bulan,
+            'pengiriman' => $pengiriman
+        ]);
+    }
 }

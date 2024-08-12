@@ -1,7 +1,15 @@
 @extends('layout.app')
 @section('content')
 <div class="container-fluid my-5">
-    <h4 class="mb-0 mt-5">Daftar Garansi</h4>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="mb-0">Daftar Garansi</h4>
+        <div class="d-flex align-items-center ms-auto">
+            <a target="_blank" href="{{ route('produsen.garansi-cetak') }}" class="btn btn-sm btn-primary ml-2 ms-2 d-flex align-items-center" aria-label="Cetak">
+                <i class="fas fa-download fa-sm text-white-50"></i> Cetak
+            </a>
+        </div>
+    </div>
+
     <hr class="mt-2 mb-4">
 
     @forelse ($garansi as $item)

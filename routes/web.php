@@ -1,4 +1,4 @@
-`<?php
+<?php
 
 use App\Http\Controllers\agen\pesanan\PesananController as PesananAgenController;
 use App\Http\Controllers\agen\produk\ProdukController as ProdukAgenController;
@@ -21,6 +21,7 @@ use App\Http\Controllers\Produsen\akun\AgenController;
 use App\Http\Controllers\produsen\akun\DistributorController;
 use App\Http\Controllers\produsen\akun\ProdusenAgenController;
 use App\Http\Controllers\produsen\garansi\ProdusenGaransiController;
+use App\Http\Controllers\produsen\pengiriman\ProdusenPengirimanController;
 use App\Http\Controllers\produsen\pesanan\PesananController as PesananProdusenController;
 use App\Http\Controllers\produsen\produk\ProdukController;
 use App\Http\Controllers\ProfileController;
@@ -47,7 +48,11 @@ Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPa
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
+// fetch api
 Route::get('/stok/{produk_id}/{warna}/{ukuran}', [PesananAgenController::class, 'getStock'])->name('getStock');
+Route::get('/pesanan/filter', [PesananProdusenController::class, 'filter'])->name('pesanan.filter');
+Route::get('/pengiriman/filter', [ProdusenPengirimanController::class, 'filter'])->name('pengiriman-filter');
+Route::get('/api/product-trends', [DashboardController::class, 'getProductTrends']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class,'edit'])->name('profile');
@@ -90,17 +95,21 @@ Route::middleware(['auth'])->group(function () {
         Route::get('pesanan', [PesananProdusenController::class, 'index'])->name('kelola-pesanan');
         Route::get('pesanan/{id}', [PesananProdusenController::class, 'show'])->name('show-pesanan');
         Route::put('pesanan/status/{id}', [PesananProdusenController::class, 'updateStatus'])->name('update-status-pesanan');
+        Route::post('/pesanan/cetak', [PesananProdusenController::class, 'printPdf'])->name('pesanan-cetak');
+        Route::get('/pesanan/{id}/cetak-pdf', [PesananProdusenController::class, 'cetakPdf'])->name('pesanan-cetak-pdf');
         // Route::delete('pesanan/destroy/{id}', [PesananProdusenController::class, 'destroy'])->name('pesanan.destroy');
         // Route::put('pesanan/status/{id}', [PesananProdusenController::class, 'status'])->name('pesanan.status');
 
         // KELOLA DISTRIBUSI
         Route::get('pengiriman', [PengirimanController::class, 'index'])->name('kelola-pengiriman');
         Route::get('/detail-pengiriman/{id}', [PengirimanController::class, 'show'])->name('show-pengiriman');
+        Route::post('/pengiriman/cetak', [ProdusenPengirimanController::class, 'printPdf'])->name('pengiriman-cetak');
 
         // KELOLA GARANSI
         Route::get('garansi', [ProdusenGaransiController::class, 'index'])->name('kelola-garansi');
         Route::get('detail-garansi/{id}', [ProdusenGaransiController::class, 'show'])->name('show-garansi');
         Route::put('verifikasi-garansi/{id}', [ProdusenGaransiController::class, 'verifikasi'])->name('verifikasi-garansi');
+        Route::get('/pengiriman/cetak', [ProdusenGaransiController::class, 'printPdf'])->name('garansi-cetak');
 
         // Route::put('distribusi/update/{id}', [DistribusiController::class, 'update'])->name('distribusi.update');
 

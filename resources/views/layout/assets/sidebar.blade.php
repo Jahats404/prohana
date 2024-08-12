@@ -1,5 +1,4 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
     <!-- Sidebar - Brand -->
     @php
         $user = Auth()->user()->role->level;
@@ -214,7 +213,7 @@
             <li class="nav-item {{ Request::RouteIs('agen.barang-tersedia') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('agen.barang-tersedia') }}">
                     <i class="fas fa-fw fa-truck"></i>
-                    <span>Barang Tersedia</span></a>
+                    <span>Barang</span></a>
             </li>
             <div class="sidebar-heading">
                 Garansi
@@ -222,7 +221,7 @@
             <li class="nav-item {{ Request::RouteIs('agen.all-produk') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('agen.all-produk') }}">
                     <i class="fas fa-fw fa-truck"></i>
-                    <span>Barang Tersedia</span></a>
+                    <span>Seluruh Barang</span></a>
             </li>
         @endif
     @endauth

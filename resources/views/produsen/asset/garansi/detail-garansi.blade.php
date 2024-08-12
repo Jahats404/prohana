@@ -31,17 +31,24 @@
                 <p><strong>Nama Produk : </strong> {{ $dtProduk->detail_produk->produk->nama_produk }}</p>
                 <p><strong>Resi : </strong> {{ $dtProduk->detail_produk->resi }}</p>
                 {{-- <p><strong>Tanggal Pesan:</strong> {{ \App\Helpers\DateHelper::formatTanggal($dtProduk->tanggal_pesan) }}</p> --}}
-                <p><strong>Status Garansi:</strong> <span class="badge rounded-pill @if ($dtProduk->garansi->status_garansi == 'Diajukan')
-                    badge-info 
-                @elseif ($dtProduk->garansi->status_garansi == 'Aktif' || $dtProduk->garansi->status_garansi == 'Selesai')
-                    badge-success 
-                @elseif ($dtProduk->garansi->status_garansi == 'Kadaluwarsa')
-                    badge-danger
-                @else
-                    badge-secondary
-                @endif" >{{ $dtProduk->garansi->status_garansi }}</span></p>
+                <p><strong>Status Garansi:</strong>
+                    @if ($dtProduk->garansi->status_garansi == 'Diajukan')
+                        <span class="badge badge-info">{{ $dtProduk->garansi->status_garansi }}</span>
+                    @elseif ($dtProduk->garansi->status_garansi == 'Aktif' || $dtProduk->garansi->status_garansi == 'Selesai')
+                        <span class="badge badge-success">{{ $dtProduk->garansi->status_garansi }}</span>
+                    @elseif ($dtProduk->garansi->status_garansi == 'Kadaluwarsa')
+                        <span class="badge badge-danger">{{ $dtProduk->garansi->status_garansi }}</span>
+                    @elseif ($dtProduk->garansi->status_garansi == 'Diproses')
+                        <span class="badge badge-warning">{{ $dtProduk->garansi->status_garansi }}</span>
+                    @elseif ($dtProduk->garansi->status_garansi == NULL)
+                        <span class="badge badge-danger">{{ $dtProduk->garansi->status_garansi }}</span>
+                    @else
+                        <span class="badge badge-secondary">{{ $dtProduk->garansi->status_garansi }}</span>
+                    @endif
+                </p>
                 <p><strong>Warna : </strong> {{ $dtProduk->detail_produk->warna }}</p>
                 <p><strong>Ukuran : </strong> {{ $dtProduk->detail_produk->ukuran }}</p>
+                <p><strong>Catatan Garansi : </strong> {{ $dtProduk->garansi->catatan_garansi }}</p>
             </div>
         </div>
         <a href="{{ route('produsen.kelola-garansi') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-3" id="checkout-button"> Kembali</a>
