@@ -21,12 +21,12 @@ use App\Http\Controllers\Produsen\akun\AgenController;
 use App\Http\Controllers\produsen\akun\DistributorController;
 use App\Http\Controllers\produsen\akun\ProdusenAgenController;
 use App\Http\Controllers\produsen\garansi\ProdusenGaransiController;
+use App\Http\Controllers\produsen\pemasukan\PemasukanController;
 use App\Http\Controllers\produsen\pengiriman\ProdusenPengirimanController;
 use App\Http\Controllers\produsen\pesanan\PesananController as PesananProdusenController;
 use App\Http\Controllers\produsen\produk\ProdukController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -91,6 +91,8 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/agen/{id}', [ProdusenAgenController::class, 'update'])->name('update-agen');
         Route::delete('/agen/{id}', [ProdusenAgenController::class, 'destroy'])->name('delete-agen');
 
+
+
         // KELOLA PESANAN
         Route::get('pesanan', [PesananProdusenController::class, 'index'])->name('kelola-pesanan');
         Route::get('pesanan/{id}', [PesananProdusenController::class, 'show'])->name('show-pesanan');
@@ -110,6 +112,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('detail-garansi/{id}', [ProdusenGaransiController::class, 'show'])->name('show-garansi');
         Route::put('verifikasi-garansi/{id}', [ProdusenGaransiController::class, 'verifikasi'])->name('verifikasi-garansi');
         Route::get('/pengiriman/cetak', [ProdusenGaransiController::class, 'printPdf'])->name('garansi-cetak');
+
+        //KELOLA PEMASUKAN
+
+
+        Route::get('/pemasukan', [PemasukanController::class, 'index'])->name('pemasukan');
+
+
+
 
         // Route::put('distribusi/update/{id}', [DistribusiController::class, 'update'])->name('distribusi.update');
 

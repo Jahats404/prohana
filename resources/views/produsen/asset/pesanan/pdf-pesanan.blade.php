@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>Detail Pesanan</title>
@@ -49,7 +50,8 @@
             font-size: 20px;
             font-weight: bold;
             text-align: center;
-            margin-top: 20px; /* Ensures title is positioned under the border */
+            margin-top: 20px;
+            /* Ensures title is positioned under the border */
         }
 
         /* Table Styles */
@@ -59,7 +61,8 @@
             margin-bottom: 20px;
         }
 
-        th, td {
+        th,
+        td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
@@ -98,13 +101,15 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <!-- Header Section -->
         <div class="header">
             <!-- Logo -->
             <div class="logo">
-                <img src="{{ public_path('img/LOGOPRORORO.png') }}" class="rounded mx-auto d-block" height="200px" width="200px" alt="Logo Organisasi">
+                <img src="{{ public_path('img/LOGOPRORORO.png') }}" class="rounded mx-auto d-block" height="200px"
+                    width="200px" alt="Logo Organisasi">
             </div>
             <!-- Company Info -->
             <div class="company-info">
@@ -119,19 +124,18 @@
         </div>
 
         <!-- Pesanan Details -->
-        <p><strong>ID Pesanan:</strong> {{ $pesanan->id_pesanan }}</p>
+        {{-- <p><strong>ID Pesanan:</strong> {{ $pesanan->id_pesanan }}</p> --}}
         <p><strong>Tanggal Pesan:</strong> {{ \App\Helpers\DateHelper::formatTanggal($pesanan->tanggal_pesan) }}</p>
-        <p><strong>Status Pesanan:</strong> 
-            <span class="badge @if ($pesanan->status_pesanan == 'pending')
-                badge-info 
+        <p><strong>Status Pesanan:</strong>
+            <span
+                class="badge @if ($pesanan->status_pesanan == 'pending') badge-info
             @elseif ($pesanan->status_pesanan == 'accepted')
-                badge-success 
+                badge-success
             @elseif ($pesanan->status_pesanan == 'rejected')
                 badge-danger
             @else
-                badge-secondary
-            @endif">
-            {{ $pesanan->status_pesanan }}
+                badge-secondary @endif">
+                {{ $pesanan->status_pesanan }}
             </span>
         </p>
         <p><strong>Jumlah Pesanan:</strong> {{ $pesanan->detail_pesanan->count() }} Unit</p>
@@ -170,4 +174,5 @@
         </table>
     </div>
 </body>
+
 </html>

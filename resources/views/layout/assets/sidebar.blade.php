@@ -4,7 +4,7 @@
         $user = Auth()->user()->role->level;
         $level = strtolower($user);
     @endphp
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route($level.'.dashboard') }}">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route($level . '.dashboard') }}">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-hand-spock"></i>
         </div>
@@ -65,6 +65,8 @@
                     <span>Agen</span>
                 </a>
             </li>
+
+
             <!-- Heading -->
             <div class="sidebar-heading">
                 Asset
@@ -79,7 +81,12 @@
                     <i class="fas fa-fw fa-archive"></i>
                     <span>Pesanan</span></a>
             </li>
-
+            <li class="nav-item {{ Request::routeIs('produsen.pemasukan') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('produsen.pemasukan') }}">
+                    <i class="fas fa-fw fa-dollar-sign"></i>
+                    <span>Pemasukan</span>
+                </a>
+            </li>
             <div class="sidebar-heading">
                 Garansi
             </div>

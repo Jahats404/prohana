@@ -22,7 +22,7 @@
                                 <th>Alamat</th>
                                 <th>Domisili</th>
                                 <th>No Telp</th>
-                                <th>Aksi</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -33,8 +33,7 @@
                                     <td>{{ $item->alamat_distributor }}</td>
                                     <td>{{ $item->domisili_distributor }}</td>
                                     <td>{{ $item->notelp_distributor }}</td>
-                                    <td class="d-flex justify-content-center">
-                                        
+
                                     </td>
                                 </tr>
 

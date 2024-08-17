@@ -47,7 +47,7 @@
         <thead>
             <tr>
                 <th>No</th>
-                <th>ID Pesanan</th>
+                {{-- <th>ID Pesanan</th> --}}
                 <th>Nama Agen</th>
                 <th>Tanggal Pesan</th>
                 <th>Status Pesanan</th>
@@ -58,14 +58,20 @@
             @foreach ($pesanans as $pesanan)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $pesanan->id_pesanan }}</td>
+                {{-- <td>{{ $pesanan->id_pesanan }}</td> --}}
                 <td>{{ $pesanan->agen->nama_agen }}</td>
                 <td>{{ \App\Helpers\DateHelper::formatTanggal($pesanan->tanggal_pesan) }}</td>
                 <td>{{ ucfirst($pesanan->status_pesanan) }}</td>
                 <td>{{ number_format($pesanan->total_harga, 0, ',', '.') }}</td>
             </tr>
             @endforeach
+            <!-- Baris untuk Total Keseluruhan -->
+            <tr>
+                <td colspan="4" style="text-align: right; font-weight: bold;">Total Keseluruhan Harga:</td>
+                <td style="font-weight: bold;">Rp. {{ number_format($totals, 0, ',', '.') }}</td>
+            </tr>
         </tbody>
     </table>
+    {{-- <p><strong>Total Keseluruhan Harga: Rp. {{ number_format($totals, 0, ',', '.') }}</strong></p> --}}
 </body>
 </html>

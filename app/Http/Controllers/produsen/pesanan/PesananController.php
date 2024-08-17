@@ -24,7 +24,7 @@ class PesananController extends Controller
         // $date = Carbon::parse($bulan);
         // $startOfMonth = $date->startOfMonth()->toDateString();
         // $endOfMonth = $date->endOfMonth()->toDateString();
-        
+
         // if ($bulan) {
         //     $pesanan = Pesanan::whereBetween('tanggal_pesan', [$startOfMonth, $endOfMonth])->get();
         //         dd($pesanan);
@@ -32,8 +32,8 @@ class PesananController extends Controller
         //     $pesanan = Pesanan::all();
         //     dd($pesanan);
         // }
-        
-        
+
+
         return view('produsen.asset.pesanan.index', compact('pesanan'));
     }
 
@@ -56,7 +56,7 @@ class PesananController extends Controller
 
     public function verif(Request $request, $id)
     {
-        
+
     }
 
     /**
@@ -82,7 +82,7 @@ class PesananController extends Controller
             if ($request->status == 'accepted') {
                 // Update the 'tanggal_garansi' for related DetailPesanan entries
                 $detailPesan = DetailPesanan::wherePesananId($pesanan->id_pesanan)->get();
-                
+
                 // foreach ($detailPesan as $detail) {
                 //     $detail->update([
                 //         'tanggal_garansi' => now()->addMonths(2)
@@ -108,7 +108,7 @@ class PesananController extends Controller
     public function filter(Request $request)
     {
         $bulan = $request->query('bulan');
-        
+
         if ($bulan) {
             $pesanans = Pesanan::whereMonth('tanggal_pesan', date('m', strtotime($bulan)))
                 ->whereYear('tanggal_pesan', date('Y', strtotime($bulan)))
@@ -134,9 +134,12 @@ class PesananController extends Controller
         $tanggalAkhir = Carbon::parse($bulan)->endOfMonth()->format('Y-m-d');
 
         // Mengambil data pesanan berdasarkan rentang tanggal
-        $pesanans = Pesanan::whereBetween('tanggal_pesan', [$tanggalAwal, $tanggalAkhir])->get();
-        
-        $pdf = Pdf::loadView('produsen.asset.pesanan.cetak-pdf', compact('pesanans'));
+        $pesanans = Pesanan::whereBetween('tanggal_pesan', [$tanggalAwal, $tanggalAkhir])
+                    ->where('status_pesanan', '!=', 'Rejected')->get();
+
+        $totals = $pesanans->sum('total_harga');
+
+        $pdf = Pdf::loadView('produsen.asset.pesanan.cetak-pdf', compact('pesanans', 'totals'));
 
         return $pdf->stream('daftar_pesanan.pdf'); // Mengunduh PDF
     }
@@ -144,11 +147,11 @@ class PesananController extends Controller
     public function cetakPdf($id)
     {
         $pesanan = Pesanan::with(['detail_pesanan.detail_produk.produk'])->findOrFail($id);
-        
+
         $pdf = Pdf::loadView('produsen.asset.pesanan.pdf-pesanan', compact('pesanan'));
-        
+
         return $pdf->stream('detail_pesanan_' . $pesanan->id_pesanan . '.pdf');
     }
 
-    
+
 }
